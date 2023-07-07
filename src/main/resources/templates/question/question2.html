@@ -3,10 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/question2.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
+    <main>
     <h1>第二の館</h1>
-    
+    <h2 class="door">象の鼻は嘘つき</h2>
+    <div class="animal-box">
+        <a href="../question/question3.html"><img src="../../static/image/door.png" class="animal-image door"></a>
+        <img src="../../static/image/cat.png" class="animal-image cat">
+        <input type="hidden" value="0" class="catCount">
+        <img src="../../static/image/dog.png" class="animal-image dog">
+        <input type="hidden" value="0" class="dogCount">
+        <img src="../../static/image/zou.png" class="animal-image zou">
+        <input type="hidden" value="0" class="zouCount">
+        <a href="../wrong/wrong.html"><img src="../../static/image/door.png" class="animal-image door"></a>
+    </div>
+
+    <div class="action-lists">
+        <div class="action-list">
+            <h2 class="action-select">アクション1<span>+</span></h2>
+            <h3 class="action-order">ねこは1回目に3回</h3>
+        </div>
+
+        <div class="action-list">
+            <h2 class="action-select">アクション2<span>+</span></h2>
+            <h3 class="action-order">犬は2回目に2回</h3>
+        </div>
+
+        <div class="action-list">
+            <h2 class="action-select">アクション3<span>+</span></h2>
+            <h3 class="action-order">象は3回めに1回</h3>
+        </div>
+    </div>
+
+    <script src="../../static/js/question/question2.js"></script>
+    </main>
 </body>
 </html>

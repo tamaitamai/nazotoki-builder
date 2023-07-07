@@ -1,0 +1,52 @@
+body{
+    background-color: beige;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.animal-image{
+    width: 200px;
+    height: 200px;
+    margin: 30px;
+}
+
+.action-lists{
+    display: flex;
+}
+
+.action-list{
+    height: 70px;
+    text-align: center;
+    margin: 0px 100px;
+    padding: 0px 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: azure;
+}
+
+.action-select{
+    display: flex;
+    align-items: center;
+}
+
+.action-select span{
+    font-size: 15px;
+    border: 1px solid black;
+    padding: 0px 5px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: aliceblue;
+}
+
+.action-order{
+    display: none;
+}
+
+.door{
+    display: none;
+}
