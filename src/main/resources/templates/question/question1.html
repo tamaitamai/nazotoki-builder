@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/question1.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="question-box open-question">                    
+            <div class="question-levels">            
+                <h1>初級<img src="../../static/image/dog.png" class="dog"></h1>            
+                <h2><span class="question-level">初級</span>
+                <span class="question-level">中級</span>
+                <span class="question-level">上級</span>
+                </h2>            
+            </div>
+            <div class="question-lists">
+                <p class="question-move left-move">《</p>
+                <div class="question-list">
+                    <h2>第一問</h2>
+                    <img src="../../static/image/otamesi.jpg" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="1" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>
+
+                <div class="question-list">
+                    <h2>第二問</h2>
+                    <img src="../../static/image/otamesi.jpg" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="2" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>
+
+                <div class="question-list">
+                    <h2>第三問</h2>
+                    <img src="../../static/image/otamesi.jpg" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="3" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>       
+                <p class="question-move right-move">》</p>
+            </div>
+            <input type="hidden" class="next-if" value="0">
+            <h3 class="hidden-word">上級</h3>
+        </div>
+        
+
+        <div class="question-box">
+            <div class="question-levels">            
+                <h1>中級<img src="../../static/image/dog.png" class="dog"></h1>            
+                <h2><span class="question-level">初級</span>
+                <span class="question-level">中級</span>
+                <span class="question-level">上級</span>
+                </h2>            
+            </div>
+            <div class="question-lists">
+                <p class="question-move left-move">《</p>
+                <div class="question-list">
+                    <h2>第一問</h2>
+                    <img src="../../static/image/otamesi2.png" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="4" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>
+
+                <div class="question-list">
+                    <h2>第二問</h2>
+                    <img src="../../static/image/otamesi2.png" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="5" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>
+
+                <div class="question-list">
+                    <h2>第三問</h2>
+                    <img src="../../static/image/otamesi2.png" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="6" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>       
+                <p class="question-move right-move">》</p>
+            </div>
+            <input type="hidden" class="next-if" value="0">
+            <h3 class="hidden-word">犬</h3>
+        </div>
+        
+
+        <div class="question-box">
+            <div class="question-levels">            
+                <h1>上級<img src="../../static/image/dog.png" class="dog"></h1>
+                <h2><span class="question-level">初級</span>
+                <span class="question-level">中級</span>
+                <span class="question-level">上級</span>
+                </h2>            
+            </div>
+            <div class="question-lists">
+                <p class="question-move left-move">《</p>
+                <div class="question-list">
+                    <h2>第一問</h2>
+                    <img src="../../static/image/otamesi3.jpg" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="7" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>
+
+                <div class="question-list">
+                    <h2>第二問</h2>
+                    <img src="../../static/image/otamesi3.jpg" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="8" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>
+
+                <div class="question-list">
+                    <h2>第三問</h2>
+                    <img src="../../static/image/otamesi3.jpg" class="question-image">
+                    <p>解答：<input type="text" class="answer-box"></p>
+                    <input type="hidden" value="9" class="question-answer">
+                    <button class="answer-btn">解答</button>
+                </div>       
+                <p class="question-move right-move">》</p>
+            </div>
+            <input type="hidden" class="next-if" value="0">
+            <h3 class="hidden-word">3</h3>
+        </div>
+        
+        <h3>〇〇(初級)の中にいる〇〇(中級)を〇〇(上級)回クリックせよ</h3>
+        
+        <div class="next-question">
+            <h2>次なる扉が現れた！</h2>
+            <a href="../../templates/question/question2.html"><img src="../../static/image/door.png"></a>
+            <input type="hidden" value="0" class="next-value">
+        </div>
+    </main>
+    <script src="../../static/js/question/question1.js"></script>
+</body>
+</html>

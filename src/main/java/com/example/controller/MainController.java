@@ -16,6 +16,6 @@ public class MainController {
 	@GetMapping("")
 	public String main() {
 		mainRepository.findAll().forEach(System.out::println);
-		return "main/main.html";
+		return "question/question1.html";
 	}
 }
