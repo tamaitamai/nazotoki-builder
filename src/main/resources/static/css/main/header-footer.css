@@ -1,0 +1,58 @@
+body{
+    //**background-image: url('../../image/main/body.jpg');**/
+}
+
+header{
+    background-image: url('../../image/main/header.jpg');
+    background-size: cover;
+    box-shadow: 7px 7px black;    
+    margin-bottom: 20px;
+}
+
+.header-box{
+    display: flex;
+}
+
+.header-logo{
+    margin-right: auto;
+}
+
+.header-image{
+    margin: 20px 0px 0px 20px;
+    border-radius: 20px;
+    width: 200px;
+    height: 100px;    
+}
+
+.header-user{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.header-user button{
+    color: white;
+    padding: 5px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    background-image: url(../../image/main/btn1.jpg);
+    border-radius: 10px;
+}
+
+.header-user button:hover{
+    opacity: 0.7;
+}
+
+.user-name{
+    color:blanchedalmond;
+    font-size: 20px;
+}
+
+footer{
+    background-image: url('../../image/main/header.jpg');
+    background-size: cover;
+    box-shadow: 7px 7px black;    
+    margin-bottom: 10px;
+    height: 150px;
+}
+

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/main/move.css" th:href="@{/css/main/move.css}">
+    <title>Document</title>
+</head>
+<body>
+    <header th:insert="~{ /main/home :: frag_header}"></header>
+    <div th:each="item:${session.itemList}">
+        <img src="../../static/image/cat.png" th:src="@{/image/}+${item.image}" class="item" th:value="${item.have}">
+        <input type="hidden" th:value="${item.id}" class="item-id">
+    </div>
+    <html th:insert="~{ /main/item-box :: frag_item}"></html>
+</body>
+</html>

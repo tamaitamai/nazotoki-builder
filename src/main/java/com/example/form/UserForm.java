@@ -1,17 +1,15 @@
-package com.example.domain;
+package com.example.form;
 
-public class User {
-	private Integer id;
+import jakarta.validation.constraints.NotBlank;
+
+public class UserForm {
+	@NotBlank(message="名前を入力してください")
 	private String name;
+	@NotBlank(message="メールを入力してください")
 	private String mail;
+	@NotBlank(message="パスワードを入力してください")
 	private String password;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -32,7 +30,6 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", mail=" + mail + ", password=" + password + "]";
+		return "UserForm [name=" + name + ", mail=" + mail + ", password=" + password + "]";
 	}
-	
 }

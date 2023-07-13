@@ -1,0 +1,55 @@
+.item-bag{
+    width: 100px;
+    height: 100px;
+    position:fixed;
+    bottom: 0px;
+    right: 20px;
+    cursor: pointer;
+}
+
+
+.item-list{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-image: url(../../image/main/item-box.jpg);
+}
+
+.item-detail{
+    width:300px;
+    height: 300px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 250px;
+}
+
+.item-box{
+    display: flex;
+}
+
+.get-border{
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin-right: 30px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.get-image{
+    width: 150px;
+    height: 150px;
+}
+
+.search{
+    font-size: 50px;
+    cursor: pointer;
+}

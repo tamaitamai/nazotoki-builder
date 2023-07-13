@@ -1,17 +1,19 @@
 package com.example.controller;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
-@RequestMapping("/main")
-public class MainController {
+@RequestMapping("question")
+public class QuestionController {
 	@GetMapping("")
-	public String main() {
-		return "main/home.html";
+	public String question() {
+		return "question/question4";
 	}
 	
+	@GetMapping("/3")
+	public String question3() {
+		return "question/question3";
+	}
 }

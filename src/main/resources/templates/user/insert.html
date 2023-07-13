@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/user/login.css" th:href="@{/css/user/login.css}">
+    <link rel="stylesheet" href="../../static/css/main/header-footer.css" th:href="@{/css/main/header-footer.css}">
+    <title>Document</title>
+</head>
+<body>
+    <header th:insert="~{ /main/home :: frag_header}"></header>
+    <main>
+    <form th:action="@{/user/insert}" method="post" th:object="${userForm}">
+        <div class="login">
+            <h1>新規登録</h1>
+            <p>名前：</p>          
+            <div th:errors="*{name}" class="error"></div>
+            <input type="text" name="name">
+            <p>メール：</p>
+            <div th:errors="*{mail}" class="error"></div>
+            <input type="text" name="mail">
+            <p>パスワード：</p>
+            <div th:errors="*{password}" class="error"></div>
+            <input type="text" name="password">
+            <button>送信</button>
+        </div>
+    </form>
+    </main>
+    <footer th:insert="~{ /main/home :: frag_footer}"></footer>
+</body>
+</html>
