@@ -29,8 +29,60 @@ public class ItemController {
 	
 	@GetMapping("")
 	public String item() {	
+		itemList(0);
+		return "main/move.html";
+	}
+	
+	@PostMapping("/add")
+	@ResponseBody
+	public List<MyItem> add() {
+		return myItemList();
+	}
+	/**
+	 * 画面内のアイテムを持ち物に加える
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/addMyItem")
+	@ResponseBody
+	public List<MyItem> addMyItem(@RequestParam("id") Integer id) {
+		Item item=itemService.itemLoadById(id);
+		MyItem myItem=new MyItem();
+		User user=(User) session.getAttribute("userLogin");
+		
+		BeanUtils.copyProperties(item, myItem);
+		myItem.setItemId(id);
+		myItem.setUserId(user.getId());
+		
+		itemService.myItemInsert(myItem);
+		List<MyItem> myItemList=itemService.MyItemListByUser(user.getId());
+		session.setAttribute("MyItemList", myItemList);
+						
+		return myItemList;
+	}
+	
+	/**
+	 * 使用したアイテムを持ち物リストから削除
+	 * 
+	 * @param itemId
+	 * @return
+	 */
+	@PostMapping("/deleteMyItem")
+	@ResponseBody
+	public List<MyItem> deleteMyItem(@RequestParam("itemId") Integer itemId) {		
+		User user=(User) session.getAttribute("userLogin");
+		itemService.myItemDelete(itemId,user.getId());
+		return myItemList();
+	}
+	
+	/**
+	 * アイテムリストを呼び出し
+	 * @param num
+	 */
+	public void itemList(Integer num) {
 		itemService.itemHaveReset();
-		List<Item> itemList=itemService.itemByChapter(0);		
+		List<Item> itemList=itemService.itemByChapter(num);		
 		session.setAttribute("itemList", itemList);
 		
 		List<MyItem> myItemList=null;
@@ -46,44 +98,21 @@ public class ItemController {
 			}
 		}
 
-		itemList=itemService.itemByChapter(0);	
+		itemList=itemService.itemByChapter(num);	
 		session.setAttribute("itemList", itemList);
-		return "main/move.html";
 	}
 	
-	@PostMapping("/add")
-	@ResponseBody
-	public List<MyItem> add() {
+	/**
+	 * 持ち物の呼び出し
+	 * @return myItemのリスト
+	 */
+	public List<MyItem> myItemList() {
 		List<MyItem> myItemList=null;
 		if(session.getAttribute("userLogin")!=null) {
 			User user=(User) session.getAttribute("userLogin");
 			myItemList=itemService.MyItemListByUser(user.getId());
 			session.setAttribute("MyItemList", myItemList);
 		}
-		return myItemList;
-	}
-	
-	@PostMapping("/addMyItem")
-	@ResponseBody
-	public List<MyItem> addMyItem(@RequestParam("id") Integer id) {
-		Item item=itemService.itemLoadById(id);
-		MyItem myItem=new MyItem();
-		User user=(User) session.getAttribute("userLogin");
-		
-		BeanUtils.copyProperties(item, myItem);
-		myItem.setItemId(id);
-		myItem.setUserId(user.getId());
-		
-		itemService.myItemInsert(myItem);
-		List<MyItem> myItemList=itemService.MyItemListByUser(user.getId());
-		session.setAttribute("MyItemList", myItemList);
-				
-		for(int i=0;i<myItemList.size();i++) {
-			if(myItemList.get(i).getItemId()==item.getId()) {
-				
-			}			
-		}
-		
 		return myItemList;
 	}
 }

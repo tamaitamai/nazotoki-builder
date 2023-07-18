@@ -1,0 +1,33 @@
+.ice-field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ice-stage{
+    background-image: url('../../image/cave.jpg');
+    background-size: 1000px 500px;
+    width: 1000px;
+    height: 500px;
+    position: relative;
+}
+
+.torch{
+    width: 300px;
+    height: 300px;
+}
+
+.ice-word{
+    margin-left: 20px;
+    color: white;
+}
+
+.ice{
+    width: 100px;
+    height: 100px;    
+}
+
+.fire{
+    width: 300px;
+    height: 300px;
+}

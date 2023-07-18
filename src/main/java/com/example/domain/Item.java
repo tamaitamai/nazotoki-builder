@@ -8,7 +8,7 @@ public class Item {
 	private Integer chapterId;
 	private Integer unionId;
 	private Integer have;
-	
+	private String genre;
 	public Integer getId() {
 		return id;
 	}
@@ -51,11 +51,16 @@ public class Item {
 	public void setHave(Integer have) {
 		this.have = have;
 	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", image=" + image + ", explanation=" + explanation
-				+ ", chapterId=" + chapterId + ", unionId=" + unionId + ", have=" + have + "]";
+				+ ", chapterId=" + chapterId + ", unionId=" + unionId + ", have=" + have + ", genre=" + genre + "]";
 	}
-
 	
 }

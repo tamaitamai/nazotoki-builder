@@ -1,12 +1,12 @@
 $(function(){  
     $('body').hover(
         function(){
-            if($('.light').css('border')=='2.66667px solid rgb(127, 255, 212)'){
+            if($('.light').attr('value')==1){
                 $('.cursor-light').show();
             }            
         },
         function(){
-            if($('.light').css('border')=='0px none rgb(0, 0, 0)'){
+            if($('.light').attr('value')==0){
                 $('.cursor-light').hide();
             }            
         }
@@ -22,14 +22,22 @@ $(function(){
         });
     });
 
-    $('.light').click(function(){
-        if($('.light').css('border')=='2.66667px solid rgb(127, 255, 212)'){
+    $('.light').click(function(){        
+        if($('.light').attr('value')==1){
             $('.light').css('border','none');
             $('.cursor-light').hide();
+            $('.light').attr('value',0);
         }else{
             $('.light').css('border','3px solid aquamarine');            
             $('.cursor-light').show();
-        }
-        
+            $('.light').attr('value',1);
+        }       
     })
+
+    $('.get-image').click(function(){
+        if($(this).attr('item-id')==4){
+            $(this).addClass('light');
+        }
+    });
+
 })

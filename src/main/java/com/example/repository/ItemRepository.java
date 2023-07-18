@@ -27,6 +27,7 @@ public class ItemRepository {
 		item.setChapterId(rs.getInt("chapter_id"));
 		item.setUnionId(rs.getInt("union_id"));
 		item.setHave(rs.getInt("have"));
+		item.setGenre(rs.getString("genre"));
 		return item;
 	};
 
@@ -39,6 +40,7 @@ public class ItemRepository {
 		myItem.setExplanation(rs.getString("explanation"));
 		myItem.setUnionId(rs.getInt("union_id"));
 		myItem.setItemId(rs.getInt("item_id"));
+		myItem.setGenre(rs.getString("genre"));
 		return myItem;
 	};
 
@@ -49,7 +51,8 @@ public class ItemRepository {
 	 * @return itemのリスト
 	 */
 	public List<Item> itemByChapter(Integer chapterId) {
-		String sql = "select id,name,image,explanation,chapter_id,union_id,have from items where chapter_id=:chapterId;";
+		String sql = "select id,name,image,explanation,chapter_id,union_id,have,genre from items "
+				+ "where chapter_id=:chapterId order by id;";
 		SqlParameterSource param = new MapSqlParameterSource("chapterId", chapterId);
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
 		return itemList;
@@ -62,7 +65,7 @@ public class ItemRepository {
 	 * @return
 	 */
 	public Item itemLoadById(Integer id) {
-		String sql="select id,name,image,explanation,chapter_id,union_id,have from items where id=:id;";
+		String sql="select id,name,image,explanation,chapter_id,union_id,have,genre from items where id=:id;";
 		SqlParameterSource param=new MapSqlParameterSource("id",id);
 		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
@@ -94,8 +97,8 @@ public class ItemRepository {
 	 * @param myItem
 	 */
 	public void MyItemInsert(MyItem myItem) {
-		String sql = "INSERT INTO my_items(user_id,name,image,explanation,union_id,item_id)"
-				+ "values(:userId,:name,:image,:explanation,:unionId,:itemId)";
+		String sql = "INSERT INTO my_items(user_id,name,image,explanation,union_id,item_id,genre)"
+				+ "values(:userId,:name,:image,:explanation,:unionId,:itemId,:genre)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(myItem);
 		template.update(sql, param);
 	}
@@ -107,9 +110,19 @@ public class ItemRepository {
 	 * @return MyItemのリスト
 	 */
 	public List<MyItem> MyItemListByUser(Integer userId) {
-		String sql = "select id,user_id,name,image,explanation,union_id,item_id from my_items where user_id=:userId;";
+		String sql = "select id,user_id,name,image,explanation,union_id,item_id,genre from my_items where user_id=:userId;";
 		SqlParameterSource param = new MapSqlParameterSource("userId", userId);
 		List<MyItem> myItemList = template.query(sql, param, MY_ITEM_ROW_MAPPER);
 		return myItemList;
+	}
+	
+	/**
+	 * 持ち物から使用したアイテムを削除
+	 * @param itemId
+	 */
+	public void myItemDelete(Integer itemId,Integer userId) {
+		String sql="delete from my_items where item_id=:itemId and user_id=:userId";
+		SqlParameterSource param=new MapSqlParameterSource("itemId",itemId).addValue("userId", userId);
+		template.update(sql, param);
 	}
 }

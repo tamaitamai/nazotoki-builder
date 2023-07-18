@@ -8,14 +8,21 @@
     <title>Document</title>
 </head>
 <body>
+    <header th:insert="~{ /main/home :: frag_header}"></header>
     <main>
         <h1>第三</h1>
         <h2>あいうえお</h2>
-        <img src="../../static/image/light.png" th:src="@{/image/light.png}" class="light" value="0">
+        <div th:each="item:${session.itemList}">
+            <img src="../../static/image/light.png" th:src="@{/image/}+${item.image}" class="item" 
+            th:value="${item.have}" th:item-id="${item.id}">
+        </div>
+        
 
+        <!--<img src="../../static/image/light.png" th:src="@{/image/light.png}" class="light" value="0">-->
         <div class="cursor-light"></div>
 
-        <script src="../../static/js/question/question3.js" th:src="@{/js/question/question3.js}"></script>
+        <html th:insert="~{/main/item-box :: frag_item}"></html>        
     </main>
+    <script src="../../static/js/question/question3.js" th:src="@{/js/question/question3.js}"></script>
 </body>
 </html>

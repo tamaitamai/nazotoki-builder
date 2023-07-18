@@ -12,11 +12,13 @@
         <div class="header-box">
             <a th:href="@{/main}" class="header-logo"><img src="../../static/image/main/logo.jpg" 
                 th:src="@{/image/main/logo.jpg}" class="header-image"></a>
-            <div th:if="${session.userLogin==null}") class="header-user">
+            <a th:href="@{/question/ice}">氷ステージ</a>
+            <p><a th:href="@{/question/3}">光ステージ</a></p>
+            <div th:if="${session.userLogin==null}" class="header-user">
                 <a th:href="@{/user/toLogin}"><button>ログイン</button></a>
                 <a th:href="@{/user/toInsert}"><button>新規会員登録</button></a>
             </div>
-            <div th:unless="${session.userLogin==null}") class="header-user">
+            <div th:unless="${session.userLogin==null}" class="header-user">
 				<p th:text="${session.userName}+'でログイン'" class="user-name"></p>
 				<form th:action="@{/user/logOut}" method="post"><button>ログアウト</button></form>
 			</div>

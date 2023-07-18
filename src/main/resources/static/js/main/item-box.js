@@ -1,30 +1,22 @@
+import {myItemList} from './my-item.js';
 $(function(){
-    // $('.item-list').hide();
+    $('.item-list').hide();
     $('.item-detail').hide();
 
-    console.log($('.item').length);
+    //持ち物にあるアイテムの表示を隠す
     for(let i=0;i<$('.item').length;i++){
-        console.log('item:'+$('.item').eq(i).attr('value'));
         if($('.item').eq(i).attr('value')==0){
             $('.item').eq(i).hide();
         }
     }
-
-    //アイテムボックスの表示用の関数
-    function myItemList(response){
-        var myItemSize=response.length;
-        for(let i=0;i<myItemSize;i++){
-            $('.get-image').eq(i).attr('src','/image/'+response[i].image);
-        }
-    }
-
+   
     //かばんをクリックしたときにアイテムボックスを表示
     $('.item-bag').click(function(){
         if($('.item-list').is(':visible')){
             $('.item-list').hide();
             $('.item-detail').hide();
             $('.search').css('background-color','');
-            $('.get-border').css('border','none');
+            $('.search').attr('value',0);
         }else{
             $('.item-list').show();
         }        
@@ -34,11 +26,11 @@ $(function(){
     $('.search').click(function(){        
         if($('.search').attr('value')==1){
             $('.search').css('background-color','');
-            $('.search').attr('value','0');
+            $('.search').attr('value',0);
             $('.item-detail').hide();
         }else{
             $('.search').css('background-color','white');
-            $('.search').attr('value','1');
+            $('.search').attr('value',1);
             for(let i=0;i<$('.get-image').length;i++){
                 if($('.get-image').eq(i).attr('value')==1){
                     $('.item-detail').attr('src',$('.get-image').eq(i).attr('src'));            
@@ -52,14 +44,22 @@ $(function(){
     //アイテムの詳細を表示
     $('.get-image').click(function(){
         $('.get-border').css('border','none');
-        $(this).attr('value','1');
-        var getNum=$('.get-image').index($(this));
-        var imageDetail=$(this).attr('src');
-        if($('.search').attr('value')==1){
-            $('.item-detail').attr('src',imageDetail);            
-            $('.item-detail').show();
+        $('.get-image').not(this).attr('value',0);
+        if($(this).attr('value')==0){
+            $(this).attr('value',1);
+            var getNum=$('.get-image').index($(this));
+            var imageDetail=$(this).attr('src');
+            if($('.search').attr('value')==1){
+                $('.item-detail').attr('src',imageDetail);            
+                $('.item-detail').show();
+            }
+            $('.get-border').eq(getNum).css('border','3px solid yellow');    
+        }else{
+            $(this).attr('value',0);
+            var getNum=$('.get-image').index($(this));
+            $('.item-detail').hide();
+            $('.get-border').eq(getNum).css('border','none');
         }
-        $('.get-border').eq(getNum).css('border','3px solid yellow');
     })
 
     //画面更新時の表示用
@@ -75,10 +75,12 @@ $(function(){
     $('.item').click(function(){
         var itemNum=$('.item').index($(this));
         var itemId=$('.item-id').eq(itemNum).val();
+        var id=$(this).attr('item-id');
+    
         $(this).hide();
         
         var postData={
-            id: itemId
+            id: id
         }
 
         $.ajax({
@@ -90,4 +92,5 @@ $(function(){
             }
         })
     });
+    
 })

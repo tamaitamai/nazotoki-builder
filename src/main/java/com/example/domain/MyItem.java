@@ -8,7 +8,7 @@ public class MyItem {
 	private String explanation;
 	private Integer unionId;
 	private Integer itemId;
-	
+	private String genre;
 	public Integer getId() {
 		return id;
 	}
@@ -51,11 +51,16 @@ public class MyItem {
 	public void setItemId(Integer itemId) {
 		this.itemId = itemId;
 	}
+	public String getGenre() {
+		return genre;
+	}
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 	@Override
 	public String toString() {
 		return "MyItem [id=" + id + ", userId=" + userId + ", name=" + name + ", image=" + image + ", explanation="
-				+ explanation + ", unionId=" + unionId + ", itemId=" + itemId + "]";
+				+ explanation + ", unionId=" + unionId + ", itemId=" + itemId + ", genre=" + genre + "]";
 	}
 
-	
 }

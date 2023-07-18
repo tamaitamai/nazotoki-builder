@@ -9,7 +9,8 @@
 <body>
     <header th:insert="~{ /main/home :: frag_header}"></header>
     <div th:each="item:${session.itemList}">
-        <img src="../../static/image/cat.png" th:src="@{/image/}+${item.image}" class="item" th:value="${item.have}">
+        <img src="../../static/image/cat.png" th:src="@{/image/}+${item.image}" class="item" 
+        th:value="${item.have}" th:item-id="${item.id}">
         <input type="hidden" th:value="${item.id}" class="item-id">
     </div>
     <html th:insert="~{ /main/item-box :: frag_item}"></html>

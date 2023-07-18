@@ -73,4 +73,11 @@ public class ItemService {
 		return itemRepository.MyItemListByUser(userId);
 	}
 
+	/**
+	 * 持ち物から使用したアイテムを削除
+	 * @param itemId
+	 */
+	public void myItemDelete(Integer itemId,Integer userId) {
+		itemRepository.myItemDelete(itemId,userId);
+	}
 }

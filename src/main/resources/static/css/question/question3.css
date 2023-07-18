@@ -5,9 +5,14 @@ main{
     flex-direction: column;
 }
 
+.item{
+    width: 100px;
+    height: 100px;
+}
+
 .light{
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
 }
 
 .cursor-change {
