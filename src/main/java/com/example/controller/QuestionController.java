@@ -5,15 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.domain.DeleteItem;
 import com.example.domain.Item;
 import com.example.domain.MyItem;
 import com.example.domain.User;
-import com.example.repository.ItemRepository;
 import com.example.service.ItemService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,19 +26,29 @@ public class QuestionController {
 	
 	@GetMapping("")
 	public String question() {
-		return "question/question4";
+		itemList(3);
+		return "question/light-question";
+	}
+	
+	//移動確認用
+	@GetMapping("/move")
+	public String item() {
+		itemList(0);
+		return "main/move.html";
 	}
 	
 	//暗闇ステージ
-	@GetMapping("/3")
+	@GetMapping("/light")
 	public String question3() {
 		itemList(3);
-		return "question/question3";
+		Integer change=itemService.changeItemLoad(1);
+		session.setAttribute("doorChange", change);
+		return "question/light-question";
 	}
 	
 	//氷ステージ
 	@GetMapping("/ice")
-	public String iceQuestion() {
+	public String iceQuestion() {		
 		itemList(5);
 		return "question/ice-question";
 	}
@@ -59,9 +66,16 @@ public class QuestionController {
 		if(session.getAttribute("userLogin")!=null) {
 			User user=(User) session.getAttribute("userLogin");
 			myItemList=itemService.MyItemListByUser(user.getId());
+			List<DeleteItem> deleteItemList=itemService.deleteItemFindAll(user.getId());
 			for(int i=0;i<itemList.size();i++) {
 				for(int j=0;j<myItemList.size();j++) {					
 					if(itemList.get(i).getId()==myItemList.get(j).getItemId()) {
+						itemService.itemHaveUpdate(itemList.get(i).getId(), 0);	
+					}					
+				}
+				
+				for(int j=0;j<deleteItemList.size();j++) {					
+					if(itemList.get(i).getId()==deleteItemList.get(j).getItemId()) {
 						itemService.itemHaveUpdate(itemList.get(i).getId(), 0);	
 					}					
 				}

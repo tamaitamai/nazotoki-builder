@@ -1,6 +1,7 @@
-import {myItemList} from './my-item.js';
+import {myItemList,hideItem} from './my-item.js';
 $(function(){
     $('.item-list').hide();
+    $('.item-image').hide();
     $('.item-detail').hide();
 
     //持ち物にあるアイテムの表示を隠す
@@ -14,6 +15,7 @@ $(function(){
     $('.item-bag').click(function(){
         if($('.item-list').is(':visible')){
             $('.item-list').hide();
+            $('.item-image').hide();
             $('.item-detail').hide();
             $('.search').css('background-color','');
             $('.search').attr('value',0);
@@ -27,13 +29,17 @@ $(function(){
         if($('.search').attr('value')==1){
             $('.search').css('background-color','');
             $('.search').attr('value',0);
+            $('.item-image').hide();
             $('.item-detail').hide();
         }else{
             $('.search').css('background-color','white');
             $('.search').attr('value',1);
             for(let i=0;i<$('.get-image').length;i++){
                 if($('.get-image').eq(i).attr('value')==1){
-                    $('.item-detail').attr('src',$('.get-image').eq(i).attr('src'));            
+                    $('.item-image').attr('src',$('.get-image').eq(i).attr('src'));
+                    $('.item-name').text($('.get-image').eq(i).attr('item-name'));
+                    $('.item-explanation').text($('.get-image').eq(i).attr('item-explanation'));
+                    $('.item-image').show();
                     $('.item-detail').show();
                     break;
                 }
@@ -44,19 +50,60 @@ $(function(){
     //アイテムの詳細を表示
     $('.get-image').click(function(){
         $('.get-border').css('border','none');
+        //アイテム合成
+        for(let i=0;i<$('.get-image').length;i++){
+            if($('.get-image').eq(i).attr('value')==1){
+                var onNum=i;
+            }
+        }
+
+        if($('.get-image').eq(onNum).attr('item-union')==$(this).attr('item-union') && 
+        $('.get-image').eq(onNum).attr('item-id')!=$(this).attr('item-id')){
+            var myItemId1=$('.get-image').eq(onNum).attr('my-item-id');
+            var myItemId2=$(this).attr('my-item-id');
+            var unionId=$(this).attr('item-union');
+            
+            var postData={
+                myItemId1: myItemId1,
+                myItemId2: myItemId2,
+                unionId: unionId
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '/item/union',
+                data: postData,
+                success: function(response){
+                    myItemList(response);
+                }
+            })
+
+            var itemId=$('.get-image').eq(onNum).attr('item-id');
+            hideItem(itemId);
+
+            itemId=$(this).attr('item-id');
+            hideItem(itemId);
+        }
+        //合成ここまで
+
         $('.get-image').not(this).attr('value',0);
+
         if($(this).attr('value')==0){
             $(this).attr('value',1);
             var getNum=$('.get-image').index($(this));
             var imageDetail=$(this).attr('src');
             if($('.search').attr('value')==1){
-                $('.item-detail').attr('src',imageDetail);            
+                $('.item-image').attr('src',imageDetail);
+                $('.item-name').text($(this).attr('item-name'));
+                $('.item-explanation').text($(this).attr('item-explanation'));     
+                $('.item-image').show();
                 $('.item-detail').show();
             }
             $('.get-border').eq(getNum).css('border','3px solid yellow');    
         }else{
             $(this).attr('value',0);
             var getNum=$('.get-image').index($(this));
+            $('.item-image').hide();
             $('.item-detail').hide();
             $('.get-border').eq(getNum).css('border','none');
         }
@@ -73,8 +120,6 @@ $(function(){
 
     //新しくアイテムを手に入れたときの表示用
     $('.item').click(function(){
-        var itemNum=$('.item').index($(this));
-        var itemId=$('.item-id').eq(itemNum).val();
         var id=$(this).attr('item-id');
     
         $(this).hide();

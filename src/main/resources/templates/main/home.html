@@ -13,7 +13,7 @@
             <a th:href="@{/main}" class="header-logo"><img src="../../static/image/main/logo.jpg" 
                 th:src="@{/image/main/logo.jpg}" class="header-image"></a>
             <a th:href="@{/question/ice}">氷ステージ</a>
-            <p><a th:href="@{/question/3}">光ステージ</a></p>
+            <p><a th:href="@{/question/light}">光ステージ</a></p>
             <div th:if="${session.userLogin==null}" class="header-user">
                 <a th:href="@{/user/toLogin}"><button>ログイン</button></a>
                 <a th:href="@{/user/toInsert}"><button>新規会員登録</button></a>
@@ -26,8 +26,8 @@
     </header>
     <main>
         <div class="select-btn">
-            <a th:href="@{/item}"><button class="reset-btn">初めから</button></a>
-            <a th:href="@{/item}"><button class="load-btn">続きから</button></a>
+            <a th:href="@{/question/move}"><button class="reset-btn">初めから</button></a>
+            <a th:href="@{/question/move}"><button class="load-btn">続きから</button></a>
         </div>
     </main>
     <footer th:fragment="frag_footer">

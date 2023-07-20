@@ -4,6 +4,7 @@ function deleteItem(){
     for(let i=0;i<$('.get-image').length;i++){
         if($('.get-image').eq(i).attr('value')==1){
             var itemId=$('.get-image').eq(i).attr('item-id');
+            var myItemId=$('.get-image').eq(i).attr('my-item-id');
             deleteNum=i;
             $('.get-border').eq(i).css('border','none');
             $('.get-image').eq(i).attr('value',0);
@@ -11,7 +12,8 @@ function deleteItem(){
     }
     
     var postData={
-        itemId: itemId
+        itemId: itemId,
+        myItemId: myItemId
     }
     
     $.ajax({
@@ -19,7 +21,6 @@ function deleteItem(){
         url: '/item/deleteMyItem',
         data: postData,
         success: function(response){ 
-            console.log('success');
             myItemList(response);
         }
     })

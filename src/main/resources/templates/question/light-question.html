@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/light-question.css" th:href="@{/css/question/light-question.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header th:insert="~{ /main/home :: frag_header}"></header>
+    <main>
+        <h1>第三</h1>
+        <h2>あいうえお</h2>
+        <h2 class="ghost-word">1</h2>
+        <img src="../../static/image/ghost1.png" th:src="@{/image/ghost1.png}" class="ghost">
+        <h2 class="ghost-word">2</h2>
+        <img src="../../static/image/ghost2.png" th:src="@{/image/ghost2.png}" class="ghost">
+        <h2 class="ghost-word">3</h2>
+        <img src="../../static/image/ghost2.png" th:src="@{/image/ghost2.png}" class="ghost">
+        <h2 class="ghost-word">4</h2>
+        <img src="../../static/image/ghost1.png" th:src="@{/image/ghost1.png}" class="ghost">
+
+        <div class="box-main">            
+            <div class="box-btn" value="0"></div>            
+            <div class="box-btn" value="0"></div>
+            <div class="box-btn" value="0"></div>
+            <div class="box-btn" value="0"></div>
+        </div>
+        <input type="hidden" th:value="${session.doorChange}" class="door-change">
+        <a th:href="@{/question/ice}"><img src="../../static/image/open-door.png" 
+            th:src="@{/image/open-door.png}" class="open-door"></a>
+
+        <div th:each="item:${session.itemList}">
+            <img src="../../static/image/light-off.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}"
+            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+        </div>
+        
+        <div class="cursor-light"></div>
+
+        <html th:insert="~{/main/item-box :: frag_item}"></html>        
+    </main>
+    <script type="module" src="../../static/js/question/light-question.js" th:src="@{/js/question/light-question.js}"></script>
+    <script type="module" src="../../static/js/main/delete-item.js" th:src="@{/js/main/delete-item.js}"></script>
+</body>
+</html>

@@ -10,8 +10,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.example.domain.DeleteItem;
 import com.example.domain.Item;
 import com.example.domain.MyItem;
+import com.example.domain.UnionItem;
 
 @Repository
 public class ItemRepository {
@@ -26,6 +28,7 @@ public class ItemRepository {
 		item.setExplanation(rs.getString("explanation"));
 		item.setChapterId(rs.getInt("chapter_id"));
 		item.setUnionId(rs.getInt("union_id"));
+		item.setChangeId(rs.getInt("change_id"));
 		item.setHave(rs.getInt("have"));
 		item.setGenre(rs.getString("genre"));
 		return item;
@@ -44,6 +47,25 @@ public class ItemRepository {
 		return myItem;
 	};
 
+	private static RowMapper<DeleteItem> DELETE_ITEM_ROW_MAPPER=(rs,i)->{
+		DeleteItem deleteItem=new DeleteItem();
+		deleteItem.setId(rs.getInt("id"));
+		deleteItem.setItemId(rs.getInt("item_id"));
+		deleteItem.setUserId(rs.getInt("user_id"));
+		return deleteItem;
+	};
+	
+	private static RowMapper<UnionItem> UNION_ITEM_ROW_MAPPER=(rs,i)->{
+		UnionItem unionItem=new UnionItem();
+		unionItem.setId(rs.getInt("id"));
+		unionItem.setName(rs.getString("name"));
+		unionItem.setImage(rs.getString("image"));
+		unionItem.setExplanation(rs.getString("explanation"));
+		unionItem.setUnionId(rs.getInt("union_id"));
+		unionItem.setGenre(rs.getString("genre"));
+		return unionItem;
+	};
+	
 	/**
 	 * 各章ごとのアイテムの一覧を入手
 	 * 
@@ -51,7 +73,7 @@ public class ItemRepository {
 	 * @return itemのリスト
 	 */
 	public List<Item> itemByChapter(Integer chapterId) {
-		String sql = "select id,name,image,explanation,chapter_id,union_id,have,genre from items "
+		String sql = "select id,name,image,explanation,chapter_id,union_id,change_id,have,genre from items "
 				+ "where chapter_id=:chapterId order by id;";
 		SqlParameterSource param = new MapSqlParameterSource("chapterId", chapterId);
 		List<Item> itemList = template.query(sql, param, ITEM_ROW_MAPPER);
@@ -65,7 +87,7 @@ public class ItemRepository {
 	 * @return
 	 */
 	public Item itemLoadById(Integer id) {
-		String sql="select id,name,image,explanation,chapter_id,union_id,have,genre from items where id=:id;";
+		String sql="select id,name,image,explanation,chapter_id,union_id,change_id,have,genre from items where id=:id;";
 		SqlParameterSource param=new MapSqlParameterSource("id",id);
 		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
@@ -120,9 +142,64 @@ public class ItemRepository {
 	 * 持ち物から使用したアイテムを削除
 	 * @param itemId
 	 */
-	public void myItemDelete(Integer itemId,Integer userId) {
-		String sql="delete from my_items where item_id=:itemId and user_id=:userId";
-		SqlParameterSource param=new MapSqlParameterSource("itemId",itemId).addValue("userId", userId);
+	public void myItemDelete(Integer id) {
+		String sql="delete from my_items where id=:id";
+		SqlParameterSource param=new MapSqlParameterSource("id",id);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * アイテムの削除リスト一覧の入手
+	 * @return
+	 */
+	public List<DeleteItem> deleteItemFindAll(Integer userId){
+		String sql="select id,item_id,user_id from delete_items where user_id=:userId;";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId);
+		List<DeleteItem> deleteItemList=template.query(sql,param, DELETE_ITEM_ROW_MAPPER);
+		return deleteItemList;
+	}
+	
+	/**
+	 * アイテムを削除リストに追加
+	 * @param delteItem
+	 */
+	public void deleteItemInsert(DeleteItem delteItem) {
+		String sql="insert into delete_items(item_id,user_id)values(:itemId,:userId);";
+		SqlParameterSource param=new BeanPropertySqlParameterSource(delteItem);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * ユニオンidに対応する合体後アイテムの情報を取り出し
+	 * @param unionId
+	 * @return
+	 */
+	public UnionItem unionItemLoad(Integer unionId) {
+		String sql="select id,name,image,explanation,union_id,genre from union_items where union_id=:unionId;";
+		SqlParameterSource param=new MapSqlParameterSource("unionId",unionId);
+		UnionItem unionItem=template.queryForObject(sql, param, UNION_ITEM_ROW_MAPPER);
+		return unionItem;
+	}
+	
+	/**
+	 * アイテムの変化情報
+	 * @param id
+	 * @return
+	 */
+	public Integer changeItemLoad(Integer id) {
+		String sql="select change from change_items where id=:id;";
+		SqlParameterSource param=new MapSqlParameterSource("id",id);
+		Integer change=template.queryForObject(sql, param, Integer.class);
+		return change;
+	}
+	
+	/**
+	 * 変化後のアイテムを表示できるようにする
+	 * @param id
+	 */
+	public void changeItemUpdate(Integer id) {
+		String sql="update change_items set change=1 where id=:id;";
+		SqlParameterSource param=new MapSqlParameterSource("id",id);
 		template.update(sql, param);
 	}
 }

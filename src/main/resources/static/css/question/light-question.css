@@ -1,0 +1,66 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ghost{
+    width: 100px;
+    height: 100px;
+}
+
+.item{
+    width: 50px;
+    height: 50px;
+}
+
+.light{
+    width: 100px;
+    height: 100px;
+}
+
+body{
+    background-color: black;
+    position: relative;
+}
+
+.cursor-light{
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 50%;
+    z-index: -1;
+    display: none;
+}
+
+.box-main{
+    background-color: white;
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.box-btn{
+    width: 20px;
+    height: 20px;
+    background-color: aqua;
+    border: 1px,solid,black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.box-btn:hover{
+    opacity: 0.7;
+}
+
+.open-door,.close-door{
+    width: 120px;
+    height: 200px;
+}
+
+.open-door{
+    display:none;
+}

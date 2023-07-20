@@ -39,7 +39,7 @@ public class UserController {
 		}
 		session.setAttribute("userName", user.getName());
 		session.setAttribute("userLogin", user);
-		return "redirect:/question/ice";
+		return "redirect:/question/light";
 	}
 
 	@GetMapping("/toInsert")

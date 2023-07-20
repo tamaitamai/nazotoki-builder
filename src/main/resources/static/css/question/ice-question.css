@@ -1,3 +1,10 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .ice-field{
     display: flex;
     justify-content: center;
@@ -30,4 +37,31 @@
 .fire{
     width: 300px;
     height: 300px;
+}
+
+.ice-answer{
+    padding: 10px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.ice-button{
+    background-image: url('../../image/ice-background.jpg');
+    background-size: cover;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 100px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.ice-button:hover{
+    opacity: 0.7;
+}
+
+.ice-door{
+    margin-top: 20px;
+    width: 300px;
+    height: 400px;
+    display: none;
 }

@@ -10,7 +10,7 @@
 <body>
     <header th:insert="~{/main/home :: frag_header}"></header>
     <main>
-        <h1>氷ステージ</h1>
+        <h1 class="ice-title">氷ステージ</h1>
         <div class="ice-field">
             <div class="ice-stage">
                 <div th:each="item:${session.itemList}">
@@ -31,6 +31,11 @@
             </div>
             <input type="hidden" value="0" class="fire-on">
         </div>
+        <p>解答はこちら👇</p>
+        <input type="text" class="ice-answer">
+        <button class="ice-button">解答</button>
+        <a th:href="@{/question/light}"><img src="../../static/image/door.png" th:src="@{/image/door.png}" class="ice-door"></a>
+
         <html th:insert="~{/main/item-box :: frag_item}"></html>
     </main>
     <script type="module" src="../../static/js/question/ice-question.js" th:src="@{/js/question/ice-question.js}"></script>
