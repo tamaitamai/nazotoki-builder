@@ -5,7 +5,21 @@
     bottom: 0px;
     right: 20px;
     cursor: pointer;
+    z-index: 11;
 }
+
+.item-select{
+    width: 100px;
+    height: 100px;
+    position:fixed;
+    bottom: 100px;
+    right: 20px;
+    cursor: pointer;
+    background-image: url(../../image/main/black-paper.jpg);
+    border-radius: 10px;
+    z-index: 11;
+}
+
 
 
 .item-list{
@@ -20,7 +34,7 @@
     margin-bottom: 20px;
     border-radius: 20px;
     background-image: url(../../image/main/item-box.jpg);
-    z-index: 3;
+    z-index: 11;
 }
 
 .item-image{
@@ -33,6 +47,7 @@
     z-index: 3;
     background-image: url(../../image/main/black-paper.jpg);
     border-radius: 20px;
+    z-index: 11;
 }
 
 .item-detail{
@@ -48,6 +63,7 @@
     z-index: 3;
     background-image: url(../../image/main/white-paper.jpg);
     border-radius: 20px;
+    z-index: 11;
 }
 
 .item-name,.item-explanation{
@@ -76,4 +92,42 @@
 .search{
     font-size: 50px;
     cursor: pointer;
+}
+
+.check-image{
+    width:400px;
+    height: 400px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 200px;
+    z-index: 3;
+    border-radius: 20px;
+    background-image: url(../../image/main/black-paper.jpg);   
+    z-index: 11;
+}
+
+.check-detail{
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 70px;
+    background-image: url(../../image/main/white-paper.jpg);   
+    z-index: 11;
+}
+
+.check-background{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;    
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
 }

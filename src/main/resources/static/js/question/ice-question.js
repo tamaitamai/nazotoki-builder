@@ -74,7 +74,7 @@ $(function(){
 
     //持ち物を選択したときにfireクラスを持っていたら氷を溶かせるようにする
     $('.get-image').click(function(){
-        if($(this).hasClass('fire') && $('.fire-on').val()==0){
+        if($(this).hasClass('fire')){
             $('.fire-on').val(1);
         }else{
             $('.fire-on').val(0);
@@ -85,12 +85,12 @@ $(function(){
     $('.ice').click(function(){
         if($('.fire-on').val()==1){
             $(this).hide();
-            deleteItem();
-            $('.get-image').eq(deleteNum).removeClass('fire');
+            deleteItem();            
             $('.fire-on').val(0);
 
             var itemId=$(this).attr('item-id');
             hideItem(itemId);
+            $('.item-select').hide();
         }
     })
 

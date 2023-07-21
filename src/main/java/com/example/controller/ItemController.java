@@ -28,6 +28,27 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
+	
+	/**
+	 * 手に入れたアイテムの情報を取得
+	 * @param id
+	 * @return
+	 */
+	@PostMapping("/itemLoad")
+	@ResponseBody
+	public Item itemLoad(@RequestParam("id") Integer id) {
+		Item item=itemService.itemLoadById(id);
+		return item;
+	}
+	
+	@PostMapping("/unionItemLoad")
+	@ResponseBody
+	public UnionItem unionItemLoad(@RequestParam("id") Integer id) {
+		System.out.println("unionChekck");
+		UnionItem unionItem=itemService.unionItemLoad(id);
+		return unionItem;
+	}
+	
 
 	/**
 	 * ページ更新時に持ち物を表示

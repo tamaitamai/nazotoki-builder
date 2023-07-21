@@ -1,8 +1,11 @@
-import {myItemList,hideItem} from './my-item.js';
+import {myItemList,hideItem,itemCheck} from './my-item.js';
 $(function(){
     $('.item-list').hide();
     $('.item-image').hide();
     $('.item-detail').hide();
+    $('.check-list').hide();
+    $('.check-background').hide();
+    $('.item-select').hide();
 
     //持ち物にあるアイテムの表示を隠す
     for(let i=0;i<$('.item').length;i++){
@@ -17,11 +20,21 @@ $(function(){
             $('.item-list').hide();
             $('.item-image').hide();
             $('.item-detail').hide();
+            $('.check-background').hide();
             $('.search').css('background-color','');
             $('.search').attr('value',0);
         }else{
             $('.item-list').show();
+            // $('.check-background').show();
         }        
+    })
+
+    //アイテム確認画面を閉じる
+    $('.check-list').click(function(){
+        if($('.check-image').is(':visible')){
+            $(this).hide();
+            $('.check-background').hide();
+        }
     })
 
     //サーチボタンの操作
@@ -36,6 +49,7 @@ $(function(){
             $('.search').attr('value',1);
             for(let i=0;i<$('.get-image').length;i++){
                 if($('.get-image').eq(i).attr('value')==1){
+                    //アイテムの詳細表示
                     $('.item-image').attr('src',$('.get-image').eq(i).attr('src'));
                     $('.item-name').text($('.get-image').eq(i).attr('item-name'));
                     $('.item-explanation').text($('.get-image').eq(i).attr('item-explanation'));
@@ -49,20 +63,22 @@ $(function(){
 
     //アイテムの詳細を表示
     $('.get-image').click(function(){
-        $('.get-border').css('border','none');
+        $('.get-border').css('border','none');//枠の状態のリセット
         //アイテム合成
         for(let i=0;i<$('.get-image').length;i++){
             if($('.get-image').eq(i).attr('value')==1){
                 var onNum=i;
             }
-        }
+        }//一つ前の選択アイテムの番号を入手
 
         if($('.get-image').eq(onNum).attr('item-union')==$(this).attr('item-union') && 
-        $('.get-image').eq(onNum).attr('item-id')!=$(this).attr('item-id')){
+        $('.get-image').eq(onNum).attr('item-id')!=$(this).attr('item-id') &&
+        $('.get-image').eq(onNum).attr('item-union')!=0){
+            console.log('union');
             var myItemId1=$('.get-image').eq(onNum).attr('my-item-id');
             var myItemId2=$(this).attr('my-item-id');
             var unionId=$(this).attr('item-union');
-            
+            console.log('unionId:'+unionId);
             var postData={
                 myItemId1: myItemId1,
                 myItemId2: myItemId2,
@@ -74,6 +90,9 @@ $(function(){
                 url: '/item/union',
                 data: postData,
                 success: function(response){
+                    itemCheck(unionId,'/item/unionItemLoad');//合成後のアイテムの詳細を表示
+                    $('.item-list').hide();
+                    $('.item-select').hide();
                     myItemList(response);
                 }
             })
@@ -83,16 +102,24 @@ $(function(){
 
             itemId=$(this).attr('item-id');
             hideItem(itemId);
+
+            $('.get-image').not(this).attr('value',0);
+            $('.item-image').hide();
+            $('.item-detail').hide();
+            return false;
         }
         //合成ここまで
 
-        $('.get-image').not(this).attr('value',0);
+        $('.get-image').not(this).attr('value',0);//選択したアイテム以外の状態をリセット
 
         if($(this).attr('value')==0){
             $(this).attr('value',1);
             var getNum=$('.get-image').index($(this));
             var imageDetail=$(this).attr('src');
+            $('.item-select').show();
+            $('.item-select').attr('src',imageDetail);//選択したアイテムの画像をかばんの上に表示
             if($('.search').attr('value')==1){
+                //アイテムの詳細表示
                 $('.item-image').attr('src',imageDetail);
                 $('.item-name').text($(this).attr('item-name'));
                 $('.item-explanation').text($(this).attr('item-explanation'));     
@@ -101,6 +128,7 @@ $(function(){
             }
             $('.get-border').eq(getNum).css('border','3px solid yellow');    
         }else{
+            $('.item-select').hide();
             $(this).attr('value',0);
             var getNum=$('.get-image').index($(this));
             $('.item-image').hide();
@@ -127,6 +155,8 @@ $(function(){
         var postData={
             id: id
         }
+
+        itemCheck(id,'/item/itemLoad');
 
         $.ajax({
             type: "post",
