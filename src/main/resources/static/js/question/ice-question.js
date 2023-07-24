@@ -1,53 +1,17 @@
-import {deleteNum,deleteItem} from '../main/delete-item.js';
-import {hideItem} from '../main/my-item.js';
+import {deleteItem} from '../main/delete-item.js';
+import {hideItem,objectPostion,DoubleObjectPosition,objectSize,itemCheck,
+    myItemList,objectHide} from '../main/my-item.js';
 $(function(){
-    //氷の表示を隠す
-    for(let i=0;i<$('.ice').length;i++){
-        if($('.ice').eq(i).attr('value')==0){
-            $('.ice').eq(i).hide();
-        }
-    }
+    objectHide('.ice');
+    objectHide('.fire');
+    objectHide('.item');
 
-    //氷の位置の調整
-    function icePosition(num,top,left){
-        $('.ice').eq(num).css({
-            position: 'absolute',
-            top: top+'px',
-            left: left+'px'
-        });
-
-        $('.ice-word').eq(num).css({
-            position: 'absolute',
-            top: top+'px',
-            left: left+'px'
-        });
-    }
-
-    //火の位置の調整
-    function firePosition(num,top,left){
-        $('.fire').eq(num).css({
-            position: 'absolute',
-            top: top+'px',
-            left: left+'px'
-        });
-    }
-
-    //火の画像のサイズ
-    function fireSize(num,width,height){
-        $('.fire').eq(num).css({
-            width: width+'px',
-            height: height+'px'
-        })    
-    }
-    fireSize(2,100,100);
-    fireSize(3,200,200);
-    fireSize(4,100,100);
-    fireSize(5,150,150);
-
-    $('.ice').eq(5).css({
-        width: 70+'px',
-        height: 70+'px'
-    })
+    objectSize('.fire',2,100,100);
+    objectSize('.fire',3,200,200);
+    objectSize('.fire',4,100,100);
+    objectSize('.fire',5,150,150);
+    objectSize('.ice',5,70,70);
+    objectSize('.use-fire-off',0,100,100);
 
     $('.ice-word').eq(5).css('color','black');
     
@@ -58,23 +22,24 @@ $(function(){
     $('.ice-word').eq(4).text(5);
     $('.ice-word').eq(5).text('Z');
 
-    icePosition(0,50,20);
-    icePosition(1,350,20);
-    icePosition(2,200,400);
-    icePosition(3,50,800);
-    icePosition(4,350,800);
-    icePosition(5,-85,580);
+    DoubleObjectPosition('.ice','.ice-word',0,50,20);
+    DoubleObjectPosition('.ice','.ice-word',1,350,20);
+    DoubleObjectPosition('.ice','.ice-word',2,200,400);
+    DoubleObjectPosition('.ice','.ice-word',3,50,800);
+    DoubleObjectPosition('.ice','.ice-word',4,350,800);
+    DoubleObjectPosition('.ice','.ice-word',5,-85,580);
 
-    firePosition(0,110,-300);
-    firePosition(1,110,1000);
-    firePosition(2,350,400);
-    firePosition(3,0,400);
-    firePosition(4,170,620);
-    firePosition(5,150,120);
+    objectPostion('.fire',0,110,-300);
+    objectPostion('.fire',1,110,1000);
+    objectPostion('.fire',2,350,400);
+    objectPostion('.fire',3,0,400);
+    objectPostion('.fire',4,170,620);
+    objectPostion('.fire',5,150,120);
+    objectPostion('.use-fire-off',0,350,200);
 
     //持ち物を選択したときにfireクラスを持っていたら氷を溶かせるようにする
     $('.get-image').click(function(){
-        if($(this).hasClass('fire')){
+        if($(this).hasClass('use-fire-on')){
             $('.fire-on').val(1);
         }else{
             $('.fire-on').val(0);
@@ -97,6 +62,39 @@ $(function(){
     $('.ice-button').click(function(){
         if($('.ice-answer').val()=='12345'){
             $('.ice-door').show();
+        }
+    })
+
+    $('.fire').click(function(){
+        if($('.item-select').hasClass('use-fire-off')){
+            var unionId=$('.item-select').attr('item-union');
+            var myItemId=$('.item-select').attr('my-item-id');
+            var itemId=$('.item-select').attr('item-id');
+            var thisId=$(this).attr('item-id');
+            console.log('unionId:'+unionId+'myItemId:'+myItemId+'itemId:'+thisId);
+
+            var postData={
+                unionId: unionId,
+                myItemId1: myItemId,
+                myItemId2: 0
+            };
+
+            $.ajax({
+                type: 'post',
+                url: '/item/union',
+                data: postData,
+                success: function(response){
+                    itemCheck(unionId,'/item/unionItemLoad');//合成後のアイテムの詳細を表示
+                    $('.item-list').hide();
+                    $('.item-select').hide();
+                    myItemList(response);
+                    console.log(response);
+                }
+            })
+
+            hideItem(thisId);
+            hideItem(itemId)
+            $(this).hide();
         }
     })
 })

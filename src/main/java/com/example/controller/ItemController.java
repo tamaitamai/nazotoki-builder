@@ -44,7 +44,6 @@ public class ItemController {
 	@PostMapping("/unionItemLoad")
 	@ResponseBody
 	public UnionItem unionItemLoad(@RequestParam("id") Integer id) {
-		System.out.println("unionChekck");
 		UnionItem unionItem=itemService.unionItemLoad(id);
 		return unionItem;
 	}
@@ -114,7 +113,7 @@ public class ItemController {
 	@PostMapping("/union")
 	@ResponseBody
 	public List<MyItem> union(@RequestParam("unionId") Integer unionId,
-			@RequestParam("myItemId1") Integer myItemId1,@RequestParam("myItemId2") Integer myItemId2) {
+			@RequestParam("myItemId1") Integer myItemId1,@RequestParam("myItemId2") Integer myItemId2) {		
 		UnionItem unionItem = itemService.unionItemLoad(unionId);
 		MyItem myItem = new MyItem();
 		BeanUtils.copyProperties(unionItem, myItem);
@@ -125,7 +124,7 @@ public class ItemController {
 		itemService.myItemDelete(myItemId2);
 		return myItemList();
 	}
-	
+		
 	@PostMapping("/changeItem")
 	@ResponseBody
 	public void changeItem(@RequestParam("changeId") Integer changeId) {

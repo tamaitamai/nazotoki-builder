@@ -16,7 +16,7 @@
                 <div th:each="item:${session.itemList}">
                     <div th:if="${item.genre=='ice'}">
                         <h2 class="ice-word">1</h2>
-                        <img src="../../static/image/ice.png" th:src="@{/image/}+${item.image}" class="ice" 
+                        <img src="../../static/image/ice.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
                         th:value="${item.have}" th:item-id="${item.id}">
                         
                     </div>
@@ -24,7 +24,14 @@
 
                 <div th:each="item:${session.itemList}">
                     <div th:if="${item.genre=='fire'}">
-                        <img src="../../static/image/ice.png" th:src="@{/image/}+${item.image}" class="fire item" 
+                        <img src="../../static/image/ice.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                        th:value="${item.have}" th:item-id="${item.id}">                        
+                    </div>
+                </div>
+
+                <div th:each="item:${session.itemList}">
+                    <div th:unless="${item.genre=='fire' || item.genre=='ice'}">
+                        <img src="../../static/image/ice.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
                         th:value="${item.have}" th:item-id="${item.id}">                        
                     </div>
                 </div>

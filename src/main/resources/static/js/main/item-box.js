@@ -115,9 +115,23 @@ $(function(){
         if($(this).attr('value')==0){
             $(this).attr('value',1);
             var getNum=$('.get-image').index($(this));
+
             var imageDetail=$(this).attr('src');
+            var myItemIdDetail=$(this).attr('my-item-id');
+            var itemIdDetail=$(this).attr('item-id');
+            var itemUnionDetail=$(this).attr('item-union');
+            var itemNameDetail=$(this).attr('item-name');
+            var itemExplanationDetail=$(this).attr('item-explanation');
+            var itemClassDetail=$(this).attr('class');
             $('.item-select').show();
             $('.item-select').attr('src',imageDetail);//選択したアイテムの画像をかばんの上に表示
+            $('.item-select').attr('my-item-id',myItemIdDetail);
+            $('.item-select').attr('item-id',itemIdDetail);
+            $('.item-select').attr('item-union',itemUnionDetail);
+            $('.item-select').attr('item-name',itemNameDetail);
+            $('.item-select').attr('item-explanation',itemExplanationDetail);
+            $('.item-select').addClass(itemClassDetail);
+
             if($('.search').attr('value')==1){
                 //アイテムの詳細表示
                 $('.item-image').attr('src',imageDetail);

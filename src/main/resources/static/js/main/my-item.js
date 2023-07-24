@@ -1,5 +1,7 @@
 //アイテムボックスの表示用の関数
 export function myItemList(response){
+    console.log('myItem:');
+    console.log(response);
     // $('.get-image').removeAttr('src my-item-id item-id item-union item-name item-explanation');
     $('.get-image').hide();
     var myItemSize=response.length;
@@ -42,4 +44,45 @@ export function itemCheck(id,url){
             // $('.check-background').show();
         }
     })
+}
+
+//オブジェクトの位置調整
+export function objectPostion(object,num,top,left){
+    $(object).eq(num).css({
+        position: 'absolute',
+        top: top+'px',
+        left: left+'px'
+    })
+}
+
+//オブジェクトを二つ同時に動かす場合の位置調整
+export function DoubleObjectPosition(object,object2,num,top,left){
+    $(object).eq(num).css({
+        position: 'absolute',
+        top: top+'px',
+        left: left+'px'
+    });
+
+    $(object2).eq(num).css({
+        position: 'absolute',
+        top: top+'px',
+        left: left+'px'
+    });
+}
+
+//オブジェクトの画像のサイズ
+export function objectSize(object,num,width,height){
+    $(object).eq(num).css({
+        width: width+'px',
+        height: height+'px'
+    })    
+}
+
+//オブジェクト非表示用
+export function objectHide(object){
+    for(let i=0;i<$(object).length;i++){
+        if($(object).eq(i).attr('value')==0){
+            $(object).eq(i).hide();
+        }
+    }    
 }

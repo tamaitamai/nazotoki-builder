@@ -1,16 +1,7 @@
 import { deleteItem } from '../main/delete-item.js';
-import { hideItem } from '../main/my-item.js';
+import { hideItem ,objectPostion} from '../main/my-item.js';
 
 $(function(){  
-    //オブジェクトの位置
-    function objectPostion(object,num,top,left){
-        $(object).eq(num).css({
-            position: 'absolute',
-            top: top+'px',
-            left: left+'px'
-        })
-    }
-
     objectPostion('.ghost',0,170,0);
     objectPostion('.ghost',1,500,100);
     objectPostion('.ghost',2,170,1200);
@@ -36,9 +27,6 @@ $(function(){
     objectPostion('.box-btn',2,10,170);
     objectPostion('.box-btn',3,60,170);
     
-    
-
-
     //かぎの箱のボタンを特定の順番で押すことで開く
     $('.box-btn').click(function(){
         var $boxBtn=$('.box-btn')
