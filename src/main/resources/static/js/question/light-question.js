@@ -123,12 +123,12 @@ $(function(){
     });
 
     $('.light').click(function(){        
-        if($(this).attr('value')==1){
+        if($('.light').attr('value')==1){
             $('.cursor-light').hide();
-            $(this).attr('value',0);
+            $('.light').attr('value',0);
         }else{         
             $('.cursor-light').show();
-            $(this).attr('value',1);
+            $('.light').attr('value',1);
         }       
     })
 

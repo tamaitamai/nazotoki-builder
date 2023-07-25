@@ -1,6 +1,6 @@
 import {deleteItem} from '../main/delete-item.js';
 import {hideItem,objectPostion,DoubleObjectPosition,objectSize,itemCheck,
-    myItemList,objectHide} from '../main/my-item.js';
+    myItemList,objectHide,unionSelect} from '../main/my-item.js';
 $(function(){
     objectHide('.ice');
     objectHide('.fire');
@@ -37,41 +37,54 @@ $(function(){
     objectPostion('.fire',5,150,120);
     objectPostion('.use-fire-off',0,350,200);
 
-    //持ち物を選択したときにfireクラスを持っていたら氷を溶かせるようにする
-    $('.get-image').click(function(){
-        if($(this).hasClass('use-fire-on')){
-            $('.fire-on').val(1);
-        }else{
-            $('.fire-on').val(0);
-        }
-    })
-
     //氷をクリックしたときにfireクラスの持ち物を選択していたら、氷を溶かす
     $('.ice').click(function(){
-        if($('.fire-on').val()==1){
+        if($('.item-select').hasClass('use-fire-on')){
             $(this).hide();
-            deleteItem();            
+            // deleteItem();            
             $('.fire-on').val(0);
 
             var itemId=$(this).attr('item-id');
             hideItem(itemId);
-            $('.item-select').hide();
+            $('.item-select').hide();            
+
+            var postData={
+                unionId: $('.item-select').attr('item-union'),
+                myItemId: $('.item-select').attr('my-item-id')
+            }
+
+            //アイテムを合成前に戻す(松明の火を消す)
+            $.ajax({
+                type: 'post',
+                url: '/item/resetUnion',
+                data: postData,
+                success: function(response){
+                    //持ち物の選択をリセット
+                    for(let i=0;i<$('.get-image').length;i++){
+                        $('.get-image').eq(i).attr('value',0);
+                        $('.get-border').eq(i).css('border','none');    
+                    }
+                    myItemList(response);
+                    unionSelect(2);
+                }
+            })
         }
     })
 
+    //解答が正しいときに扉が出てくる
     $('.ice-button').click(function(){
         if($('.ice-answer').val()=='12345'){
             $('.ice-door').show();
         }
     })
 
+    //松明を選択していて火がついていないときに火をつける
     $('.fire').click(function(){
-        if($('.item-select').hasClass('use-fire-off')){
+        if($('.item-select').hasClass('use-fire-off')){            
             var unionId=$('.item-select').attr('item-union');
             var myItemId=$('.item-select').attr('my-item-id');
             var itemId=$('.item-select').attr('item-id');
             var thisId=$(this).attr('item-id');
-            console.log('unionId:'+unionId+'myItemId:'+myItemId+'itemId:'+thisId);
 
             var postData={
                 unionId: unionId,
@@ -79,16 +92,22 @@ $(function(){
                 myItemId2: 0
             };
 
+            //アイテムを合成(松明に火をつける)
             $.ajax({
                 type: 'post',
                 url: '/item/union',
                 data: postData,
                 success: function(response){
-                    itemCheck(unionId,'/item/unionItemLoad');//合成後のアイテムの詳細を表示
+                    // itemCheck(unionId,'/item/unionItemLoad');//合成後のアイテムの詳細を表示
                     $('.item-list').hide();
                     $('.item-select').hide();
+                    //持ち物の選択をリセット
+                    for(let i=0;i<$('.get-image').length;i++){
+                        $('.get-image').eq(i).attr('value',0);
+                        $('.get-border').eq(i).css('border','none');    
+                    }                                        
                     myItemList(response);
-                    console.log(response);
+                    unionSelect(2);
                 }
             })
 

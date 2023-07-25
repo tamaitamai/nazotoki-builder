@@ -41,6 +41,15 @@ public class ItemService {
 	}
 	
 	/**
+	 * unionIdの一致するアイテムの取り出し
+	 * @param unionId
+	 * @return
+	 */
+	public Item itemLoadByUnionId(Integer unionId) {
+		return itemRepository.itemLoadByUnionId(unionId);
+	}	
+	
+	/**
 	 * アイテムをすべて持っている状態にする
 	 */
 	public void itemHaveReset() {

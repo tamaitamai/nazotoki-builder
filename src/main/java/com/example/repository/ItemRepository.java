@@ -94,6 +94,19 @@ public class ItemRepository {
 	}
 	
 	/**
+	 * unionIdの一致するアイテムの取り出し
+	 * @param unionId
+	 * @return
+	 */
+	public Item itemLoadByUnionId(Integer unionId) {
+		String sql="select id,name,image,explanation,chapter_id,union_id,change_id,have,genre "
+				+ "from items where union_id=:unionId;";
+		SqlParameterSource param=new MapSqlParameterSource("unionId",unionId);
+		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		return item;		
+	}
+	
+	/**
 	 * アイテムをすべて持っている状態にする
 	 */
 	public void itemHaveReset() {

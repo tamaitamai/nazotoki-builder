@@ -130,7 +130,10 @@ $(function(){
             $('.item-select').attr('item-union',itemUnionDetail);
             $('.item-select').attr('item-name',itemNameDetail);
             $('.item-select').attr('item-explanation',itemExplanationDetail);
-            $('.item-select').addClass(itemClassDetail);
+            $('.item-select').attr('num',getNum);
+            $('.item-select').attr('class','item-select '+itemClassDetail);
+            $('.item-select').removeClass('item get-image');
+            $('.item-select').removeClass('light');
 
             if($('.search').attr('value')==1){
                 //アイテムの詳細表示
@@ -143,6 +146,7 @@ $(function(){
             $('.get-border').eq(getNum).css('border','3px solid yellow');    
         }else{
             $('.item-select').hide();
+            $('.item-select').attr('class','item-select');
             $(this).attr('value',0);
             var getNum=$('.get-image').index($(this));
             $('.item-image').hide();

@@ -70,18 +70,8 @@ public class ItemController {
 	@ResponseBody
 	public List<MyItem> addMyItem(@RequestParam("id") Integer id) {
 		Item item = itemService.itemLoadById(id);
-		MyItem myItem = new MyItem();
-		User user = (User) session.getAttribute("userLogin");
-
-		BeanUtils.copyProperties(item, myItem);
-		myItem.setItemId(id);
-		myItem.setUserId(user.getId());
-
-		itemService.myItemInsert(myItem);
-		List<MyItem> myItemList = itemService.MyItemListByUser(user.getId());
-		session.setAttribute("MyItemList", myItemList);
-
-		return myItemList;
+		myItemInsert(item);
+		return myItemList();
 	}
 
 	/**
@@ -110,6 +100,13 @@ public class ItemController {
 		deleteItemInsert(itemId);
 	}
 
+	/**
+	 * アイテムの結合
+	 * @param unionId
+	 * @param myItemId1
+	 * @param myItemId2
+	 * @return
+	 */
 	@PostMapping("/union")
 	@ResponseBody
 	public List<MyItem> union(@RequestParam("unionId") Integer unionId,
@@ -124,12 +121,47 @@ public class ItemController {
 		itemService.myItemDelete(myItemId2);
 		return myItemList();
 	}
+	
+	/**
+	 * 結合したアイテムをもとに戻す
+	 * @param unionId
+	 * @param myItemId
+	 * @param itemId
+	 * @return
+	 */
+	@PostMapping("/resetUnion")
+	@ResponseBody
+	public List<MyItem> resetUnion(@RequestParam("unionId") Integer unionId,
+			@RequestParam("myItemId") Integer myItemId){
+		Item item=itemService.itemLoadByUnionId(unionId);
+		itemService.myItemDelete(myItemId);
+		myItemInsert(item);
+		return myItemList();
+	}
 		
+	/**
+	 * アイテムを変化させる
+	 * @param changeId
+	 */
 	@PostMapping("/changeItem")
 	@ResponseBody
 	public void changeItem(@RequestParam("changeId") Integer changeId) {
 		System.out.println("change");
 		itemService.changeItemUpdate(changeId);
+	}
+	
+	/**
+	 * 持ち物に追加
+	 * @param item
+	 */
+	public void myItemInsert(Item item) {
+		MyItem myItem = new MyItem();
+		User user = (User) session.getAttribute("userLogin");
+		BeanUtils.copyProperties(item, myItem);
+		myItem.setItemId(item.getId());
+		myItem.setUserId(user.getId());
+		itemService.myItemInsert(myItem);
+
 	}
 
 	/**

@@ -8,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+    <html th:insert="~{/main/loading :: frag_loading}"></html>
     <header th:insert="~{/main/home :: frag_header}"></header>
     <main>
         <h1 class="ice-title">氷ステージ</h1>
@@ -36,7 +37,6 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" value="0" class="fire-on">
         </div>
         <p>解答はこちら👇</p>
         <input type="text" class="ice-answer">
