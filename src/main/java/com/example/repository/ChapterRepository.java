@@ -86,4 +86,14 @@ public class ChapterRepository {
 		}
 		return saveList.get(0);
 	}
+	
+	/**
+	 * セーブデータの削除
+	 * @param userId
+	 */
+	public void saveDelete(Integer userId) {
+		String sql="delete from saves where user_id=:userId;";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId);
+		template.update(sql, param);
+	}
 }

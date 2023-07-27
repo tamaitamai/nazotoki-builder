@@ -41,7 +41,7 @@ export function itemCheck(id,url){
             $('.check-image').attr('src','/image/'+response.image);
             $('.check-name').text(response.name);
             $('.check-list').show();
-            // $('.check-background').show();
+            $('.check-background').show();
         }
     })
 }

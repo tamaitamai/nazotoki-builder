@@ -1,0 +1,9 @@
+$(function(){
+    $('.menu-box').click(function(){
+        if($('.menu-screan').is(':visible')){
+            $('.menu-screan').hide();
+        }else{
+            $('.menu-screan').show();
+        }        
+    })  
+})

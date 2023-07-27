@@ -25,7 +25,7 @@ $(function(){
             $('.search').attr('value',0);
         }else{
             $('.item-list').show();
-            // $('.check-background').show();
+            $('.check-background').show();
         }        
     })
 

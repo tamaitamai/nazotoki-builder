@@ -21,8 +21,7 @@ $(function(){
     $('.box-main').css('z-index',2);
     $('.item').eq(2).css('z-index',1);
 
-    $('.box-main').css('position','relative');
-
+    objectPostion('.box-main',0,350,700);
     objectPostion('.box-btn',0,10,10);
     objectPostion('.box-btn',1,70,30);
     objectPostion('.box-btn',2,10,170);

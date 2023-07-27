@@ -4,37 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/main/home.css" th:href="@{/css/main/home.css}">
-    <link rel="stylesheet" href="../../static/css/main/header-footer.css" th:href="@{/css/main/header-footer.css}">
     <title>Document</title>
 </head>
 <body>
-    <header th:fragment="frag_header">
-        <div class="header-box">
-            <a th:href="@{/main}" class="header-logo"><img src="../../static/image/main/logo.jpg" 
-                th:src="@{/image/main/logo.jpg}" class="header-image"></a>
-            <a th:href="@{/question/ice}">氷ステージ</a>
-            <p><a th:href="@{/question/light}">光ステージ</a></p>
-            <div th:if="${session.userLogin==null}" class="header-user">
-                <a th:href="@{/user/toLogin}"><button>ログイン</button></a>
-                <a th:href="@{/user/toInsert}"><button>新規会員登録</button></a>
-            </div>
-            <div th:unless="${session.userLogin==null}" class="header-user">
-				<p th:text="${session.userName}+'でログイン'" class="user-name"></p>
-				<form th:action="@{/user/logOut}" method="post"><button>ログアウト</button></form>
-			</div>
-        </div>
-    </header>
     <main>
+        <html th:insert="~{/main/menu :: frag_menu}"></html>
         <div class="select-btn">
-            <a th:href="@{/question/move}"><button class="reset-btn">初めから</button></a>
-            <a th:href="@{/question/move}"><button class="load-btn">続きから</button></a>
+            <a th:href="@{/question/ice}"><button class="question-btn">氷ステージ</button></a>
+            <a th:href="@{/question/light}"><button class="question-btn">光ステージ</button></a>
+            <form th:action="@{/chapter/delete}" method="post"><button class="reset-btn">初めから</button></form>
+            <form th:action="@{/chapter/load}" method="post"><button class="load-btn">続きから</button></form>
         </div>
     </main>
-    <footer th:fragment="frag_footer">
-        <div class="footer-box">
-            <p>フッター</p>
-            <p>記載</p>
-        </div>
-    </footer>
 </body>
 </html>

@@ -25,6 +25,10 @@ public class ChapterController {
 	@Autowired
 	private HttpSession session;
 	
+	/**
+	 * クリアデータを保存
+	 * @param chapterId
+	 */
 	@PostMapping("/save")
 	@ResponseBody
 	public void save(@RequestParam("chapterId") Integer chapterId) {
@@ -39,4 +43,30 @@ public class ChapterController {
 			chapterService.saveUpdate(save);
 		}
 	}	
+	
+	/**
+	 * 続きのステージから開始
+	 * @return
+	 */
+	@PostMapping("/load")
+	public String load() {
+		User user = (User) session.getAttribute("userLogin");
+		Save save=chapterService.saveLoad(user.getId());
+		if(save==null) {
+			return "redirect:/question/light";	
+		}else {
+			return "redirect:/question/"+save.getUrl();
+		}	
+	}
+
+	/**
+	 * データを削除
+	 * @return
+	 */
+	@PostMapping("/delete")
+	public String delete() {
+		User user = (User) session.getAttribute("userLogin");
+		chapterService.saveDelete(user.getId());
+		return "redirect:/question/light";
+	}
 }

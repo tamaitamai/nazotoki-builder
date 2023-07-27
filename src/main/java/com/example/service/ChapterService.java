@@ -1,6 +1,8 @@
 package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,4 +50,11 @@ public class ChapterService {
 		return chapterRepository.saveLoad(userId);
 	}
 
+	/**
+	 * セーブデータの削除
+	 * @param userId
+	 */
+	public void saveDelete(Integer userId) {
+		chapterRepository.saveDelete(userId);
+	}
 }

@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <header th:insert="~{ /main/home :: frag_header}"></header>
+    <header th:insert="~{ /main/header-footer :: frag_header}"></header>
     <div th:each="item:${session.itemList}">
         <img src="../../static/image/cat.png" th:src="@{/image/}+${item.image}" class="item" 
         th:value="${item.have}" th:item-id="${item.id}">

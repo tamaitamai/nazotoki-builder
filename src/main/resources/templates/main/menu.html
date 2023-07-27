@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja" th:fragment="frag_menu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/main/menu.css" th:href="@{/css/main/menu.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="menu-box"><p>メニュー</p></div>
+    <div class="menu-screan">
+        <div class="menu-list">
+            <p th:text="'ユーザー名'+${session.userLogin.name}" class="login-name">ユーザー名：名前</p>
+            <form th:action="@{/user/logOut}" method="post"><button class="menu-btn">ログアウト</button></form>
+            <a th:href="@{/main/home}"><button class="menu-btn">ホーム画面へ</button></a>
+        </div>
+    </div>
+    <script src="../../static/js/main/menu.js" th:src="@{/js/main/menu.js}"></script>
+</body>
+</html>

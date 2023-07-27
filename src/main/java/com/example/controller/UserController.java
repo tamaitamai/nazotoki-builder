@@ -45,12 +45,13 @@ public class UserController {
 		}
 		session.setAttribute("userName", user.getName());
 		session.setAttribute("userLogin", user);
-		Save save=chapterService.saveLoad(user.getId());
-		if(save==null) {
-			return "redirect:/question/light";	
-		}else {
-			return "redirect:/question/"+save.getUrl();
-		}		
+//		Save save=chapterService.saveLoad(user.getId());
+//		if(save==null) {
+//			return "redirect:/question/light";	
+//		}else {
+//			return "redirect:/question/"+save.getUrl();
+//		}
+		return "main/home.html";
 	}
 
 	@GetMapping("/toInsert")
@@ -71,9 +72,9 @@ public class UserController {
 		return "user/login.html";
 	}
 
-	@PostMapping("logOut")
+	@PostMapping("/logOut")
 	public String logOut() {
 		session.removeAttribute("userLogin");
-		return "main/home.html";
+		return "main/header-footer.html";
 	}
 }
