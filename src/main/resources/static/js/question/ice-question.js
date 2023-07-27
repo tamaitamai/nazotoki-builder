@@ -1,6 +1,7 @@
 import {deleteItem} from '../main/delete-item.js';
 import {hideItem,objectPostion,DoubleObjectPosition,objectSize,itemCheck,
     myItemList,objectHide,unionSelect} from '../main/my-item.js';
+import { chapterSave } from '../main/save.js';
 $(function(){
     objectHide('.ice');
     objectHide('.fire');
@@ -76,6 +77,10 @@ $(function(){
         if($('.ice-answer').val()=='12345'){
             $('.ice-door').show();
         }
+    })
+
+    $('.ice-door').click(function(){
+        chapterSave(5);
     })
 
     //松明を選択していて火がついていないときに火をつける

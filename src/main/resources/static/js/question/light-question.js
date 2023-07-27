@@ -1,5 +1,6 @@
 import { deleteItem } from '../main/delete-item.js';
 import { hideItem ,objectPostion} from '../main/my-item.js';
+import { chapterSave } from '../main/save.js';
 
 $(function(){  
     objectPostion('.ghost',0,170,0);
@@ -96,6 +97,10 @@ $(function(){
                 data: postData
             })
         }
+    })
+
+    $('.open-door').click(function(){
+        chapterSave(3);
     })
 
     //ライトの表示

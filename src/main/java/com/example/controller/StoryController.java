@@ -27,7 +27,7 @@ public class StoryController {
 	private HttpSession session;
 	
 	@GetMapping("")
-	public String story() {
+	public String story() {		
 		return "main/story.html";
 	}
 	

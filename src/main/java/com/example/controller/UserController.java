@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.domain.Chapter;
+import com.example.domain.Save;
 import com.example.domain.User;
 import com.example.form.UserForm;
+import com.example.service.ChapterService;
 import com.example.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +24,9 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ChapterService chapterService;
 
 	@Autowired
 	private HttpSession session;
@@ -39,7 +45,12 @@ public class UserController {
 		}
 		session.setAttribute("userName", user.getName());
 		session.setAttribute("userLogin", user);
-		return "redirect:/question/ice";
+		Save save=chapterService.saveLoad(user.getId());
+		if(save==null) {
+			return "redirect:/question/light";	
+		}else {
+			return "redirect:/question/"+save.getUrl();
+		}		
 	}
 
 	@GetMapping("/toInsert")
