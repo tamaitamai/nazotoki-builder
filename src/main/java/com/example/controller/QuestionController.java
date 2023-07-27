@@ -84,6 +84,7 @@ public class QuestionController {
 
 		itemList=itemService.itemByChapter(num);	
 		session.setAttribute("itemList", itemList);
+		session.setAttribute("chapterId", num);
 	}
 	
 	/**

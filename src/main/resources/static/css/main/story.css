@@ -1,0 +1,60 @@
+.story-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url(../../image/cave.jpg);
+    background-size: cover;
+    z-index: 50;
+}
+
+.character1,.character2{
+    width: 450px;
+    height: 550px;
+}
+
+.character1{
+    position: fixed;
+    bottom: 20px;
+    left: 200px;
+}
+
+.character2{
+    position: fixed;
+    bottom: 20px;
+    right: 200px;
+}
+
+.story-name{
+    position: fixed;
+    bottom: 215px;
+    left: 110px;    
+    width: 100px;
+    height: 20px;
+    background-color: rgba(0, 0, 0,0.8);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.story-comment{
+    position: fixed;
+    bottom: 0px;
+    left: 100px;
+    right: 100px;
+    height: 170px;
+    background-color: rgba(0, 0, 0,0.8);
+    color: white;
+    border-radius: 20px;
+    padding: 20px 100px;
+    border: 1px solid grey;
+    font-size: 20px;
+}
+
+#animated-text{
+    font-size: 50px;
+    color: white;
+}
