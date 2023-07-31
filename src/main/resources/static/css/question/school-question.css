@@ -1,0 +1,122 @@
+.school-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url(../../image/main/school-room-main.jpg);
+    background-size: cover;
+}
+
+.box-close{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 230px;
+    left: 1320px;
+}
+
+.timetable-question-box,.timetable-hint-box,.timetable-answer-box{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(0,0,0,0.8);
+    display: none;
+}
+
+.timetable-question{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-direction: column;
+    position: fixed;
+    top: 25%;
+    left:40%;
+    width: 300px;
+    padding: 20px;
+    background-image: url(../../image/main/white-paper.jpg);
+    border-radius: 20px;   
+}
+
+.timetable-question p{
+    font-size: 20px;
+}
+
+.timetable-hint{
+    background-image: url(../../image/main/white-paper.jpg);
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-direction: column;
+    flex-direction: column;
+    position: fixed;
+    top: 20%;
+    left:25%;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    background-color: white;   
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    width: 100px;
+}
+
+/* セル間のスペースを調整 */
+table {
+    border-spacing: 0;
+}
+
+.timetable-answer{
+    display: flex;
+    position: fixed;
+    top: 25%;
+    left:35%;
+    width: 500px;
+    height: 250px;
+    padding: 20px;
+    background-image: url(../../image/main/wood1.jpg);
+    border-radius: 20px;       
+}
+
+.ball{
+    border-radius: 50%;
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    transition: all 0.1s ease;
+}
+
+.stick{
+    width: 50px;
+    height: 250px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.return-btn{
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    box-shadow: 5px 5px black;
+    border-radius: 10px;
+    background-image: url(../../image/main/black-paper.jpg);
+}
+
+.return-btn:hover{
+    opacity: 0.8;
+}
+
+
+

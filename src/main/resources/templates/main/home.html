@@ -4,17 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../static/css/main/home.css" th:href="@{/css/main/home.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <title>Document</title>
 </head>
 <body>
     <main>
         <html th:insert="~{/main/menu :: frag_menu}"></html>
+
+        <audio class="decision-bgm">
+            <source src="../../static/bgm/決定3.mp3" th:src="@{/bgm/決定3.mp3}" type="audio/mpeg">
+        </audio>
+
+        <audio class="select-bgm">
+            <source src="../../static/bgm/選択2.mp3" th:src="@{/bgm/選択2.mp3}" type="audio/mpeg">
+        </audio>
+        
+        <div class="check-screan">      
+            <div class="check-box">
+                <p class="return return-position">✖</p>
+                <p class="check-message">※データが消えます。</p>
+                <p class="check-message">本当によろしいですか。</p>
+                <div class="check-select">                    
+                    <button class="check-btn return">戻る</button>
+                    <form th:action="@{/chapter/delete}" method="post"><button class="check-btn">はい</button></form>
+                </div>
+            </div>      
+        </div>
+
         <div class="select-btn">
             <a th:href="@{/question/ice}"><button class="question-btn">氷ステージ</button></a>
             <a th:href="@{/question/light}"><button class="question-btn">光ステージ</button></a>
-            <form th:action="@{/chapter/delete}" method="post"><button class="reset-btn">初めから</button></form>
+            <button class="reset-btn">初めから</button>
             <form th:action="@{/chapter/load}" method="post"><button class="load-btn">続きから</button></form>
         </div>
     </main>
+    <script src="../../static/js/main/home.js" th:src="@{/js/main/home.js}"></script>
 </body>
 </html>

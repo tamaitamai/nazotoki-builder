@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/school-question.css" th:href="@{/css/question/school-question.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="school-screan">
+        <audio id="bgm">
+            <source src="../../static/bgm/決定3.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <button id="playBtn">Play BGM</button>
+        <button id="pauseBtn">Pause BGM</button>
+
+        <img src="../../static/image/box-close.png" th:src="@{/image/box-close.png}" class="box-close">        
+
+        <div class="timetable-answer-box">
+            <div class="timetable-answer">
+                <div class="stick"></div>
+                <div class="ball"></div>
+                <div class="stick"></div>
+                <div class="ball"></div>
+                <div class="stick"></div>
+                <div class="ball"></div>
+                <div class="stick"></div>
+                <div class="ball"></div>
+                <div class="stick"></div>
+                <div class="ball"></div>
+            </div>
+            <button class="return-btn">戻る</button>
+        </div>
+
+        <div class="timetable-question-box">
+            <div class="timetable-question">
+                <p>金→国</p>
+                <p>火→数</p>
+                <p>月→物</p>
+                <p>水→体</p>
+                <p>木→日</p>
+            </div>
+        </div>
+
+        <div class="timetable-hint-box">
+            <div class="timetable-hint">
+                <h1>時間割</h1>
+                <table class="timetable-border">
+                    <th>
+                        <td>月曜</td>
+                        <td>火曜</td>
+                        <td>水曜</td>
+                        <td>木曜</td>
+                        <td>金曜</td>
+                    </th>
+                    <tr>
+                        <td>1</td>
+                        <td>数学</td>
+                        <td>国語</td>
+                        <td>日本史</td>
+                        <td>体育</td>
+                        <td>物理</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>数学</td>
+                        <td>国語</td>
+                        <td>日本史</td>
+                        <td>体育</td>
+                        <td>物理</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>数学</td>
+                        <td>国語</td>
+                        <td>日本史</td>
+                        <td>体育</td>
+                        <td>物理</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>数学</td>
+                        <td>国語</td>
+                        <td>日本史</td>
+                        <td>体育</td>
+                        <td>物理</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>数学</td>
+                        <td>国語</td>
+                        <td>日本史</td>
+                        <td>体育</td>
+                        <td>物理</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <script type="module" src="../../static/js/question/school-question.js" th:src="@{/js/question/school-question.js}"></script>
+    <script type="module" src="../../static/js/main/my-item.js" th:src="@{/js/main/my-item.js}"></script>
+</body>
+</html>
