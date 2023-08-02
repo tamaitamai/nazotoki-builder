@@ -36,6 +36,13 @@ public class QuestionController {
 		itemList(0);
 		return "main/move.html";
 	}
+
+	//学校ステージ
+	@GetMapping("/school")
+	public String schoolQuestion() {		
+		itemList(1);
+		return "question/school-question";
+	}
 	
 	//暗闇ステージ
 	@GetMapping("/light")

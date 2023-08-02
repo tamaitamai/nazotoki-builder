@@ -11,8 +11,24 @@ $(function(){
 
     $.ajax({
         type: 'post',
+        url: '/option',
+        success: function(response){
+            var commentSpeed=response.commentSpeed;
+            var level=(100-commentSpeed)/10;
+            $('.option-ball').css('left',0+level*20);
+            $('.speed-value').val(commentSpeed);
+        }
+    })
+
+    $.ajax({
+        type: 'post',
         url: '/story/getStory',
         success: function(response){
+            var speedVal=parseInt($('.speed-value').val());
+            if(isNaN(speedVal)){
+                speedVal=30;
+            }
+
             for(let i=0;i<response.length;i++){
                 var name=$('<p>').addClass('story-name').text(response[i].name);
                 $('.story-names').append(name);
@@ -34,11 +50,17 @@ $(function(){
                 if (currentIndex === commentText.length) {
                 clearInterval(interval);
                 }
-            }, 30);
+            }, speedVal);
         }
     })
 
     $(document).on('click', '.story-comment', function (){
+        var speedVal=parseInt($('.speed-value').val());
+        if(isNaN(speedVal)){
+            speedVal=30;
+        }
+        console.log(speedVal);
+        
         var commentNum=$('.story-comment').index($(this));   
         var nextCommentText=$(this).next().text();  
         $(this).next().text('');
@@ -62,7 +84,7 @@ $(function(){
             if (currentIndex === nextCommentText.length) {
             clearInterval(interval);
             }
-        }, 30);
+        }, speedVal);
 
     })
 })

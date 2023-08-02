@@ -30,12 +30,17 @@
                 </div>
             </div>      
         </div>
-
         <div class="select-btn">
+            <a th:href="@{/question/school}"><button class="question-btn">学校ステージ</button></a>
             <a th:href="@{/question/ice}"><button class="question-btn">氷ステージ</button></a>
             <a th:href="@{/question/light}"><button class="question-btn">光ステージ</button></a>
             <button class="reset-btn">初めから</button>
-            <form th:action="@{/chapter/load}" method="post"><button class="load-btn">続きから</button></form>
+            <!-- <form th:action="@{/chapter/load}" data-url="@{/chapter/load}" method="post" class="load-url">
+                <button class="load-btn">続きから</button></form> -->
+            <form th:action="@{/chapter/load}" method="post" class="load-url">
+                <input type="hidden" id="chapterLoadUrl" th:value="@{/chapter/load}" />
+                <button class="load-btn">続きから</button>
+            </form>
         </div>
     </main>
     <script src="../../static/js/main/home.js" th:src="@{/js/main/home.js}"></script>

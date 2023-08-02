@@ -11,11 +11,38 @@
     <div class="menu-box"><p>メニュー</p></div>
     <div class="menu-screan">
         <div class="menu-list">
-            <p th:text="'ユーザー名'+${session.userLogin.name}" class="login-name">ユーザー名：名前</p>
+            <div th:unless="${session.userLogin==null}">
+                <p th:text="'ユーザー名'+${session.userLogin.name}" class="login-name">ユーザー名：名前</p>
+            </div>            
             <form th:action="@{/user/logOut}" method="post"><button class="menu-btn">ログアウト</button></form>
             <a th:href="@{/main/home}"><button class="menu-btn">ホーム画面へ</button></a>
+            <button class="menu-btn option">オプション</button>
+            <button class="menu-btn close-menu">閉じる</button>
         </div>
     </div>
+
+    <div class="option-screan">
+        <div class="option-list">
+            <h1>オプション</h1>
+            <h2>文字スピード</h2>
+            <div class="comment-speed">
+                <p class="option-down">-</p>                
+                <div class="option-meter">
+                    <div class="option-ball"></div>
+                </div>
+                <p class="option-up">+</p>
+            </div>
+            <div class="option-btn">
+                <button class="menu-btn return-menu-btn">戻る</button>
+                <button class="menu-btn option-update">適用</button>    
+            </div>
+        </div>
+    </div>
+
+    <div class="state-box">
+        <p class="state-explanation"></p>
+    </div>
+
     <script src="../../static/js/main/menu.js" th:src="@{/js/main/menu.js}"></script>
 </body>
 </html>

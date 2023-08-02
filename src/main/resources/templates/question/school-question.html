@@ -8,15 +8,9 @@
     <title>Document</title>
 </head>
 <body>
+    <html th:insert="~{/main/menu :: frag_menu}"></html>
+    <!-- <html th:insert="~{/main/story :: frag_story}"></html> -->
     <div class="school-screan">
-        <audio id="bgm">
-            <source src="../../static/bgm/決定3.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        
-        <button id="playBtn">Play BGM</button>
-        <button id="pauseBtn">Pause BGM</button>
-
         <img src="../../static/image/box-close.png" th:src="@{/image/box-close.png}" class="box-close">        
 
         <div class="timetable-answer-box">
@@ -101,7 +95,17 @@
             </div>
         </div>
 
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>
+
     </div>
+
+    <div class="school-screan">
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>
+
+    </div>
+
     <script type="module" src="../../static/js/question/school-question.js" th:src="@{/js/question/school-question.js}"></script>
     <script type="module" src="../../static/js/main/my-item.js" th:src="@{/js/main/my-item.js}"></script>
 </body>

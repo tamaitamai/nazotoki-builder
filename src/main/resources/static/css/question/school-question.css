@@ -4,16 +4,17 @@
     right: 0px;
     bottom: 0px;
     left: 0px;
-    background-image: url(../../image/main/school-room-main.jpg);
+    /* background-image: url(../image/main/school-room-main.jpg); */
+    background-image: url(../../image/main/school-room-main2.jpg);
     background-size: cover;
 }
 
 .box-close{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: 230px;
-    left: 1320px;
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    top: 260px;
+    right: 140px;
 }
 
 .timetable-question-box,.timetable-hint-box,.timetable-answer-box{
@@ -92,7 +93,7 @@ table {
     background-color: red;
     width: 50px;
     height: 50px;
-    transition: all 0.1s ease;
+    /* transition: all 0.1s ease; */
 }
 
 .stick{
@@ -118,5 +119,18 @@ table {
     opacity: 0.8;
 }
 
+.left-screan, .right-screan{
+    font-size: 120px;
+}
 
+.left-screan{
+    position: fixed;
+    top: 250px;
+    left: -50px;
+}
 
+.right-screan{
+    position: fixed;
+    top: 250px;
+    right: -50px;
+}

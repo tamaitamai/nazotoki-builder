@@ -53,11 +53,13 @@ public class ChapterController {
 		User user = (User) session.getAttribute("userLogin");
 		Save save=chapterService.saveLoad(user.getId());
 		if(save==null) {
-			return "redirect:/question/light";	
+			return "redirect:/question/school";	
 		}else {
 			return "redirect:/question/"+save.getUrl();
 		}	
 	}
+	
+
 
 	/**
 	 * データを削除
@@ -67,6 +69,6 @@ public class ChapterController {
 	public String delete() {
 		User user = (User) session.getAttribute("userLogin");
 		chapterService.saveDelete(user.getId());
-		return "redirect:/question/light";
+		return "redirect:/question/school";
 	}
 }
