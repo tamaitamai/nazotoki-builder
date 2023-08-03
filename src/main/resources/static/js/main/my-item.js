@@ -114,3 +114,52 @@ export function unionSelect(unionId){
         }
     } 
 }
+
+//アイテムを変化させる
+export function changeItem(changeId){
+    var postData={
+        changeId: changeId
+    }
+
+    $.ajax({
+        type: 'post',
+        url: '/item/changeItem',
+        data: postData
+    })
+
+    var itemId=$('.item-select').attr('item-id');
+    deleteItem();
+    hideItem(itemId);
+}
+
+//削除番号
+export let deleteNum='';
+
+//アイテム削除
+export function deleteItem(){
+    for(let i=0;i<$('.get-image').length;i++){
+        if($('.get-image').eq(i).attr('value')==1){
+            var itemId=$('.get-image').eq(i).attr('item-id');
+            var myItemId=$('.get-image').eq(i).attr('my-item-id');
+            deleteNum=i;
+            $('.get-border').eq(i).css('border','none');
+            $('.get-image').eq(i).attr('value',0);
+        }
+    }
+    
+    var postData={
+        itemId: itemId,
+        myItemId: myItemId
+    }
+    
+    $.ajax({
+        type: 'post',
+        url: '/item/deleteMyItem',
+        data: postData,
+        success: function(response){ 
+            myItemList(response);
+        }
+    })
+    $('.item-select').hide();
+}
+

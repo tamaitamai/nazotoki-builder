@@ -1,6 +1,5 @@
-import {deleteItem} from '../main/delete-item.js';
 import {hideItem,objectPostion,DoubleObjectPosition,objectSize,itemCheck,
-    myItemList,objectHide,unionSelect} from '../main/my-item.js';
+    myItemList,objectHide,unionSelect,deleteItem} from '../main/my-item.js';
 import { chapterSave } from '../main/save.js';
 $(function(){
     objectHide('.ice');

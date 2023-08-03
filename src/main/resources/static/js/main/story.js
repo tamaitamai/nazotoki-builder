@@ -1,14 +1,48 @@
+//文字送りスピード
+export function storySpeed($storyComment,commentText){
+    var speedVal=parseInt($('.speed-value').val());
+    if(isNaN(speedVal)){
+        speedVal=30;
+    }
+
+    let currentIndex = 0;
+    let interval = setInterval(function() {                
+        const animatedText = commentText.slice(0, currentIndex + 1);
+        $storyComment.text(animatedText);
+        currentIndex++;
+
+        if (currentIndex === commentText.length) {
+            clearInterval(interval);
+        }
+    }, speedVal);        
+};
+
 $(function(){
+    //キャラクターの確保
     $.ajax({
         type: 'post',
         url: '/story/getCharacter',
         success: function(response){
             console.log(response);
-            $('.character1').attr('src','/image/'+response[0].image);
-            $('.character2').attr('src','/image/'+response[1].image);
+            for(let i=0;i<response.length;i++){
+                var img=$('<img>').attr('src','/image/'+response[i].image).addClass('character');
+                $('.character-list').append(img);
+            }
+            $('.character').eq(0).css({
+                position: 'fixed',
+                bottom: 20+'px',
+                left: 200+'px'
+            })
+
+            $('.character').eq(1).css({
+                position: 'fixed',
+                bottom: 20+'px',
+                right: 200+'px'
+            })
         }
     })
 
+    //オプション情報の入手
     $.ajax({
         type: 'post',
         url: '/option',
@@ -20,15 +54,11 @@ $(function(){
         }
     })
 
+    //セリフ一覧を確保
     $.ajax({
         type: 'post',
         url: '/story/getStory',
         success: function(response){
-            var speedVal=parseInt($('.speed-value').val());
-            if(isNaN(speedVal)){
-                speedVal=30;
-            }
-
             for(let i=0;i<response.length;i++){
                 var name=$('<p>').addClass('story-name').text(response[i].name);
                 $('.story-names').append(name);
@@ -41,26 +71,12 @@ $(function(){
             var $storyComment=$('.story-comment').eq(0);
             var commentText=$('.story-comment').eq(0).text();
 
-            let currentIndex = 0;
-            let interval = setInterval(function() {                
-                const animatedText = commentText.slice(0, currentIndex + 1);
-                $storyComment.text(animatedText);
-                currentIndex++;
-    
-                if (currentIndex === commentText.length) {
-                clearInterval(interval);
-                }
-            }, speedVal);
+            storySpeed($storyComment,commentText)
         }
     })
 
+    //セリフを読んでいく
     $(document).on('click', '.story-comment', function (){
-        var speedVal=parseInt($('.speed-value').val());
-        if(isNaN(speedVal)){
-            speedVal=30;
-        }
-        console.log(speedVal);
-        
         var commentNum=$('.story-comment').index($(this));   
         var nextCommentText=$(this).next().text();  
         $(this).next().text('');
@@ -75,16 +91,6 @@ $(function(){
             $('.story-name').not($('.story-name').eq(commentNum).next()).hide();
         }     
 
-        let currentIndex = 0;
-        let interval = setInterval(function() {                
-            const animatedText = nextCommentText.slice(0, currentIndex + 1);
-            $storyComment.text(animatedText);
-            currentIndex++;
-
-            if (currentIndex === nextCommentText.length) {
-            clearInterval(interval);
-            }
-        }, speedVal);
-
+        storySpeed($storyComment,nextCommentText);
     })
 })

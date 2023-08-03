@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.ChapterCharacter;
 import com.example.domain.DeleteItem;
 import com.example.domain.Item;
 import com.example.domain.MyItem;
 import com.example.domain.User;
 import com.example.service.ItemService;
+import com.example.service.StoryService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,8 +41,17 @@ public class QuestionController {
 
 	//学校ステージ
 	@GetMapping("/school")
-	public String schoolQuestion() {		
+	public String schoolQuestion() {
 		itemList(1);
+		Integer change=itemService.changeItemLoad(2);
+		session.setAttribute("boxChange", change);
+		change=itemService.changeItemLoad(3);
+		session.setAttribute("lockerChange", change);
+		change=itemService.changeItemLoad(4);
+		session.setAttribute("boxChange2", change);
+		change=itemService.changeItemLoad(5);
+		session.setAttribute("doorChange", change);
+
 		return "question/school-question";
 	}
 	

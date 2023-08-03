@@ -69,12 +69,11 @@ public class StoryController {
 		if(chapterId==null) {
 			chapterId=5;
 		}
-		ChapterCharacter chapterCharacter=storyService.chapterCharacterLoad(chapterId);
 		List<Character> characterList=new ArrayList<>();
-		Character character1=storyService.characterLoad(chapterCharacter.getCharacterId1());
-		characterList.add(character1);
-		Character character2=storyService.characterLoad(chapterCharacter.getCharacterId2());
-		characterList.add(character2);
+		List<ChapterCharacter> chapterCharactersList=storyService.chapterCharacterLoad(chapterId);
+		for(int i=0;i<chapterCharactersList.size();i++) {
+			characterList.add(storyService.characterLoad(chapterCharactersList.get(i).getCharacterId()));
+		}
 		return characterList;
 	}
 }

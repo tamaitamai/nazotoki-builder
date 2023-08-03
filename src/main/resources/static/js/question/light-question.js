@@ -1,5 +1,4 @@
-import { deleteItem } from '../main/delete-item.js';
-import { hideItem ,objectPostion} from '../main/my-item.js';
+import { changeItem, hideItem ,objectPostion, deleteItem} from '../main/my-item.js';
 import { chapterSave } from '../main/save.js';
 
 $(function(){  
@@ -84,17 +83,8 @@ $(function(){
             deleteItem();
             var itemId=$('.get-image').eq(onNum).attr('item-id');
             hideItem(itemId);
-            var changeId=$(this).attr('change');
-            
-            var postData={
-                changeId: changeId
-            }
-
-            $.ajax({
-                type: 'post',
-                url: '/item/changeItem',
-                data: postData
-            })
+            var changeId=$(this).attr('change');            
+            changeItem(changeId);
         }
     })
 

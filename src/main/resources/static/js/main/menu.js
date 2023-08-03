@@ -73,11 +73,11 @@ $(function(){
 
         $('.option-screan').hide();
         $('.menu-screan').show();
- 
+        $('.speed-value').val(newCommentSpeed);
     })
 
     //状態表示を閉じる
-    $('.state-box').click(function(){
-        $('.state-box').hide();
+    $('.state').click(function(){
+        $('.state').hide();
     })
 })

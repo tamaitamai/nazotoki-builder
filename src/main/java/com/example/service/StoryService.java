@@ -50,7 +50,7 @@ public class StoryService {
 	 * @param chapterId
 	 * @return
 	 */
-	public ChapterCharacter chapterCharacterLoad(Integer chapterId) {
+	public List<ChapterCharacter> chapterCharacterLoad(Integer chapterId) {
 		return storyRepository.chapterCharacterLoad(chapterId);
 	}
 

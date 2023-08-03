@@ -146,7 +146,6 @@ public class ItemController {
 	@PostMapping("/changeItem")
 	@ResponseBody
 	public void changeItem(@RequestParam("changeId") Integer changeId) {
-		System.out.println("change");
 		itemService.changeItemUpdate(changeId);
 	}
 	

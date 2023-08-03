@@ -8,11 +8,23 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- <html th:insert="~{/main/loading :: frag_loading}"></html> -->
+    <html th:insert="~{/main/story :: frag_story}"></html>
     <html th:insert="~{/main/menu :: frag_menu}"></html>
-    <!-- <html th:insert="~{/main/story :: frag_story}"></html> -->
-    <div class="school-screan">
-        <img src="../../static/image/box-close.png" th:src="@{/image/box-close.png}" class="box-close">        
 
+    <!-- 画面1 -->
+    <div class="school-screan">
+        <!-- ロッカーの鍵が入っている箱 -->
+        <div th:each="item:${session.itemList}">
+            <div th:if="${item.genre=='box-locker'}">
+                <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" th:change="${item.changeId}">
+            </div>
+        </div>
+        
+        <input type="hidden" class="box-change" th:value="${session.boxChange}">
+        <input type="hidden" class="locker-change" th:value="${session.lockerChange}">
+
+        <!-- 解答 -->
         <div class="timetable-answer-box">
             <div class="timetable-answer">
                 <div class="stick"></div>
@@ -26,9 +38,19 @@
                 <div class="stick"></div>
                 <div class="ball"></div>
             </div>
+
+            <div class="box-open">
+                <div th:each="item:${session.itemList}">
+                    <div th:if="${item.genre=='locker-key item'}">
+                        <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                        th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                    </div>
+                </div>        
+            </div>
             <button class="return-btn">戻る</button>
         </div>
 
+        <!-- 問 -->
         <div class="timetable-question-box">
             <div class="timetable-question">
                 <p>金→国</p>
@@ -39,6 +61,7 @@
             </div>
         </div>
 
+        <!-- ヒント -->
         <div class="timetable-hint-box">
             <div class="timetable-hint">
                 <h1>時間割</h1>
@@ -100,12 +123,123 @@
 
     </div>
 
+    <!-- 画面2 -->
     <div class="school-screan">
         <div class="left-screan">《</div>
         <div class="right-screan">》</div>
 
-    </div>
+        <input type="hidden" class="box-change2" th:value="${session.boxChange2}">
+        <input type="hidden" class="door-change" th:value="${session.doorChange}">
+        <input type="hidden" class="door-url" th:value="@{/question/ice}">
 
+        <!-- ドアの鍵が入っている箱 -->
+        <div th:each="item:${session.itemList}">
+            <div th:if="${item.genre=='box-door'}">
+                <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" th:change="${item.changeId}">
+            </div>
+        </div>
+
+        <!-- 問 -->
+        <div class="locker-question-box">
+            <div class="locker-question">
+                <table>
+                    <tr>
+                        <td>教科</td>
+                        <td>時間</td>
+                        <td>持ち物</td>
+                        <td>内容</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- 解答 -->
+        <div class="locker-answer-box">
+            <div class="locker-answer">
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+                <div class="stick-btn"></div>
+            </div>
+            <button class="return-btn">戻る</button>
+
+            <div class="box-open2">
+                <div th:each="item:${session.itemList}">
+                    <div th:if="${item.genre=='door-key item'}">
+                        <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                        th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                    </div>
+                </div>                        
+            </div>
+    
+        </div>
+
+        <!-- ヒント -->
+        <div class="locker-hint-box">
+            <div class="locker-hint">
+                <table>
+                    <tr>
+                        <td colspan="4">タイトル</td>
+                    </tr>
+                    <tr>
+                        <td>時</td>
+                        <td>教科</td>
+                        <td>内容</td>
+                        <td>持ち物</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>国語</td>
+                        <td>現代文</td>
+                        <td>なし</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>数学</td>
+                        <td></td>
+                        <td>計算機</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>日本史</td>
+                        <td>どっかの時代</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>体育</td>
+                        <td></td>
+                        <td>ボール</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td></td>
+                        <td>演習</td>
+                        <td>なし</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    
+    <html th:insert="~{/main/item-box :: frag_item}"></html>
     <script type="module" src="../../static/js/question/school-question.js" th:src="@{/js/question/school-question.js}"></script>
     <script type="module" src="../../static/js/main/my-item.js" th:src="@{/js/main/my-item.js}"></script>
 </body>

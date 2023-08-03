@@ -4,7 +4,7 @@ $(document).ready(function() {
       loadingScreen.style.display = "none";
     }
     
-    setTimeout(removeLoadingScreen, 2000);
+    setTimeout(removeLoadingScreen, 1000);
 
     const images=[];
     const names=[];

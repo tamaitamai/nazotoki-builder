@@ -40,8 +40,7 @@ public class StoryRepository {
 	private static final RowMapper<ChapterCharacter> CHAPTER_CHARACTER_ROW_MAPPER=(rs,i)->{
 		ChapterCharacter chapterCharacter=new ChapterCharacter();
 		chapterCharacter.setId(rs.getInt("id"));
-		chapterCharacter.setCharacterId1(rs.getInt("character_id1"));
-		chapterCharacter.setCharacterId2(rs.getInt("character_id2"));
+		chapterCharacter.setCharacterId(rs.getInt("character_id"));
 		chapterCharacter.setChapterId(rs.getInt("chapter_id"));
 		return chapterCharacter;
 	};
@@ -85,10 +84,17 @@ public class StoryRepository {
 	 * @param chapterId
 	 * @return
 	 */
-	public ChapterCharacter chapterCharacterLoad(Integer chapterId) {
-		String sql="select id,character_id1,character_id2,chapter_id from chapter_characters where chapter_id=:chapterId;";
+//	public ChapterCharacter chapterCharacterLoad(Integer chapterId) {
+//		String sql="select id,character_id1,character_id2,chapter_id from chapter_characters where chapter_id=:chapterId;";
+//		SqlParameterSource param=new MapSqlParameterSource("chapterId",chapterId);
+//		ChapterCharacter chapterCharacter=template.queryForObject(sql, param, CHAPTER_CHARACTER_ROW_MAPPER);
+//		return chapterCharacter;
+//	}
+	public List<ChapterCharacter> chapterCharacterLoad(Integer chapterId) {
+		String sql="select id,character_id,chapter_id from chapter_characters where chapter_id=:chapterId;";
 		SqlParameterSource param=new MapSqlParameterSource("chapterId",chapterId);
-		ChapterCharacter chapterCharacter=template.queryForObject(sql, param, CHAPTER_CHARACTER_ROW_MAPPER);
-		return chapterCharacter;
+		List<ChapterCharacter> chapterCharacterList=template.query(sql, param, CHAPTER_CHARACTER_ROW_MAPPER);
+		return chapterCharacterList;
 	}
+
 }

@@ -9,15 +9,17 @@
     background-size: cover;
 }
 
-.box-close{
+.box-locker{
     width: 70px;
     height: 70px;
     position: fixed;
     top: 260px;
     right: 140px;
+    cursor: pointer;
 }
 
-.timetable-question-box,.timetable-hint-box,.timetable-answer-box{
+.timetable-question-box,.timetable-hint-box,.timetable-answer-box,
+.locker-answer-box,.locker-hint-box,.locker-question-box{
     position: fixed;
     top: 0px;
     right: 0px;
@@ -45,7 +47,7 @@
     font-size: 20px;
 }
 
-.timetable-hint{
+.timetable-hint,.locker-hint,.locker-question{
     background-image: url(../../image/main/white-paper.jpg);
     display: flex;
     justify-content: center;
@@ -76,7 +78,7 @@ table {
     border-spacing: 0;
 }
 
-.timetable-answer{
+.timetable-answer,.box-open,.locker-answer,.box-open2{
     display: flex;
     position: fixed;
     top: 25%;
@@ -86,6 +88,15 @@ table {
     padding: 20px;
     background-image: url(../../image/main/wood1.jpg);
     border-radius: 20px;       
+}
+
+.box-open,.box-open2{
+    display: none;  
+}
+
+.locker-key,.door-key{
+    width: 100px;
+    height: 150px;
 }
 
 .ball{
@@ -133,4 +144,35 @@ table {
     position: fixed;
     top: 250px;
     right: -50px;
+}
+
+.box-door{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    top: 410px; 
+    left: 905px;
+    cursor: pointer;
+}
+
+.locker-answer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.stick-btn{
+    flex: auto;
+    width: 20%;
+    height: 20px;
+    background-color: white;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.locker-question{
+    top: 40%;
+    left: 30%;
+    background-image: url(../../image/main/grey-paper.jpg);
 }
