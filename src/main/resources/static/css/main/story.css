@@ -4,7 +4,7 @@
     right: 0px;
     bottom: 0px;
     left: 0px;
-    background-image: url(../../image/cave.jpg);
+    background-image: url(../../image/main/cave.jpg);
     background-size: cover;
     z-index: 50;
 }
@@ -42,7 +42,19 @@
     font-size: 20px;
 }
 
-#animated-text{
-    font-size: 50px;
+.skip{
+    position: fixed;
+    top: 50px;
+    right: 100px;
+    padding: 10px;
+    font-size: 20px;
     color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0,0.8);
+    border: 1px solid white;
+}
+
+.skip:hover{
+    opacity: 0.7;
 }

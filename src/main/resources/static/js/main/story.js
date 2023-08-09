@@ -18,12 +18,22 @@ export function storySpeed($storyComment,commentText){
 };
 
 $(function(){
+    $('.story-screan').css('background-image','url(/image/main/'+$('.background-story').val()+')');
+
+    $('.skip').click(function(){
+        $('.story-screan').hide();
+
+        $.ajax({
+            type: 'post',
+            url: '/story/readStory'
+        })
+    })
+
     //キャラクターの確保
     $.ajax({
         type: 'post',
         url: '/story/getCharacter',
         success: function(response){
-            console.log(response);
             for(let i=0;i<response.length;i++){
                 var img=$('<img>').attr('src','/image/'+response[i].image).addClass('character');
                 $('.character-list').append(img);
@@ -84,6 +94,10 @@ $(function(){
 
         if($('.story-comment').length-1==commentNum){
             $('.story-screan').hide();
+            $.ajax({
+                type: 'post',
+                url: '/story/readStory'
+            })    
         }else{
             $(this).next().show();        
             $('.story-name').eq(commentNum).next().show();    

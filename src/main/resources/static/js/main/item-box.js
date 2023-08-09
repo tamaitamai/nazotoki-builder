@@ -164,8 +164,7 @@ $(function(){
         }
     })
 
-    //新しくアイテムを手に入れたときの表示用
-    $('.item').click(function(){
+    $(document).on('click','.item',function(){
         var id=$(this).attr('item-id');
     
         $(this).hide();
@@ -184,6 +183,15 @@ $(function(){
                 myItemList(response);
             }
         })
+
+        if($(this).hasClass('move')){                        
+            $(this).removeClass('move');
+            $.ajax({
+                type: 'post',
+                url: '/item/moveItemDelete',
+                data: postData             
+            })
+        }
+
     });
-    
 })

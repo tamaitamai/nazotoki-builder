@@ -12,7 +12,7 @@ main{
 }
 
 .ice-stage{
-    background-image: url('../../image/cave.jpg');
+    background-image: url('../../image/main/cave.jpg');
     background-size: 1000px 500px;
     width: 1000px;
     height: 500px;

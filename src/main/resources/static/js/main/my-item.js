@@ -161,5 +161,6 @@ export function deleteItem(){
         }
     })
     $('.item-select').hide();
+    $('.item-select').attr('class','item-select');
 }
 

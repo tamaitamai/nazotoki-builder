@@ -84,12 +84,6 @@ public class StoryRepository {
 	 * @param chapterId
 	 * @return
 	 */
-//	public ChapterCharacter chapterCharacterLoad(Integer chapterId) {
-//		String sql="select id,character_id1,character_id2,chapter_id from chapter_characters where chapter_id=:chapterId;";
-//		SqlParameterSource param=new MapSqlParameterSource("chapterId",chapterId);
-//		ChapterCharacter chapterCharacter=template.queryForObject(sql, param, CHAPTER_CHARACTER_ROW_MAPPER);
-//		return chapterCharacter;
-//	}
 	public List<ChapterCharacter> chapterCharacterLoad(Integer chapterId) {
 		String sql="select id,character_id,chapter_id from chapter_characters where chapter_id=:chapterId;";
 		SqlParameterSource param=new MapSqlParameterSource("chapterId",chapterId);
@@ -97,4 +91,39 @@ public class StoryRepository {
 		return chapterCharacterList;
 	}
 
+	/**
+	 * 既読済みかを判定
+	 * @param userId
+	 * @param chapterId
+	 * @return
+	 */
+	public boolean readStoryLoad(Integer userId,Integer chapterId) {
+		String sql="select exists(select from read_storys where user_id=:userId and chapter_id=:chapterId);";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId).addValue("chapterId", chapterId);
+		boolean exists=template.queryForObject(sql, param, boolean.class);
+		return exists;
+	}
+	
+	/**
+	 * 既読をつける
+	 * @param userId
+	 * @param chapterId
+	 */
+	public void readStoryInsert(Integer userId,Integer chapterId) {
+		String sql="insert into read_storys(user_id,chapter_id)values(:userId,:chapterId);";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId).addValue("chapterId", chapterId);
+		template.update(sql, param);
+	}
+	
+	/**
+	 * 各ステージの背景情報を取得
+	 * @param chapterId
+	 * @return
+	 */
+	public String backgroundStoryLoad(Integer chapterId) {
+		String sql="select image from background_storys where chapter_id=:chapterId;";
+		SqlParameterSource param=new MapSqlParameterSource("chapterId",chapterId);
+		String image=template.queryForObject(sql, param, String.class);
+		return image;
+	}
 }

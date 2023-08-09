@@ -1,5 +1,6 @@
 import { changeItem, hideItem, objectPostion, deleteItem} from "../main/my-item.js";
 import { storySpeed } from "../main/story.js";
+import { leftScrean, rightScrean, screanCurcor } from "./my-question.js";
 
 export function boxOpen(){
     var ballTop=220;
@@ -20,6 +21,8 @@ $(function(){
     $('.school-screan').eq(1).css('background-image','url(/image/main/school-room-main2.jpg)');
     $('.school-screan').not($('.school-screan').eq(0)).hide();
 
+    // $('.box-open,.box-open2').show();
+
     objectPostion('.item',0,70,200);
     objectPostion('.item',1,70,200);
 
@@ -35,33 +38,21 @@ $(function(){
     objectPostion('.ball',3,220,350);
     objectPostion('.ball',4,220,450);
 
-    if($('.box-change').val()==1){
+    if($('.box-change').val()=='true'){
         $('.box-open').show();   
     }
 
-    if($('.box-change2').val()==1){
+    if($('.box-change2').val()=='true'){
         $('.box-open2').show();   
     }
 
     //画面1の場合
-    $(".school-screan").eq(0).on("mousemove", function(e) {
-        var parentOffset = $(this).offset();
-        var relX = e.pageX - parentOffset.left;
-        var relY = e.pageY - parentOffset.top;
-
-        if(!$('.timetable-question').is(':visible') &&
-        !$('.timetable-hint').is(':visible') &&
-        !$('.timetable-answer').is(':visible')){
-            if ((relX > 1000 && relX < 1100 && relY > 80 && relY < 200) ||
-            (relX > 800 && relX < 1000 && relY > 150 && relY < 300)) {
-                $(this).css('cursor','pointer');
-            }else{
-                $(this).css('cursor','');
-            }
-        }else{
-            $(this).css('cursor','');
-        }
-    });
+    const xmin=[1000,800];
+    const xmax=[1100,1000];
+    const ymin=[80,150];
+    const ymax=[200,300];
+    const visible=['.timetable-question','.timetable-hint','.timetable-answer'];    
+    screanCurcor('.school-screan',0,xmin,xmax,ymin,ymax,visible);
 
     $(".school-screan").eq(0).on("click", function(e) {
         var parentOffset = $(this).offset();
@@ -80,26 +71,14 @@ $(function(){
         }
     });
     
-    //画面2の場合
-    $(".school-screan").eq(1).on("mousemove", function(e) {
-        var parentOffset = $(this).offset();
-        var relX = e.pageX - parentOffset.left;
-        var relY = e.pageY - parentOffset.top;
+    //画面2の場合    
+    const xmin2=[320,220,550];
+    const xmax2=[400,280,850];
+    const ymin2=[300,300,270];
+    const ymax2=[500,500,400];
+    const visible2=['.locker-question','.locker-hint','.locker-answer'];    
+    screanCurcor('.school-screan',1,xmin2,xmax2,ymin2,ymax2,visible2);
 
-        if(!$('.locker-question').is(':visible') &&
-        !$('.locker-hint').is(':visible') &&
-        !$('.locker-answer').is(':visible')){
-            if ((relX > 320 && relX < 400 && relY > 300 && relY < 500) ||
-            (relX > 220 && relX < 280 && relY > 300 && relY < 500) ||
-            (relX > 550 && relX < 850 && relY > 270 && relY < 400)) {
-                $(this).css('cursor','pointer');
-            }else{
-                $(this).css('cursor','');
-            }
-        }else{
-            $(this).css('cursor','');
-        }
-    });
 
     $(document).on('click','.school-screan:eq(1)', function(e) {
         var parentOffset = $(this).offset();
@@ -111,7 +90,7 @@ $(function(){
         !$('.locker-answer').is(':visible')){
             // クリックした位置の座標を利用して特定の範囲内の場合にのみイベントを起こす
             if ((relX > 300 && relX < 500 && relY > 300 && relY < 500)) {//ロッカーのイベント 
-                if($('.locker-change').val()==1){
+                if($('.locker-change').val()=='true'){
                     $('.locker-question-box').show();
                 }else{
                     if($('.item-select').hasClass('locker-key')){
@@ -119,14 +98,14 @@ $(function(){
                         $('.state').show();        
                         var changeId=$('.locker-key').attr('change');
                         changeItem(changeId);  
-                        $('.locker-change').val(1);
+                        $('.locker-change').val('true');
                     }else{
                         storySpeed($('.state'),'ローカーには鍵が掛かっているようだ');
                         $('.state').show();                                                
                     }
                 }
             }else if((relX > 220 && relX < 280 && relY > 300 && relY < 500)){//ドアのイベント
-                if($('.door-change').val()==1){
+                if($('.door-change').val()=='true'){
                     storySpeed($('.state'),'ここから出られる');
                     $('.state').show();   
                     var dataUrl = $('.door-url').val();
@@ -141,7 +120,7 @@ $(function(){
                     if($('.item-select').hasClass('door-key')){
                         storySpeed($('.state'),'ドアの鍵が開いた');
                         $('.state').show();   
-                        $('.door-change').val(1);
+                        $('.door-change').val('true');
                         var changeId=$('.door-key').attr('change');
                         changeItem(changeId);  
                     }else{
@@ -228,42 +207,7 @@ $(function(){
         $('.locker-answer-box').hide();
     })
 
-    //右側のスクリーンにスクロール
-    $('.right-screan').click(function(){
-        var screanNum='';
-        var screanLength=$('.school-screan').length;
-        console.log(screanLength);
-        for(let i=0;i<screanLength;i++){
-            if($('.school-screan').eq(i).is(':visible')){
-                if(i==screanLength-1){
-                    screanNum=0;
-                }else{
-                    screanNum=i+1;
-                }                
-                break;
-            }
-        }       
-        $('.school-screan').hide();
-        $('.school-screan').eq(screanNum).show();
-    })
-
-    //左側のスクリーンにスクロール
-    $('.left-screan').click(function(){
-        var screanNum='';
-        var screanLength=$('.school-screan').length;
-        console.log(screanLength);
-        for(let i=0;i<screanLength;i++){
-            if($('.school-screan').eq(i).is(':visible')){
-                if(i==0){
-                    screanNum=screanLength-1;
-                }else{
-                    screanNum=i-1;
-                }                
-                break;
-            }
-        }       
-        $('.school-screan').hide();
-        $('.school-screan').eq(screanNum).show();
-    })
+    rightScrean('.school-screan');
+    leftScrean('.school-screan');
 
 })

@@ -8,11 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="story-screan">
-        <div class="character-list"></div>
-        <div class="story-names"></div>
-        <div class="story-comments"></div>
-    </div>   
+    
+    <div th:unless="${session.read}">
+        <div class="story-screan">
+            <input type="hidden" class="background-story" th:value="${session.backgroundStory}">
+            <div class="character-list"></div>
+            <div class="story-names"></div>
+            <div class="story-comments"></div>
+            <p class="skip">スキップ</p>
+        </div>   
+    </div>
+    
     <input type="hidden" class="speed-value"> 
     <script type="module" src="../../static/js/main/story.js" th:src="@{/js/main/story.js}"></script>
 </body>

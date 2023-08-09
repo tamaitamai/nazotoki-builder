@@ -65,7 +65,7 @@ $(function(){
     })
 
     //ドアの表示
-    if($('.door-change').val()==1){
+    if($('.door-change').val()=='true'){
         $('.close-door').hide();
         $('.open-door').show();    
     }

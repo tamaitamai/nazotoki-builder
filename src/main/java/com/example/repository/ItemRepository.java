@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.DeleteItem;
 import com.example.domain.Item;
+import com.example.domain.MoveItem;
 import com.example.domain.MyItem;
 import com.example.domain.UnionItem;
 
@@ -47,16 +48,16 @@ public class ItemRepository {
 		return myItem;
 	};
 
-	private static RowMapper<DeleteItem> DELETE_ITEM_ROW_MAPPER=(rs,i)->{
-		DeleteItem deleteItem=new DeleteItem();
+	private static RowMapper<DeleteItem> DELETE_ITEM_ROW_MAPPER = (rs, i) -> {
+		DeleteItem deleteItem = new DeleteItem();
 		deleteItem.setId(rs.getInt("id"));
 		deleteItem.setItemId(rs.getInt("item_id"));
 		deleteItem.setUserId(rs.getInt("user_id"));
 		return deleteItem;
 	};
-	
-	private static RowMapper<UnionItem> UNION_ITEM_ROW_MAPPER=(rs,i)->{
-		UnionItem unionItem=new UnionItem();
+
+	private static RowMapper<UnionItem> UNION_ITEM_ROW_MAPPER = (rs, i) -> {
+		UnionItem unionItem = new UnionItem();
 		unionItem.setId(rs.getInt("id"));
 		unionItem.setName(rs.getString("name"));
 		unionItem.setImage(rs.getString("image"));
@@ -65,7 +66,24 @@ public class ItemRepository {
 		unionItem.setGenre(rs.getString("genre"));
 		return unionItem;
 	};
-	
+
+	private static final RowMapper<MoveItem> MOVE_ITEM_ROW_MAPPER = (rs, i) -> {
+		MoveItem moveItem = new MoveItem();
+		moveItem.setId(rs.getInt("id"));
+		moveItem.setName(rs.getString("name"));
+		moveItem.setImage(rs.getString("image"));
+		moveItem.setExplanation(rs.getString("explanation"));
+		moveItem.setChapterId(rs.getInt("chapter_id"));
+		moveItem.setUnionId(rs.getInt("union_id"));
+		moveItem.setChangeId(rs.getInt("change_id"));
+		moveItem.setHave(rs.getInt("have"));
+		moveItem.setGenre(rs.getString("genre"));
+		moveItem.setUserId(rs.getInt("user_id"));
+		moveItem.setItemId(rs.getInt("item_id"));
+		moveItem.setMoveId(rs.getInt("move_id"));
+		return moveItem;
+	};
+
 	/**
 	 * 各章ごとのアイテムの一覧を入手
 	 * 
@@ -87,43 +105,44 @@ public class ItemRepository {
 	 * @return
 	 */
 	public Item itemLoadById(Integer id) {
-		String sql="select id,name,image,explanation,chapter_id,union_id,change_id,have,genre from items where id=:id;";
-		SqlParameterSource param=new MapSqlParameterSource("id",id);
-		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		String sql = "select id,name,image,explanation,chapter_id,union_id,change_id,have,genre from items where id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource("id", id);
+		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
 	}
-	
+
 	/**
 	 * unionIdの一致するアイテムの取り出し
+	 * 
 	 * @param unionId
 	 * @return
 	 */
 	public Item itemLoadByUnionId(Integer unionId) {
-		String sql="select id,name,image,explanation,chapter_id,union_id,change_id,have,genre "
+		String sql = "select id,name,image,explanation,chapter_id,union_id,change_id,have,genre "
 				+ "from items where union_id=:unionId;";
-		SqlParameterSource param=new MapSqlParameterSource("unionId",unionId);
-		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
-		return item;		
+		SqlParameterSource param = new MapSqlParameterSource("unionId", unionId);
+		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		return item;
 	}
-	
+
 	/**
 	 * アイテムをすべて持っている状態にする
 	 */
 	public void itemHaveReset() {
-		String sql="update items set have=1;";
+		String sql = "update items set have=1;";
 		template.update(sql, new MapSqlParameterSource());
 	}
-	
+
 	/**
 	 * アイテムの表示を変更
 	 * 
 	 * @param id
 	 * @param have
 	 */
-	public void itemHaveUpdate(Integer id,Integer have) {
-		String sql="update items set have=:have where id=:id;";
-		SqlParameterSource param=new MapSqlParameterSource("id",id).addValue("have", have);
-		template.update(sql,param);		
+	public void itemHaveUpdate(Integer id, Integer have) {
+		String sql = "update items set have=:have where id=:id;";
+		SqlParameterSource param = new MapSqlParameterSource("id", id).addValue("have", have);
+		template.update(sql, param);
 	}
 
 	/**
@@ -150,69 +169,126 @@ public class ItemRepository {
 		List<MyItem> myItemList = template.query(sql, param, MY_ITEM_ROW_MAPPER);
 		return myItemList;
 	}
-	
+
 	/**
 	 * 持ち物から使用したアイテムを削除
+	 * 
 	 * @param itemId
 	 */
 	public void myItemDelete(Integer id) {
-		String sql="delete from my_items where id=:id";
-		SqlParameterSource param=new MapSqlParameterSource("id",id);
+		String sql = "delete from my_items where id=:id";
+		SqlParameterSource param = new MapSqlParameterSource("id", id);
 		template.update(sql, param);
 	}
-	
+
 	/**
 	 * アイテムの削除リスト一覧の入手
+	 * 
 	 * @return
 	 */
-	public List<DeleteItem> deleteItemFindAll(Integer userId){
-		String sql="select id,item_id,user_id from delete_items where user_id=:userId;";
-		SqlParameterSource param=new MapSqlParameterSource("userId",userId);
-		List<DeleteItem> deleteItemList=template.query(sql,param, DELETE_ITEM_ROW_MAPPER);
+	public List<DeleteItem> deleteItemFindAll(Integer userId) {
+		String sql = "select id,item_id,user_id from delete_items where user_id=:userId;";
+		SqlParameterSource param = new MapSqlParameterSource("userId", userId);
+		List<DeleteItem> deleteItemList = template.query(sql, param, DELETE_ITEM_ROW_MAPPER);
 		return deleteItemList;
 	}
-	
+
 	/**
 	 * アイテムを削除リストに追加
+	 * 
 	 * @param delteItem
 	 */
 	public void deleteItemInsert(DeleteItem delteItem) {
-		String sql="insert into delete_items(item_id,user_id)values(:itemId,:userId);";
-		SqlParameterSource param=new BeanPropertySqlParameterSource(delteItem);
+		String sql = "insert into delete_items(item_id,user_id)values(:itemId,:userId);";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(delteItem);
 		template.update(sql, param);
 	}
-	
+
+	/**
+	 * アイテム削除リストにあるかの判別
+	 * 
+	 * @param itemId
+	 * @param userId
+	 */
+	public boolean deleteItemExists(Integer itemId, Integer userId) {
+		String sql = "select exists (select from delete_items where item_id=:itemId and user_id=:userId);";
+		SqlParameterSource param = new MapSqlParameterSource("itemId", itemId).addValue("userId", userId);
+		boolean exists = template.queryForObject(sql, param, boolean.class);
+		return exists;
+	}
+
 	/**
 	 * ユニオンidに対応する合体後アイテムの情報を取り出し
+	 * 
 	 * @param unionId
 	 * @return
 	 */
 	public UnionItem unionItemLoad(Integer unionId) {
-		String sql="select id,name,image,explanation,union_id,genre from union_items where union_id=:unionId;";
-		SqlParameterSource param=new MapSqlParameterSource("unionId",unionId);
-		UnionItem unionItem=template.queryForObject(sql, param, UNION_ITEM_ROW_MAPPER);
+		String sql = "select id,name,image,explanation,union_id,genre from union_items where union_id=:unionId;";
+		SqlParameterSource param = new MapSqlParameterSource("unionId", unionId);
+		UnionItem unionItem = template.queryForObject(sql, param, UNION_ITEM_ROW_MAPPER);
 		return unionItem;
 	}
-	
+
 	/**
-	 * アイテムの変化情報
-	 * @param id
-	 * @return
+	 * 変化情報を新しく加える
+	 * @param userId
+	 * @param changeId
 	 */
-	public Integer changeItemLoad(Integer id) {
-		String sql="select change from change_items where id=:id;";
-		SqlParameterSource param=new MapSqlParameterSource("id",id);
-		Integer change=template.queryForObject(sql, param, Integer.class);
-		return change;
+	public void changeItemInsert(Integer userId,Integer changeId) {
+		String sql="insert into change_items(change_id,user_id)values(:changeId,:userId);";
+		SqlParameterSource param=new MapSqlParameterSource("changeId",changeId).addValue("userId", userId);
+		template.update(sql, param);
 	}
 	
 	/**
-	 * 変化後のアイテムを表示できるようにする
-	 * @param id
+	 * 変化情報があるか判別
+	 * @param userId
+	 * @param changeId
+	 * @return
 	 */
-	public void changeItemUpdate(Integer id) {
-		String sql="update change_items set change=1 where id=:id;";
-		SqlParameterSource param=new MapSqlParameterSource("id",id);
+	public boolean changeExists(Integer userId, Integer changeId) {
+		String sql = "select exists(select from change_items where user_id=:userId and change_id=:changeId);";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId).addValue("changeId", changeId);
+		boolean exists=template.queryForObject(sql, param, boolean.class);
+		return exists;
+	}
+
+	/**
+	 * アイテムの移動保存テーブル
+	 * 
+	 * @param item
+	 */
+	public void moveItemInsert(MoveItem moveItem) {
+		String sql = "insert into move_items(name,image,explanation,chapter_id,union_id,change_id,have,genre,user_id,item_id,move_id)\r\n"
+				+ "values(:name,:image,:explanation,:chapterId,:unionId,:changeId,:have,:genre,:userId,:itemId,:moveId)";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(moveItem);
+		template.update(sql, param);
+	}
+
+	/**
+	 * 移動したアイテムの一覧
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public List<MoveItem> moveItemFindAll(Integer userId) {
+		String sql = "select id,name,image,explanation,chapter_id,union_id,change_id,have,genre,user_id,item_id,move_id "
+				+ "from move_items where user_id=:userId;";
+		SqlParameterSource param = new MapSqlParameterSource("userId", userId);
+		List<MoveItem> moveItemList = template.query(sql, param, MOVE_ITEM_ROW_MAPPER);
+		return moveItemList;
+	}
+
+	/**
+	 * 移動アイテムの削除
+	 * 
+	 * @param itemId
+	 * @param userId
+	 */
+	public void moveItemDelete(Integer itemId, Integer userId) {
+		String sql = "delete from move_items where user_id=:userId and item_id=:itemId;";
+		SqlParameterSource param = new MapSqlParameterSource("userId", userId).addValue("itemId", itemId);
 		template.update(sql, param);
 	}
 }

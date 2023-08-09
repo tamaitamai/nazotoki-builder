@@ -78,6 +78,6 @@ $(function(){
 
     //状態表示を閉じる
     $('.state').click(function(){
-        $('.state').hide();
+        $('.state').hide();        
     })
 })

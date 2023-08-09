@@ -26,41 +26,43 @@ public class QuestionController {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private StoryService storyService;
+	
 	@GetMapping("")
 	public String question() {
 		itemList(3);
 		return "question/light-question";
 	}
 	
-	//移動確認用
-	@GetMapping("/move")
-	public String item() {
-		itemList(0);
-		return "main/move.html";
-	}
-
 	//学校ステージ
 	@GetMapping("/school")
 	public String schoolQuestion() {
 		itemList(1);
-		Integer change=itemService.changeItemLoad(2);
-		session.setAttribute("boxChange", change);
-		change=itemService.changeItemLoad(3);
-		session.setAttribute("lockerChange", change);
-		change=itemService.changeItemLoad(4);
-		session.setAttribute("boxChange2", change);
-		change=itemService.changeItemLoad(5);
-		session.setAttribute("doorChange", change);
-
+		changeItem("boxChange",2);
+		changeItem("lockerChange",3);
+		changeItem("boxChange2",4);
+		changeItem("doorChange",5);
 		return "question/school-question";
+	}
+	
+	//森林ステージ
+	@GetMapping("/forest")
+	public String forestQuestion() {
+		session.setAttribute("character", storyService.characterLoad(6));
+		itemList(2);
+		changeItem("boxChange1", 6);
+		changeItem("barrelChange", 9);
+		changeItem("boxChange2", 10);
+		changeItem("forestCharacterChange", 11);
+		return "question/forest-question";
 	}
 	
 	//暗闇ステージ
 	@GetMapping("/light")
 	public String question3() {
 		itemList(3);
-		Integer change=itemService.changeItemLoad(1);
-		session.setAttribute("doorChange", change);
+		changeItem("doorChange", 1);
 		return "question/light-question";
 	}
 	
@@ -100,9 +102,15 @@ public class QuestionController {
 			}
 		}
 
-		itemList=itemService.itemByChapter(num);	
+		itemList=itemService.itemByChapter(num);
+		User user=(User) session.getAttribute("userLogin");
+		boolean read=storyService.readStoryLoad(user.getId(), num);
+		session.setAttribute("read", read);
 		session.setAttribute("itemList", itemList);
 		session.setAttribute("chapterId", num);
+		
+		String backgroundStory=storyService.backgroundStoryLoad(num);
+		session.setAttribute("backgroundStory", backgroundStory);
 	}
 	
 	/**
@@ -117,5 +125,16 @@ public class QuestionController {
 			session.setAttribute("MyItemList", myItemList);
 		}
 		return myItemList;
+	}
+	
+	/**
+	 * アイテムの変化情報の読み取り
+	 * @param changeName
+	 * @param changeId
+	 */
+	public void changeItem(String changeName,Integer changeId) {
+		User user=(User) session.getAttribute("userLogin");
+		boolean change=itemService.changeExists(user.getId(), changeId);
+		session.setAttribute(changeName, change);
 	}
 }

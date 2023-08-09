@@ -18,6 +18,7 @@
     cursor: pointer;
 }
 
+/* オブジェクト選択時の背景 */
 .timetable-question-box,.timetable-hint-box,.timetable-answer-box,
 .locker-answer-box,.locker-hint-box,.locker-question-box{
     position: fixed;
@@ -78,6 +79,7 @@ table {
     border-spacing: 0;
 }
 
+/* 箱の中身表示 */
 .timetable-answer,.box-open,.locker-answer,.box-open2{
     display: flex;
     position: fixed;
@@ -114,6 +116,7 @@ table {
     border-radius: 25px;
 }
 
+/* 画面に戻るボタン */
 .return-btn{
     position: fixed;
     top: 70%;

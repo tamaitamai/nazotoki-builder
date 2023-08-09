@@ -3,8 +3,6 @@ package com.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,5 +51,32 @@ public class StoryService {
 	public List<ChapterCharacter> chapterCharacterLoad(Integer chapterId) {
 		return storyRepository.chapterCharacterLoad(chapterId);
 	}
+	
+	/**
+	 * 既読済みかを判定
+	 * @param userId
+	 * @param chapterId
+	 * @return
+	 */
+	public boolean readStoryLoad(Integer userId,Integer chapterId) {
+		return storyRepository.readStoryLoad(userId, chapterId);
+	}
+	
+	/**
+	 * 既読をつける
+	 * @param userId
+	 * @param chapterId
+	 */
+	public void readStoryInsert(Integer userId,Integer chapterId) {
+		storyRepository.readStoryInsert(userId, chapterId);
+	}
 
+	/**
+	 * 各ステージの背景情報を取得
+	 * @param chapterId
+	 * @return
+	 */
+	public String backgroundStoryLoad(Integer chapterId) {
+		return storyRepository.backgroundStoryLoad(chapterId);
+	}
 }

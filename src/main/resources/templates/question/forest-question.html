@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/forest-question.css" th:href="@{/css/question/forest-question.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <html th:insert="~{main/menu :: frag_menu}"></html>
+    <html th:insert="~{main/story :: frag_story}"></html>
+    <!-- 森の画面1 -->
+    <div class="forest-screan">
+        <input type="hidden" class="forest-character-change" th:value="${session.forestCharacterChange}">
+        <input type="hidden" class="forest-url" th:value="@{/question/light}">
+        <img th:src="@{/image/}+${session.character.image}" class="forest-character">
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>
+    </div>
+
+    <!-- 森の画面2 -->
+    <div class="forest-screan">
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <!-- 森の画面3 -->
+    <div class="forest-screan">    
+        <!-- 部屋の画面1 -->
+        <div class="room-screan">
+            <input type="hidden" class="box-change1" th:value="${session.boxChange1}">
+            <input type="hidden" class="box-change2" th:value="${session.boxChange2}">
+
+            <!-- 箱1の中身 -->
+            <div class="room-box1-screan">
+                <div class="room-box1">
+                    <div class="room-box1-list">
+                        <img th:src="@{/image/bird.png}">
+                        <p class="room-box1-number">1</p>
+                    </div>
+                    <div class="room-box1-list middle">
+                        <img th:src="@{/image/vase.png}">
+                        <p class="room-box1-number">1</p>
+                    </div>
+                    <div class="room-box1-list">
+                        <img th:src="@{/image/barrel.png}" class="side">
+                        <p class="room-box1-number">1</p>
+                    </div>
+                    <div class="return-btn">戻る</div>
+                </div>    
+
+                <div class="room-box1-open">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre=='ball ball-red item'}">
+                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>
+                    <div class="return-btn">戻る</div>
+                </div>
+            </div>
+
+            <!-- 箱2の中身 -->
+            <div class="room-box2-screan">                
+                <div class="room-box2">
+                    <div class="ball-set" moveId="1"></div>
+                    <div class="ball-set middle" moveId="2"></div>
+                    <div class="ball-set" moveId="3"></div>
+                    <div class="return-btn">戻る</div>
+                </div>    
+
+                <div class="room-box2-open">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre=='cake item'}">
+                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>
+                    <div class="return-btn">戻る</div>
+                </div>
+            </div>
+
+            <!-- 空の絵 -->
+            <div class="sky-screan">
+                <div class="sky">
+                    <img th:src="@{/image/bird.png}" class="bird">
+                    <img th:src="@{/image/bird.png}" class="bird">
+                </div>
+            </div>
+
+            <!-- ツボの中 -->
+            <div class="vase-box-screan">
+                <div class="vase-box">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre=='ball ball-yellow item'}">
+                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>
+                    <div class="return-btn">戻る</div>
+                </div>
+            </div>
+
+            <!-- たるの上 -->
+            <div class="barrel-top-screan">
+                <div class="barrel-top">
+                    <div class="ball-color"></div>
+                    <div class="ball-color middle"></div>
+                    <div class="ball-color"></div>
+                </div>
+                <div class="return-btn">戻る</div>
+            </div>
+
+            <div class="back-screan">》</div>
+        </div>
+
+        <!-- 部屋の画面2 -->
+        <div class="room-screan">
+            <input type="hidden" class="barrel-change" th:value="${session.barrelChange}">
+            <div class="barrel-open-screan">
+                <div class="barrel-open">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre=='ball ball-blue item'}">
+                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>
+                    <div class="return-btn">戻る</div>
+                </div>                
+            </div>
+            <div class="back-screan">》</div>
+        </div>
+
+        <!-- ハンマーの箱 -->
+        <div class="hammer-screan">
+            <div class="hammer-box">
+                <div th:each="item:${session.itemList}">
+                    <div th:if="${item.genre=='hammer item'}">
+                        <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                        th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                    </div>
+                </div>
+            </div>
+            <div class="return-btn">戻る</div>
+        </div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>        
+    </div>
+
+    <html th:insert="~{/main/item-box :: frag_item}"></html>
+    <script type="module" src="../../static/js/question/forest-question.js" th:src="@{/js/question/forest-question.js}"></script>
+    <script type="module" src="../../static/js/question/my-question.js" th:src="@{/js/question/my-question.js}"></script>
+</body>
+</html>

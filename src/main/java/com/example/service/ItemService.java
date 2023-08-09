@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.DeleteItem;
 import com.example.domain.Item;
+import com.example.domain.MoveItem;
 import com.example.domain.MyItem;
 import com.example.domain.UnionItem;
 import com.example.repository.ItemRepository;
@@ -111,6 +113,15 @@ public class ItemService {
 	}
 	
 	/**
+	 * アイテム削除リストにあるかの判別
+	 * @param itemId
+	 * @param userId
+	 */
+	public boolean deleteItemExists(Integer itemId,Integer userId) {
+		return itemRepository.deleteItemExists(itemId, userId);
+	}
+	
+	/**
 	 * ユニオンidに対応する合体後アイテムの情報を取り出し
 	 * @param unionId
 	 * @return
@@ -120,20 +131,47 @@ public class ItemService {
 	}
 	
 	/**
-	 * アイテムの変化情報
-	 * @param id
-	 * @return
+	 * 変化情報を新しく加える
+	 * @param userId
+	 * @param changeId
 	 */
-	public Integer changeItemLoad(Integer id) {
-		return itemRepository.changeItemLoad(id);
+	public void changeItemInsert(Integer userId,Integer changeId) {
+		itemRepository.changeItemInsert(userId, changeId);
 	}
 	
 	/**
-	 * 変化後のアイテムを表示できるようにする
-	 * @param id
+	 * 変化情報があるか判別
+	 * @param userId
+	 * @param changeId
+	 * @return
 	 */
-	public void changeItemUpdate(Integer id) {
-		itemRepository.changeItemUpdate(id);
+	public boolean changeExists(Integer userId, Integer changeId) {
+		return itemRepository.changeExists(userId, changeId);
 	}
 
+	/**
+	 * アイテムの移動保存テーブル
+	 * @param item
+	 */
+	public void moveItemInsert(MoveItem moveItem) {
+		itemRepository.moveItemInsert(moveItem);
+	}
+	
+	/**
+	 * 移動したアイテムの一覧
+	 * @param userId
+	 * @return
+	 */
+	public List<MoveItem> moveItemFindAll(Integer userId){
+		return itemRepository.moveItemFindAll(userId);
+	}
+
+	/**
+	 * 移動アイテムの削除
+	 * @param itemId
+	 * @param userId
+	 */
+	public void moveItemDelete(Integer itemId,Integer userId) {
+		itemRepository.moveItemDelete(itemId, userId);
+	}
 }

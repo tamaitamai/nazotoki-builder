@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.DeleteItem;
 import com.example.domain.Item;
+import com.example.domain.MoveItem;
 import com.example.domain.MyItem;
 import com.example.domain.UnionItem;
 import com.example.domain.User;
@@ -97,7 +98,11 @@ public class ItemController {
 	@PostMapping("/hideItem")
 	@ResponseBody
 	public void hideItem(@RequestParam("itemId") Integer itemId) {
-		deleteItemInsert(itemId);
+		User user=(User) session.getAttribute("userLogin");
+		boolean exists=itemService.deleteItemExists(itemId, user.getId());
+		if(!exists) {
+			deleteItemInsert(itemId);	
+		}		
 	}
 
 	/**
@@ -146,7 +151,8 @@ public class ItemController {
 	@PostMapping("/changeItem")
 	@ResponseBody
 	public void changeItem(@RequestParam("changeId") Integer changeId) {
-		itemService.changeItemUpdate(changeId);
+		User user=(User) session.getAttribute("userLogin");
+		itemService.changeItemInsert(user.getId(), changeId);
 	}
 	
 	/**
@@ -161,6 +167,51 @@ public class ItemController {
 		myItem.setUserId(user.getId());
 		itemService.myItemInsert(myItem);
 
+	}
+	
+	/**
+	 * アイテムの移動
+	 * @param itemId
+	 * @param myItemId
+	 * @return
+	 */
+	@PostMapping("/moveItem")
+	@ResponseBody
+	public List<MyItem> moveItem(@RequestParam("itemId") Integer itemId,
+			@RequestParam("myItemId") Integer myItemId,@RequestParam("moveId") Integer moveId) {
+		itemService.myItemDelete(myItemId);
+		Item item=itemService.itemLoadById(itemId);
+		MoveItem moveItem=new MoveItem();
+		BeanUtils.copyProperties(item, moveItem);
+		User user=(User) session.getAttribute("userLogin");
+		moveItem.setUserId(user.getId());
+		moveItem.setItemId(itemId);
+		moveItem.setMoveId(moveId);
+		itemService.moveItemInsert(moveItem);
+		return myItemList();
+	}
+	
+	/**
+	 * 移動したアイテム
+	 * @return
+	 */
+	@PostMapping("/getMoveItem")
+	@ResponseBody
+	public List<MoveItem> moveItemList(){
+		User user=(User) session.getAttribute("userLogin");
+		List<MoveItem> moveItemList=itemService.moveItemFindAll(user.getId());
+		return moveItemList;
+	}
+	
+	/**
+	 * 移動したアイテムの情報を削除
+	 * @param itemId
+	 */
+	@PostMapping("/moveItemDelete")
+	@ResponseBody
+	public void moveItemDelete(@RequestParam("id") Integer itemId) {
+		User user=(User) session.getAttribute("userLogin");
+		itemService.moveItemDelete(itemId, user.getId());
 	}
 
 	/**

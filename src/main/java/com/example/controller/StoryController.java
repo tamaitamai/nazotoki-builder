@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.ChapterCharacter;
 import com.example.domain.Character;
 import com.example.domain.Story;
+import com.example.domain.User;
 import com.example.service.StoryService;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +29,7 @@ public class StoryController {
 	private HttpSession session;
 	
 	@GetMapping("")
-	public String story() {		
+	public String story() {	
 		return "main/story.html";
 	}
 	
@@ -51,6 +53,10 @@ public class StoryController {
 		return characterList;
 	}
 	
+	/**
+	 * ストーリー情報の確保
+	 * @return
+	 */
 	@PostMapping("/getStory")
 	@ResponseBody
 	public List<Story> getStory(){
@@ -58,10 +64,15 @@ public class StoryController {
 		if(chapterId==null) {
 			chapterId=5;
 		}
+
 		List<Story> storyList=storyService.storyByChapterId(chapterId);
 		return storyList;
 	}
 	
+	/**
+	 * キャラクター情報の確保
+	 * @return
+	 */
 	@PostMapping("/getCharacter")
 	@ResponseBody
 	public List<Character> getCharacter() {
@@ -75,5 +86,16 @@ public class StoryController {
 			characterList.add(storyService.characterLoad(chapterCharactersList.get(i).getCharacterId()));
 		}
 		return characterList;
+	}
+	
+	/**
+	 * 既読をつける
+	 */
+	@PostMapping("/readStory")
+	@ResponseBody
+	public void readStory() {
+		User user=(User) session.getAttribute("userLogin");
+		Integer chapterId=(Integer) session.getAttribute("chapterId");
+		storyService.readStoryInsert(user.getId(), chapterId);
 	}
 }
