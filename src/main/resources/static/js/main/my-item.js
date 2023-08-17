@@ -164,3 +164,20 @@ export function deleteItem(){
     $('.item-select').attr('class','item-select');
 }
 
+//ある持ち物を持っているときにアイテムを確保
+export function getItem(itemId){
+    var postData={
+        id: itemId
+    }
+
+    $.ajax({
+        type: "post",
+        url: "/item/addMyItem",
+        data: postData,
+        success: function(response){
+            myItemList(response);
+        }
+    }) 
+    itemCheck(postData.id,'/item/itemLoad'); 
+    deleteItem();
+}

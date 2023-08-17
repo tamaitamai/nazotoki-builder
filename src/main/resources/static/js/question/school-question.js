@@ -1,4 +1,5 @@
 import { changeItem, hideItem, objectPostion, deleteItem} from "../main/my-item.js";
+import { chapterSave } from "../main/save.js";
 import { storySpeed } from "../main/story.js";
 import { leftScrean, rightScrean, screanCurcor } from "./my-question.js";
 
@@ -106,13 +107,12 @@ $(function(){
                 }
             }else if((relX > 220 && relX < 280 && relY > 300 && relY < 500)){//ドアのイベント
                 if($('.door-change').val()=='true'){
-                    storySpeed($('.state'),'ここから出られる');
-                    $('.state').show();   
                     var dataUrl = $('.door-url').val();
                     var form = $('<form>', {
                         'action': dataUrl
                     });
-        
+                    
+                    chapterSave(2);
                     // サブミット
                     $(document.body).append(form);
                     form.submit();        

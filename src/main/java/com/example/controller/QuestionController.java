@@ -61,8 +61,11 @@ public class QuestionController {
 	//暗闇ステージ
 	@GetMapping("/light")
 	public String question3() {
-		itemList(3);
+		itemList(3);		
 		changeItem("doorChange", 1);
+		changeItem("boxChange1", 12);
+		changeItem("boxChange2", 13);
+		changeItem("jewelChange", 14);
 		return "question/light-question";
 	}
 	

@@ -1,4 +1,5 @@
 import { changeItem, deleteItem, hideItem, itemCheck, myItemList, objectPostion } from "../main/my-item.js";
+import { chapterSave } from "../main/save.js";
 import { storySpeed } from "../main/story.js";
 import { backScrean, leftScrean, rightScrean, screanCurcor, visibleIf } from "./my-question.js"
 
@@ -88,6 +89,7 @@ $(function(){
                 storySpeed($('.state'),'めすがきが邪魔をして通れない...どうしよう');
                 $('.state').show();               
             }else{
+                chapterSave(3);
                 var forestUrl = $('.forest-url').val();
                 var form = $('<form>', {
                     'action': forestUrl
@@ -301,6 +303,6 @@ $(function(){
         }
     })
 
-    backScrean('.room-screan','.forest-screan');
-
+    backScrean(0,'.room-screan','.forest-screan',2);
+    backScrean(1,'.room-screan','.forest-screan',2);
 });
