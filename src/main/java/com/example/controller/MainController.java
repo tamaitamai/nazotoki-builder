@@ -17,4 +17,8 @@ public class MainController {
 		return "main/home.html";
 	}
 	
+	@GetMapping("/gameOver")
+	public String gameOver() {
+		return "/main/game-over.html";
+	}
 }

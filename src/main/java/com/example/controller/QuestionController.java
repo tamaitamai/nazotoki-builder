@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.ChapterCharacter;
 import com.example.domain.DeleteItem;
 import com.example.domain.Item;
 import com.example.domain.MyItem;
@@ -38,7 +37,7 @@ public class QuestionController {
 	//学校ステージ
 	@GetMapping("/school")
 	public String schoolQuestion() {
-		itemList(1);
+		itemListJoin(1);
 		changeItem("boxChange",2);
 		changeItem("lockerChange",3);
 		changeItem("boxChange2",4);
@@ -50,7 +49,7 @@ public class QuestionController {
 	@GetMapping("/forest")
 	public String forestQuestion() {
 		session.setAttribute("character", storyService.characterLoad(6));
-		itemList(2);
+		itemListJoin(2);
 		changeItem("boxChange1", 6);
 		changeItem("barrelChange", 9);
 		changeItem("boxChange2", 10);
@@ -60,8 +59,8 @@ public class QuestionController {
 	
 	//暗闇ステージ
 	@GetMapping("/light")
-	public String question3() {
-		itemList(3);		
+	public String question3() {	
+		itemListJoin(3);
 		changeItem("doorChange", 1);
 		changeItem("boxChange1", 12);
 		changeItem("boxChange2", 13);
@@ -69,10 +68,15 @@ public class QuestionController {
 		return "question/light-question";
 	}
 	
+	@GetMapping("/caveRoad")
+	public String caveRoadQuestion() {
+		return "/question/cave-road-question";
+	}
+	
 	//氷ステージ
 	@GetMapping("/ice")
-	public String iceQuestion() {		
-		itemList(5);
+	public String iceQuestion() {				
+		itemListJoin(5);
 		return "question/ice-question";
 	}
 	
@@ -113,6 +117,30 @@ public class QuestionController {
 		session.setAttribute("chapterId", num);
 		
 		String backgroundStory=storyService.backgroundStoryLoad(num);
+		session.setAttribute("backgroundStory", backgroundStory);
+	}
+	
+	/**
+	 * アイテムリストと削除リストをjoinした場合
+	 * @param chapterId
+	 */
+	public void itemListJoin(Integer chapterId) {
+		itemService.itemHaveReset();
+		User user=(User) session.getAttribute("userLogin");
+		List<Item> itemList=itemService.itemByChapter(chapterId);
+		for(int i=0;i<itemList.size();i++) {
+			if(itemService.deleteJoinExists(chapterId, user.getId(),itemList.get(i).getId())) {
+				itemService.itemHaveUpdate(itemList.get(i).getId(), 0);	
+			}
+		}
+		itemList=itemService.itemByChapter(chapterId);
+		
+		boolean read=storyService.readStoryLoad(user.getId(), chapterId);
+		session.setAttribute("read", read);
+		session.setAttribute("itemList", itemList);
+		session.setAttribute("chapterId", chapterId);
+		
+		String backgroundStory=storyService.backgroundStoryLoad(chapterId);
 		session.setAttribute("backgroundStory", backgroundStory);
 	}
 	

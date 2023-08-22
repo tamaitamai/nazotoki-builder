@@ -1,0 +1,29 @@
+.game-over-screan{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.game-over-message{
+    font-size: 100px;
+}
+
+.home-btn{
+    font-size: 50px;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid white;
+    box-shadow: 7px 7px black;
+    background-image: url("../../image/main/black-paper.jpg");
+}
+
+.home-btn:hover{
+    opacity: 0.7;
+}

@@ -1,6 +1,6 @@
 import { changeItem, hideItem ,objectPostion, deleteItem, myItemList, objectHide, itemCheck, getItem} from '../main/my-item.js';
 import { chapterSave } from '../main/save.js';
-import { storySpeed } from '../main/story.js';
+import { addState, firstState, storySpeed } from '../main/story.js';
 import { backAdd, backScrean, expand, leftAndRigntAdd, leftScrean, rightScrean, screanCurcor, visibleIf } from './my-question.js';
 
 $(function(){  
@@ -171,8 +171,7 @@ $(function(){
             if($('.item-select').hasClass('raw-meat')){
                 getItem(17);
             }else{
-                storySpeed($('.state'),'何かを焼くのに使えそうだ');
-                $('.state').show();            
+                firstState('何かを焼くのに使えそうだ');
             }
         }        
     });    
@@ -202,8 +201,7 @@ $(function(){
                     $('.jewel-change').val('true');
                     $('.magic-circle').show();
                 }else{
-                    storySpeed($('.state'),'ここから不思議な感覚がする...');
-                    $('.state').show();                
+                    firstState('ここから不思議な感覚がする...');
                 }    
             }    
         }
@@ -340,8 +338,7 @@ $(function(){
         if($('.item-select').hasClass('bill')){
             getItem(20);
         }else{
-            storySpeed($('.state'),'見つかった！！でも捕まえれるもんなら捕まえてみろ～');
-            $('.state').show();        
+            firstState('見つかった！！でも捕まえれるもんなら捕まえてみろ～');
         }
     })
 
@@ -350,8 +347,9 @@ $(function(){
         if($('.item-select').hasClass('fire-meat')){
             getItem(19);
         }else{
-            storySpeed($('.state'),'除霊のアイテムがほしい？あげてもいいけど、わっちは腹が減った何か持ってこい！！');
-            $('.state').show();        
+            firstState('おばけを倒すのに必要なアイテムを探しています。何か知りませんか？');
+            addState(1,'アイテムを渡してもいいぞ？だが、ただではやらん！！ちょうど腹が減ったところだ...なにか持ってくるがいい！');
+            addState(2,'食べ物か...この辺の動物でも捕まえようか...');
         }
     })
 
@@ -363,8 +361,7 @@ $(function(){
             hideItem(itemId);
             $('.pig').hide();
         }else{
-            storySpeed($('.state'),'こいつはうまそうだ...何か狩りをできそうなものはないだろうか？');
-            $('.state').show();        
+            firstState('こいつはうまそうだ...何か狩りをできそうなものはないだろうか？');
         }
     })
 

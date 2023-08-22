@@ -218,6 +218,23 @@ public class ItemRepository {
 	}
 
 	/**
+	 * joinした削除リストの判別
+	 * 
+	 * @param chapterId
+	 * @param userId
+	 * @param itemId
+	 * @return
+	 */
+	public boolean deleteJoinExists(Integer chapterId, Integer userId, Integer itemId) {
+		String sql = "SELECT EXISTS(SELECT FROM items JOIN delete_items ON items.id=delete_items.item_id\r\n"
+				+ "where items.chapter_id=:chapterId and delete_items.user_id=:userId and delete_items.item_id=:itemId);";
+		SqlParameterSource param = new MapSqlParameterSource("chapterId", chapterId).addValue("userId", userId)
+				.addValue("itemId", itemId);
+		boolean exists = template.queryForObject(sql, param, boolean.class);
+		return exists;
+	}
+
+	/**
 	 * ユニオンidに対応する合体後アイテムの情報を取り出し
 	 * 
 	 * @param unionId
@@ -232,25 +249,27 @@ public class ItemRepository {
 
 	/**
 	 * 変化情報を新しく加える
+	 * 
 	 * @param userId
 	 * @param changeId
 	 */
-	public void changeItemInsert(Integer userId,Integer changeId) {
-		String sql="insert into change_items(change_id,user_id)values(:changeId,:userId);";
-		SqlParameterSource param=new MapSqlParameterSource("changeId",changeId).addValue("userId", userId);
+	public void changeItemInsert(Integer userId, Integer changeId) {
+		String sql = "insert into change_items(change_id,user_id)values(:changeId,:userId);";
+		SqlParameterSource param = new MapSqlParameterSource("changeId", changeId).addValue("userId", userId);
 		template.update(sql, param);
 	}
-	
+
 	/**
 	 * 変化情報があるか判別
+	 * 
 	 * @param userId
 	 * @param changeId
 	 * @return
 	 */
 	public boolean changeExists(Integer userId, Integer changeId) {
 		String sql = "select exists(select from change_items where user_id=:userId and change_id=:changeId);";
-		SqlParameterSource param=new MapSqlParameterSource("userId",userId).addValue("changeId", changeId);
-		boolean exists=template.queryForObject(sql, param, boolean.class);
+		SqlParameterSource param = new MapSqlParameterSource("userId", userId).addValue("changeId", changeId);
+		boolean exists = template.queryForObject(sql, param, boolean.class);
 		return exists;
 	}
 

@@ -1,6 +1,6 @@
 import { changeItem, hideItem, objectPostion, deleteItem} from "../main/my-item.js";
 import { chapterSave } from "../main/save.js";
-import { storySpeed } from "../main/story.js";
+import { firstState, storySpeed } from "../main/story.js";
 import { leftScrean, rightScrean, screanCurcor } from "./my-question.js";
 
 export function boxOpen(){
@@ -95,14 +95,12 @@ $(function(){
                     $('.locker-question-box').show();
                 }else{
                     if($('.item-select').hasClass('locker-key')){
-                        storySpeed($('.state'),'鍵が開いた');
-                        $('.state').show();        
+                        firstState('鍵が開いた');
                         var changeId=$('.locker-key').attr('change');
                         changeItem(changeId);  
                         $('.locker-change').val('true');
                     }else{
-                        storySpeed($('.state'),'ローカーには鍵が掛かっているようだ');
-                        $('.state').show();                                                
+                        firstState('ローカーには鍵が掛かっているようだ');
                     }
                 }
             }else if((relX > 220 && relX < 280 && relY > 300 && relY < 500)){//ドアのイベント
@@ -118,14 +116,12 @@ $(function(){
                     form.submit();        
                 }else{
                     if($('.item-select').hasClass('door-key')){
-                        storySpeed($('.state'),'ドアの鍵が開いた');
-                        $('.state').show();   
+                        firstState('ドアの鍵が開いた');
                         $('.door-change').val('true');
                         var changeId=$('.door-key').attr('change');
                         changeItem(changeId);  
                     }else{
-                        storySpeed($('.state'),'ここから出られそうだ。なんとかして開けられないだろうか');
-                        $('.state').show();
+                        firstState('ここから出られそうだ。なんとかして開けられないだろうか');
                     }
                 }
             }else if((relX > 550 && relX < 850 && relY > 270 && relY < 400)){//黒板の表示

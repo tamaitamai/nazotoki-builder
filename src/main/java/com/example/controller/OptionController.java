@@ -37,7 +37,6 @@ public class OptionController {
 	@PostMapping("/updateCommentSpeed")
 	@ResponseBody
 	public void commentSpeed(@RequestParam("commentSpeed") Integer commentSpeed) {
-		System.out.println("option");
 		User user=(User) session.getAttribute("userLogin");
 		Option option=new Option();
 		option.setUserId(user.getId());

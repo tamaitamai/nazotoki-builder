@@ -1,0 +1,13 @@
+.cave-road-screan{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-image: url("../../image/main/cave-road.jpg");
+    background-size: cover;
+}
+
+h1{
+    color: white;
+}

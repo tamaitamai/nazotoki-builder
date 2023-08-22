@@ -1,6 +1,6 @@
 import { changeItem, deleteItem, hideItem, itemCheck, myItemList, objectPostion } from "../main/my-item.js";
 import { chapterSave } from "../main/save.js";
-import { storySpeed } from "../main/story.js";
+import { addState, firstState, storySpeed, storySpeed2 } from "../main/story.js";
 import { backScrean, leftScrean, rightScrean, screanCurcor, visibleIf } from "./my-question.js"
 
 export function getItemMove(response,num){
@@ -86,8 +86,9 @@ $(function(){
         // クリックした位置の座標を利用して特定の範囲内の場合にのみイベントを起こす
         if (relX > 500 && relX < 900 && relY > 300 && relY < 600) {  
             if($('.forest-character').is(':visible')){
-                storySpeed($('.state'),'めすがきが邪魔をして通れない...どうしよう');
-                $('.state').show();               
+                firstState('ここから先は通さないわよ！！');
+                addState(1,'めすがきが邪魔をして通れない...どうしよう');
+                addState(2,'なんとかして、どかさないと...');
             }else{
                 chapterSave(3);
                 var forestUrl = $('.forest-url').val();
@@ -119,13 +120,12 @@ $(function(){
         if (relX > 500 && relX < 1000 && relY > 600 && relY < 700) {  
             if($('.item-select').hasClass('cake')){
                 $('.forest-character').hide();
-                storySpeed($('.state'),'ケーキにつられためすがきが穴に落ちていった...まあそこまで深くないし大丈夫だろう');
-                $('.state').show();       
+                firstState('あっケーキだ！')
+                addState(1,'ケーキにつられためすがきが穴に落ちていった...まあそこまで深くないし大丈夫だろう');
                 deleteItem();
                 changeItem(11);
             }else{
-                storySpeed($('.state'),'穴だ。そこまでは深くはないようだ...');
-                $('.state').show();    
+                firstState('穴だ。そこまでは深くはないようだ...');
             }
         }
     });
@@ -204,14 +204,12 @@ $(function(){
         }else{
             if (relX > 850 && relX < 1050 && relY > 500 && relY < 600) {
                 if($('.item-select').hasClass('hammer')){
-                    storySpeed($('.state'),'たるを破壊した。これで中を覗けそうだ');
-                    $('.state').show();  
+                    firstState('たるを破壊した。これで中を覗けそうだ');
                     $('.barrel-change').val('true');
                     var changeId=$('.hammer').attr('change');
                     changeItem(changeId);
                 }else{
-                    storySpeed($('.state'),'ひびがある。衝撃があれば、壊れそうだ');
-                    $('.state').show();    
+                    firstState('ひびがある。衝撃があれば、壊れそうだ');
                 }
             }            
         }
@@ -229,16 +227,6 @@ $(function(){
         e.stopPropagation();//親要素を実行しない
     })
     
-    // const newDiv = document.createElement('div');
-    // newDiv.classList.add('state');
-    // document.body.appendChild(newDiv);
-
-    //邪魔をしてくるキャラクターのイベント
-    $('.forest-character').click(function(){
-        storySpeed($('.state'),'ここから先は通さないわよ！');
-        $('.state').show();    
-    })
-
     //箱1のパスワード入力
     $('.room-box1-number').click(function(){
         var number=parseInt($(this).text());

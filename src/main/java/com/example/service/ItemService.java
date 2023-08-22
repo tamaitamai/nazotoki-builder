@@ -122,6 +122,17 @@ public class ItemService {
 	}
 	
 	/**
+	 * joinした削除リストの判別
+	 * @param chapterId
+	 * @param userId
+	 * @param itemId
+	 * @return
+	 */
+	public boolean deleteJoinExists(Integer chapterId,Integer userId,Integer itemId) {
+		return itemRepository.deleteJoinExists(chapterId, userId, itemId);		
+	}
+	
+	/**
 	 * ユニオンidに対応する合体後アイテムの情報を取り出し
 	 * @param unionId
 	 * @return
@@ -174,4 +185,5 @@ public class ItemService {
 	public void moveItemDelete(Integer itemId,Integer userId) {
 		itemRepository.moveItemDelete(itemId, userId);
 	}
+	
 }
