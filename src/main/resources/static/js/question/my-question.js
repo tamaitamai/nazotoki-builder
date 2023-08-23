@@ -23,7 +23,7 @@ export function rightScrean(){
 //左側の画面に移動
 export function leftScrean(){
     $(document).on('click','.left-screan',function(){
-        var screan='.'+$(this).parent().attr('class');
+        var screan='.'+$(this).parent().attr('class');        
         var screanNum='';
         var screanLength=$(screan).length;
         for(let i=0;i<screanLength;i++){
@@ -42,7 +42,6 @@ export function leftScrean(){
         backScrean(screanNum);
     })    
 }
-
 
 // 左右移動の表示を追加
 export function leftAndRigntAdd(screan){

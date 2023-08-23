@@ -70,6 +70,7 @@ public class QuestionController {
 	
 	@GetMapping("/caveRoad")
 	public String caveRoadQuestion() {
+		itemListJoin(4);
 		return "/question/cave-road-question";
 	}
 	

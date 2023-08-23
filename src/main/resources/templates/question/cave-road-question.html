@@ -9,23 +9,77 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="cave-road-screan">
-        <h1>1</h1>
+    <html th:insert="~{/main/story :: frag_story}"></html>
+    <html th:insert="~{/main/menu :: frag_menu}"></html>    
+    <div class="cave-road-screan1">
+        <h1>1-1</h1>
+        <div class="top-screan">》</div>
         <div class="left-screan">《</div>
         <div class="right-screan">》</div>       
     </div>
 
-    <div class="cave-road-screan">
-        <h1>2</h1>
+    <div class="cave-road-screan1">
+        <h1>1-2</h1>
+        <div class="top-screan">》</div>
         <div class="left-screan">《</div>
         <div class="right-screan">》</div>       
     </div>
 
-    <div class="cave-road-screan">
-        <h1>3</h1>
+    <div class="cave-road-screan1">
+        <h1>1-3</h1>
+        <div class="top-screan">》</div>
         <div class="left-screan">《</div>
         <div class="right-screan">》</div>       
     </div>
+
+    <div class="cave-road-screan2">
+        <h1>2-1</h1>
+        <div class="top-screan">》</div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <div class="cave-road-screan2">
+        <h1>2-2</h1>
+        <div class="top-screan">》</div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <div class="cave-road-screan2">
+        <h1>2-3</h1>
+        <div class="top-screan">》</div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <div class="cave-road-screan3">
+        <h1>3-1</h1>
+        <div class="top-screan">》</div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <div class="cave-road-screan3">
+        <h1>3-2</h1>
+        <div class="top-screan">》</div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <div class="cave-road-screan3">
+        <h1>3-3</h1>
+        <div class="top-screan">》</div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <div class="game-over-screan">
+        <img th:src="@{/image/wolf.png}" class="wolf">
+        <img th:src="@{/image/blood.png}" class="blood">
+    </div>
+
+    <div class="cave-road-goal-screan"></div>
 
     <script type="module" src="../../static/js/question/my-question.js" th:src="@{/js/question/my-question.js}"></script>
     <script type="module" src="../../static/js/question/cave-road-question.js" th:src="@{/js/question/cave-road-question.js}"></script>

@@ -365,6 +365,11 @@ $(function(){
         }
     })
 
+    //ステージ移動時にデータセーブ
+    $('.magic-circle').click(function(){
+        chapterSave(4);
+    })
+
     //仕掛けの画面を閉じる
     $('.return-btn').click(function(e){
         $('.chair-bottom-screan').hide();

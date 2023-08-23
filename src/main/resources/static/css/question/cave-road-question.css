@@ -1,4 +1,5 @@
-.cave-road-screan{
+.cave-road-screan1,.cave-road-screan2,.cave-road-screan3,.game-over-screan,
+.cave-road-goal-screan{
     position: fixed;
     top: 0px;
     left: 0px;
@@ -8,6 +9,47 @@
     background-size: cover;
 }
 
+.cave-road-screan2,.cave-road-screan3{
+    display: none;
+}
+
+.game-over-screan{
+    display: none;
+}
+
+.cave-road-goal-screan{
+    display: none;
+    background-image: url(../../image/main/cave-road-goal.jpg);
+}
+
+.blood{
+    height: 700px;
+    position: fixed;
+    top: 0px;
+    left: 500px;
+    display: none;
+}
+
+
 h1{
     color: white;
+    margin: 300px 600px;
+}
+
+.wolf{
+    width: 300px;
+    height: 400px;
+    position: fixed;
+    top: 200px;
+    left: 700px;
+    transition: all 5s ease;
+}
+
+.top-screan{
+    position: fixed;
+    top: -70px;
+    left: 700px;
+    color: white;
+    font-size: 120px;
+    transform: rotate(-90deg);
 }
