@@ -79,6 +79,16 @@ table {
     border-spacing: 0;
 }
 
+/* 黒板の色 */
+.blackboard{
+    background-color: rgb(1, 59, 1);
+    color: white;    
+}
+
+.blackboard tr,.blackboard td{
+    border: 2px solid white;
+}
+
 /* 箱の中身表示 */
 .timetable-answer,.box-open,.locker-answer,.box-open2{
     display: flex;

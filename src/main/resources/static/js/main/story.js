@@ -53,6 +53,13 @@ export function firstState(comment){
     $('.state').not($('.state').eq(0)).hide();
 }
 
+//ゲームオバー時のコメント
+export function gameOverState(comment){
+    storySpeed2(0,$('.game-over-state'),comment);
+    $('.game-over-state').show();              
+}
+
+
 //セリフの表示
 export function storyList(response){
     for(let i=0;i<response.length;i++){
@@ -73,8 +80,20 @@ export function storyList(response){
 
 }
 
+//探索中の追加選択肢
+export function selectSearchAdd(searchText,searchClass){
+    $('.select-searchs').empty();
+    for(let i=0;i<searchText.length;i++){
+        var selectSearch=$('<div>').addClass('select-search').text(searchText[i]).addClass(searchClass[i]);
+        $('.select-searchs').append(selectSearch);    
+    }
+    $('.select-search-screan').show();
+}
+
 $(function(){
     $('.select-story-screan').hide();
+    $('.select-search-screan').hide();
+
     $('.story-screan').css('background-image','url(/image/main/'+$('.background-story').val()+')');
 
     $('.skip').click(function(){
@@ -209,6 +228,18 @@ $(function(){
                 storyList(response);
             }
         })
+    })
+    
+    //状態表示を閉じる
+    $(document).on('click','.state',function(){
+        var stateLength=$('.state').length;
+        var stateNum=$('.state').index(this);
+        if(stateNum==stateLength-1){
+            $('.state').hide();        
+        }else{
+            $('.state').eq(stateNum).hide();
+            $('.state').eq(stateNum+1).show();
+        }        
     })
     
 })

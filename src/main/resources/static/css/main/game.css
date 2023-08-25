@@ -1,4 +1,4 @@
-.game-over-screan{
+.game-over-screan,.game-clear-screan{
     position: fixed;
     top: 0px;
     left: 0px;
@@ -10,7 +10,7 @@
     flex-direction: column;
 }
 
-.game-over-message{
+.game-over-message,.game-clear-message{
     font-size: 100px;
 }
 

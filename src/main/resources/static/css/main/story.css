@@ -4,7 +4,6 @@
     right: 0px;
     bottom: 0px;
     left: 0px;
-    background-image: url(../../image/main/cave.jpg);
     background-size: cover;
     z-index: 50;
 }
@@ -60,7 +59,7 @@
 }
 
 /* 選択肢の背景 */
-.select-story-screan{
+.select-story-screan,.select-search-screan{
     position: fixed;
     top: 0px;
     right: 0px;
@@ -75,7 +74,7 @@
 }
 
 /* 選択肢を表示する */
-.select-storys{
+.select-storys,.select-searchs{
     position: fixed;
     left: 200px;
     right: 200px;
@@ -88,7 +87,7 @@
 }
 
 /* 選択肢 */
-.select-story{
+.select-story,.select-search{
     display: flex;
     justify-content: center;
     align-items: center;

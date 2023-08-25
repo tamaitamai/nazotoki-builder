@@ -9,10 +9,9 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- <html th:insert="~{/main/loading :: frag_loading}"></html> -->
+    <html th:insert="~{/main/loading :: frag_loading}"></html>
     <html th:insert="~{/main/story :: frag_story}"></html>
     <html th:insert="~{/main/menu :: frag_menu}"></html>
-    <!-- <header th:insert="~{ /main/header-footer :: frag_header}"></header> -->
     
     <!-- アイテム変化判別一覧 -->
     <input type="hidden" th:value="${session.doorChange}" class="door-change">

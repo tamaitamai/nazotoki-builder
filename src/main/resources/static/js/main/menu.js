@@ -76,15 +76,4 @@ $(function(){
         $('.speed-value').val(newCommentSpeed);
     })
 
-    //状態表示を閉じる
-    $(document).on('click','.state',function(){
-        var stateLength=$('.state').length;
-        var stateNum=$('.state').index(this);
-        if(stateNum==stateLength-1){
-            $('.state').hide();        
-        }else{
-            $('.state').eq(stateNum).hide();
-            $('.state').eq(stateNum+1).show();
-        }        
-    })
 })

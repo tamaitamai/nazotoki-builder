@@ -1,4 +1,4 @@
-import { chapterSave } from "../main/save.js";
+import { chapterSave, gameOver } from "../main/save.js";
 import { firstState } from "../main/story.js";
 import { leftScrean, rightScrean, screanCurcor } from "./my-question.js"
 
@@ -55,9 +55,7 @@ function leftRightShow(){
         },7000)
 
         setTimeout(function(){
-            var form=$('<form>',{'action': '/main/gameOver'});
-            $(document.body).append(form);
-            form.submit();    
+            gameOver();
         },10000);
     
     }
@@ -78,7 +76,7 @@ $(function(){
         var relY=e.pageY-parentOffset.top;
         if(relX>830 && relX<1000 && relY>400 && relY<550){
             chapterSave(5);
-            var form=$('<form>',{'action': '/question/ice'});
+            var form=$('<form>',{'action': '/question/ruins'});
             $(document.body).append(form);
             form.submit();
         }

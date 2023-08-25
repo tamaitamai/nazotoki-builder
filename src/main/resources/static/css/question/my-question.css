@@ -37,3 +37,7 @@
     border-radius: 10px;
     background-image: url(../../image/main/black-paper.jpg);
 }
+
+.return-btn:hover{
+    opacity: 0.7;
+}

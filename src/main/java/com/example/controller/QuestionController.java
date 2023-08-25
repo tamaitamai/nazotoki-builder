@@ -75,10 +75,14 @@ public class QuestionController {
 	}
 	
 	//氷ステージ
-	@GetMapping("/ice")
-	public String iceQuestion() {				
+	@GetMapping("/ruins")
+	public String ruinsQuestion() {				
 		itemListJoin(5);
-		return "question/ice-question";
+		changeItem("wolfChange", 15);
+		changeItem("girlIceChange",16);
+		changeItem("firstIceChange",17);
+		changeItem("secondIceChange",18);
+		return "question/ruins-question";
 	}
 	
 	/**

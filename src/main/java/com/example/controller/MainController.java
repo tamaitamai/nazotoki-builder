@@ -21,4 +21,9 @@ public class MainController {
 	public String gameOver() {
 		return "/main/game-over.html";
 	}
+	
+	@GetMapping("/gameClear")
+	public String gameClear(){
+		return "/main/game-clear.html";
+	}
 }
