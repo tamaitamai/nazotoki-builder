@@ -52,12 +52,7 @@
                 </div>    
 
                 <div class="room-box1-open">
-                    <div th:each="item:${session.itemList}">
-                        <div th:if="${item.genre=='ball ball-red item'}">
-                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
-                        </div>
-                    </div>
+                    <img class="item-genre" item-genre="ball-red">
                     <div class="return-btn">戻る</div>
                 </div>
             </div>
@@ -72,12 +67,7 @@
                 </div>    
 
                 <div class="room-box2-open">
-                    <div th:each="item:${session.itemList}">
-                        <div th:if="${item.genre=='cake item'}">
-                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
-                        </div>
-                    </div>
+                    <img class="item-genre" item-genre="cake">
                     <div class="return-btn">戻る</div>
                 </div>
             </div>
@@ -93,12 +83,7 @@
             <!-- ツボの中 -->
             <div class="vase-box-screan">
                 <div class="vase-box">
-                    <div th:each="item:${session.itemList}">
-                        <div th:if="${item.genre=='ball ball-yellow item'}">
-                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
-                        </div>
-                    </div>
+                    <img class="item-genre" item-genre="ball-yellow">
                     <div class="return-btn">戻る</div>
                 </div>
             </div>
@@ -121,12 +106,7 @@
             <input type="hidden" class="barrel-change" th:value="${session.barrelChange}">
             <div class="barrel-open-screan">
                 <div class="barrel-open">
-                    <div th:each="item:${session.itemList}">
-                        <div th:if="${item.genre=='ball ball-blue item'}">
-                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
-                        </div>
-                    </div>
+                    <img class="item-genre" item-genre="ball-blue">
                     <div class="return-btn">戻る</div>
                 </div>                
             </div>
@@ -136,12 +116,7 @@
         <!-- ハンマーの箱 -->
         <div class="hammer-screan">
             <div class="hammer-box">
-                <div th:each="item:${session.itemList}">
-                    <div th:if="${item.genre=='hammer item'}">
-                        <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                        th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
-                    </div>
-                </div>
+                <img class="item-genre" item-genre="hammer">
             </div>
             <div class="return-btn">戻る</div>
         </div>

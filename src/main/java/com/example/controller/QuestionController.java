@@ -60,7 +60,7 @@ public class QuestionController {
 	//暗闇ステージ
 	@GetMapping("/light")
 	public String question3() {	
-		itemListJoin(3);
+		itemListJoin(3);		
 		changeItem("doorChange", 1);
 		changeItem("boxChange1", 12);
 		changeItem("boxChange2", 13);
@@ -76,7 +76,7 @@ public class QuestionController {
 	
 	//氷ステージ
 	@GetMapping("/ruins")
-	public String ruinsQuestion() {				
+	public String ruinsQuestion() {		
 		itemListJoin(5);
 		changeItem("wolfChange", 15);
 		changeItem("girlIceChange",16);

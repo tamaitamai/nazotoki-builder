@@ -3,6 +3,7 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.ChapterCharacter;
 import com.example.domain.Character;
+import com.example.domain.HistoryStory;
 import com.example.domain.SelectStory;
 import com.example.domain.Story;
 import com.example.domain.User;
@@ -63,10 +65,11 @@ public class StoryController {
 	@ResponseBody
 	public List<Story> getStory(){
 		Integer chapterId=(Integer) session.getAttribute("chapterId");
+		User user=(User) session.getAttribute("userLogin");
 		if(chapterId==null) {
 			chapterId=5;
-		}		
-
+		}			
+		storyService.historyStorydelete(chapterId, user.getId());
 		List<Story> storyList=storyService.storyByChapterId(chapterId);
 		return storyList;
 	}
@@ -101,6 +104,29 @@ public class StoryController {
 	
 	/**
 	 * キャラクター情報の確保
+	 * @param characterId
+	 * @return
+	 */
+	@PostMapping("/character")
+	@ResponseBody
+	public Character character(@RequestParam("characterId") Integer characterId) {
+		return storyService.characterLoad(characterId);
+	}
+	
+	/**
+	 * 表情の変更
+	 * @param face
+	 * @param characterId
+	 * @return
+	 */
+	@PostMapping("/face")
+	@ResponseBody
+	public String face(@RequestParam("face") String face,@RequestParam("characterId") Integer characterId) {
+		return storyService.actionCharacter(face, characterId);
+	}
+	
+	/**
+	 * 各ステージのキャラクター情報一覧
 	 * @return
 	 */
 	@PostMapping("/getCharacter")
@@ -127,5 +153,26 @@ public class StoryController {
 		User user=(User) session.getAttribute("userLogin");
 		Integer chapterId=(Integer) session.getAttribute("chapterId");
 		storyService.readStoryInsert(user.getId(), chapterId);
+	}
+		
+	/**
+	 * 履歴に追加
+	 * @param storyId
+	 * @return
+	 */
+	@PostMapping("/addHistoryStory")
+	@ResponseBody
+	public List<HistoryStory> addHistoryStory(@RequestParam("storyId") Integer storyId){
+		Story story=storyService.storyById(storyId);
+		HistoryStory historyStory=new HistoryStory();
+		Integer chapterId=(Integer) session.getAttribute("chapterId");
+		User user=(User) session.getAttribute("userLogin");
+		
+		BeanUtils.copyProperties(story, historyStory);
+		historyStory.setUserId(user.getId());
+		historyStory.setStoryId(storyId);
+		
+		storyService.historyStoryInsert(historyStory);		
+		return storyService.historyStoryFindAll(chapterId,user.getId());
 	}
 }

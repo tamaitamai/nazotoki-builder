@@ -43,6 +43,15 @@ public class ItemService {
 	}
 	
 	/**
+	 * 特定にジャンルを含むアイテムの抜き取り
+	 * @param genre
+	 * @return
+	 */
+	public Item itemByGenre(String genre) {
+		return itemRepository.itemByGenre(genre);
+	}
+	
+	/**
 	 * unionIdの一致するアイテムの取り出し
 	 * @param unionId
 	 * @return

@@ -3,6 +3,7 @@ package com.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.ChapterCharacter;
 import com.example.domain.Character;
+import com.example.domain.HistoryStory;
 import com.example.domain.SelectStory;
 import com.example.domain.Story;
 import com.example.repository.StoryRepository;
@@ -36,7 +38,26 @@ public class StoryService {
 	public Character characterLoad(Integer id) {
 		return storyRepository.characterLoad(id);
 	}
+	
+	/**
+	 * キャラクターの表情変化
+	 * @param face
+	 * @param characterId
+	 * @return
+	 */
+	public String actionCharacter(String face,Integer characterId) {
+		return storyRepository.actionCharacter(face, characterId);
+	}
 
+	/**
+	 * idの一致するストーリー情報
+	 * @param id
+	 * @return
+	 */
+	public Story storyById(Integer id) {
+		return storyRepository.storyById(id);
+	}
+	
 	/**
 	 * chapterごとのstoryのリスト
 	 * @param chapterId
@@ -101,6 +122,33 @@ public class StoryService {
 	 */
 	public List<SelectStory> selectCommentFindAll(Integer chapterId,Integer selectOpenId){
 		return storyRepository.selectCommentFindAll(chapterId,selectOpenId);
+	}
+
+	/**
+	 * 会話ログに追加
+	 * @param historyStory
+	 */
+	public void historyStoryInsert(HistoryStory historyStory) {
+		storyRepository.historyStoryInsert(historyStory);
+	}
+	
+	/**
+	 * 各ステージのユーザーの履歴の表示
+	 * @param chapterId
+	 * @param userId
+	 * @return
+	 */
+	public List<HistoryStory> historyStoryFindAll(Integer chapterId,Integer userId){
+		return storyRepository.historyStoryFindAll(chapterId,userId);
+	}
+
+	/**
+	 * 会話ログの削除
+	 * @param chpaterId
+	 * @param userId
+	 */
+	public void historyStorydelete(Integer chpaterId,Integer userId) {
+		storyRepository.historyStorydelete(chpaterId, userId);
 	}
 
 }

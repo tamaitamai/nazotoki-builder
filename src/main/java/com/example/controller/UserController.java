@@ -69,6 +69,6 @@ public class UserController {
 	@PostMapping("/logOut")
 	public String logOut() {
 		session.invalidate();
-		return "main/header-footer.html";
+		return "user/login.html";
 	}
 }

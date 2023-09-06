@@ -164,6 +164,7 @@ $(function(){
         }
     })
 
+    //アイテム入手時の処理
     $(document).on('click','.item',function(){
         var id=$(this).attr('item-id');
     
@@ -195,4 +196,26 @@ $(function(){
 
         hideItem(id);
     });
+
+    //アイテムの表示
+    for(let i=0;i<$('.item-genre').length;i++){
+        var itemGenre=$('.item-genre').eq(i).attr('item-genre');
+        var postData={
+            genre: itemGenre
+        }
+    
+        $.ajax({
+            type: 'post',
+            url: '/item/itemByGenre',
+            data: postData,
+            success: function(response){
+                $('.item-genre').eq(i).attr('src','/image/'+response.image).attr('class',response.genre).
+                attr('value',response.have).attr('item-id',response.id).addClass('item-genre');
+
+                if(response.have==0){
+                    $('.item-genre').eq(i).hide();
+                }
+            }
+        })    
+    }
 })

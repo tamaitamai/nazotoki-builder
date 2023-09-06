@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <!-- 会話の表示 -->
     <div th:unless="${session.read}">
         <div class="story-screan">
             <input type="hidden" class="background-story" th:value="${session.backgroundStory}">
@@ -16,21 +16,37 @@
             <div class="story-names"></div>
             <div class="story-comments"></div>
             <p class="skip">スキップ</p>
+            <p class="history-open">会話ログ</p>
+            <p class="auto">auto</p>
 
+            <!-- 会話の選択肢 -->
             <div class="select-story-screan">
                 <div class="select-storys"></div>
             </div>
+
+            <!-- キャラクターの感情 -->
+            <img th:src="@{/image/hatena.png}" class="emotion">
+
+            <img th:src="@{/image/blood.png}" class="blood">
         </div>   
     </div>
 
+    <div class="history-story-screan">
+        <p class="history-close">閉じる</p> 
+        <div class="history-storys"></div>
+    </div>  
+
+    <!-- アイテムのコメント -->
     <div class="state"></div>
     <div class="game-over-state"></div>
 
+    <!-- 探索中の選択肢 -->
     <div class="select-search-screan">
         <div class="select-searchs"></div>
     </div>
     
     <input type="hidden" class="speed-value"> 
     <script type="module" src="../../static/js/main/story.js" th:src="@{/js/main/story.js}"></script>
+    <script type="module" src="../../static/js/main/save.js" th:src="@{/js/main/save.js}"></script>
 </body>
 </html>

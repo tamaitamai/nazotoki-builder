@@ -10,6 +10,8 @@ public class Story {
 	private Integer selectOpenId;
 	private Integer commentOpenId;
 	private Integer gameOverId;
+	private Integer actionId;
+	private String face;
 	public Integer getId() {
 		return id;
 	}
@@ -64,11 +66,24 @@ public class Story {
 	public void setGameOverId(Integer gameOverId) {
 		this.gameOverId = gameOverId;
 	}
+	public Integer getActionId() {
+		return actionId;
+	}
+	public void setActionId(Integer actionId) {
+		this.actionId = actionId;
+	}
+	public String getFace() {
+		return face;
+	}
+	public void setFace(String face) {
+		this.face = face;
+	}
 	@Override
 	public String toString() {
 		return "Story [id=" + id + ", name=" + name + ", comment=" + comment + ", chapterId=" + chapterId
 				+ ", characterId=" + characterId + ", selectId=" + selectId + ", selectOpenId=" + selectOpenId
-				+ ", commentOpenId=" + commentOpenId + ", gameOverId=" + gameOverId + "]";
+				+ ", commentOpenId=" + commentOpenId + ", gameOverId=" + gameOverId + ", actionId=" + actionId
+				+ ", face=" + face + "]";
 	}
 	
 }

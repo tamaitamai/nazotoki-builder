@@ -42,6 +42,13 @@ public class ItemController {
 		return item;
 	}
 	
+	@PostMapping("/itemByGenre")
+	@ResponseBody
+	public Item itemByGenre(@RequestParam("genre") String genre) {
+		Item item=itemService.itemByGenre(genre);
+		return item; 
+	}
+	
 	@PostMapping("/unionItemLoad")
 	@ResponseBody
 	public UnionItem unionItemLoad(@RequestParam("id") Integer id) {

@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-    <html th:insert="~{/main/loading :: frag_loading}"></html>
+    <!-- <html th:insert="~{/main/loading :: frag_loading}"></html> -->
     <html th:insert="~{/main/story :: frag_story}"></html>
     <html th:insert="~{/main/menu :: frag_menu}"></html>
     <html th:insert="~{/main/item-box :: frag_item}"></html>
@@ -22,22 +22,12 @@
     
     <!-- 遺跡の画面1 -->
     <div class="ruins-screan">
-        <div th:each="item:${session.itemList}">
-            <div th:if="${item.genre.contains('ruins-item1')}">
-                <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                th:value="${item.have}" th:item-id="${item.id}">                
-            </div>
-        </div>
+        <img class="item-genre" item-genre="ruins-item1">
 
         <!-- 柱の裏側 -->
         <div class="pillar-screan">
             <div class="pillar">
-                <div th:each="item:${session.itemList}">
-                    <div th:if="${item.genre.contains('use-fire-off')}">
-                        <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                        th:value="${item.have}" th:item-id="${item.id}">
-                    </div>
-                </div>
+                <img class="item-genre" item-genre="use-fire-off">
                 <div class="return-btn">戻る</div>
             </div>
         </div>
@@ -55,12 +45,7 @@
             <!-- 箱の中身 -->
             <div class="box-show-screan">                
                 <div class="box-show">
-                    <div th:each="item:${session.itemList}">
-                        <div th:if="${item.genre.contains('gun')}">
-                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                            th:value="${item.have}" th:item-id="${item.id}">    
-                        </div>
-                    </div>
+                    <img class="item-genre" item-genre="gun">
                     <div class="return-btn">戻る</div>
                 </div>    
             </div>
@@ -87,13 +72,7 @@
 
     <!-- 遺跡の画面3 -->
     <div class="ruins-screan">
-        <div th:each="item:${session.itemList}">
-            <div th:if="${item.genre.contains('ruins-item3')}">
-                <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
-                th:value="${item.have}" th:item-id="${item.id}">
-            </div>
-        </div>
-
+        <img class="item-genre" item-genre="ruins-item3">
         <img th:src="@{/image/girl-ice.png}" class="girl-ice">
         <img th:src="@{/image/girl-ice-happy.png}" class="girl-ice-happy">
         <img th:src="@{/image/game-over-ice.png}" class="game-over-ice">

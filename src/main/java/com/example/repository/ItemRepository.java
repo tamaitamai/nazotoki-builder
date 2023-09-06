@@ -110,6 +110,18 @@ public class ItemRepository {
 		Item item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
 	}
+	
+	/**
+	 * 特定にジャンルを含むアイテムの抜き取り
+	 * @param genre
+	 * @return
+	 */
+	public Item itemByGenre(String genre) {
+		String sql="select id,name,image,explanation,chapter_id,union_id,change_id,have,genre from items where genre like :genre;";
+		SqlParameterSource param=new MapSqlParameterSource().addValue("genre","%"+genre+"%");
+		Item item=template.queryForObject(sql, param, ITEM_ROW_MAPPER);
+		return item;
+	}
 
 	/**
 	 * unionIdの一致するアイテムの取り出し

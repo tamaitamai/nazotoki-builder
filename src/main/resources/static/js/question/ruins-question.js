@@ -44,7 +44,7 @@ export function ignition(clickClass){
     $(clickClass).hide();    
 }
 
-$(function(){
+$(document).ready(function(){
     $('.ruins-screan').not($('.ruins-screan').eq(0)).hide();  
     $('.ruins-room-screan').hide();
     // $('.altar-screan').show();
@@ -80,10 +80,8 @@ $(function(){
     objectHide('.fire');
 
     // アイテム位置
-    // DoubleObjectPosition('.ice','.ruins-word',0,100,200);
-    // DoubleObjectPosition('.ice','.ruins-word',1,550,200);
-    objectPostion('.fire',0,300,500);
-    objectPostion('.fire',1,550,700);
+    objectPostion('.item-genre',0,300,500);
+    objectPostion('.item-genre',3,550,700);
 
     //画面の遷移
     leftScrean();
@@ -287,7 +285,7 @@ $(function(){
     })
 
     //松明を選択していて火がついていないときに火をつける
-    $('.fire').click(function(){
+    $(document).on('click','.fire',function(){
         if($(this).hasClass('burning-fire') && !$('.item-select').hasClass('use-fire-off')){
             firstState('焚火だな...火をつけるのに使えそうだ...');
             addState(1,'でも火が消えたらこの子起こるだろうな～');    
