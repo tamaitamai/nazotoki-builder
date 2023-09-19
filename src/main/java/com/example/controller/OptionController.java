@@ -36,15 +36,17 @@ public class OptionController {
 	 */
 	@PostMapping("/updateCommentSpeed")
 	@ResponseBody
-	public void commentSpeed(@RequestParam("commentSpeed") Integer commentSpeed) {
+	public void commentSpeed(@RequestParam("commentSpeed") Integer commentSpeed,
+			@RequestParam("autoSpeed") Integer autoSpeed) {
 		User user=(User) session.getAttribute("userLogin");
 		Option option=new Option();
 		option.setUserId(user.getId());
 		option.setCommentSpeed(commentSpeed);
+		option.setAutoSpeed(autoSpeed);
 		if(optionService.optionLoad(user.getId())==null) {
 			optionService.optionInsert(option);
 		}else {
-			optionService.commentSpeedUpdate(commentSpeed, user.getId());
+			optionService.commentSpeedUpdate(option);
 		}
 	}
 }

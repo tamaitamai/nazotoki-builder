@@ -2,7 +2,7 @@ import { gameOver } from "./save.js";
 
 //文字送りスピード
 export function storySpeed($storyComment,commentText){
-    var speedVal=parseInt($('.speed-value').val());
+    var speedVal=parseInt($('.comment-speed-value').val());
     if(isNaN(speedVal)){
         speedVal=30;
     }
@@ -21,7 +21,7 @@ export function storySpeed($storyComment,commentText){
 
 //文字送りスピード複数
 export function storySpeed2(num,$storyComment,commentText){
-    var speedVal=parseInt($('.speed-value').val());
+    var speedVal=parseInt($('.comment-speed-value').val());
     if(isNaN(speedVal)){
         speedVal=30;
     }
@@ -71,7 +71,7 @@ export function storyList(response){
         .attr('select-open-id',response[i].selectOpenId).attr('select-id',response[i].selectId)
         .attr('story-id',response[i].id).attr('game-over-id',response[i].gameOverId)
         .attr('character-id',response[i].characterId).attr('action-id',response[i].actionId)
-        .attr('face',response[i].face);
+        .attr('face',response[i].face).attr('comment-open-id',response[i].commentOpenId);
         $('.story-comments').append(comment);
     }
     $('.story-comment').not($('.story-comment').eq(0)).hide();
@@ -79,8 +79,16 @@ export function storyList(response){
     
     var $storyComment=$('.story-comment').eq(0);
     var commentText=$('.story-comment').eq(0).text();
+    var commentOpenId=$('.story-comment').eq(0).attr('comment-open-id');
 
-    storySpeed($storyComment,commentText);
+    $('.story-comment').eq(0).text('');
+    if(commentOpenId==0){
+        setTimeout(function(){
+            storySpeed($storyComment,commentText);    
+        },2200)        
+    }else{
+        storySpeed($storyComment,commentText);
+    }
 
 }
 
@@ -109,7 +117,14 @@ export function character(characterId,num){
                 .attr('character-id',characterId);
                 $('.character-list').append(img);
             }
-        });    
+        });   
+        
+        //キャラクターをリストに追加
+        $.ajax({
+            type: 'post',
+            url: '/chapter/entryCharacterInsert',
+            data: postData
+        })        
     }
 }
 
@@ -178,7 +193,6 @@ export function characterEmotion(actionClass,image){
         $('.emotion').css('right',''); 
         $('.emotion').css('left','300px');
     }else{
-        console.log('right');
         var right=$(actionClass).css('right');
         $('.emotion').css('left','');            
         $('.emotion').css('right',parseInt(right)+150+'px');            
@@ -248,6 +262,56 @@ export function historyStory2(name,comment){
     $('.history-storys').append(historyName).append(historyStory);    
 }
 
+//選択肢を選ぶ
+export function selectShow(num,selectOpenId){
+    if($('.story-comment').length-1==num && selectOpenId==0){
+        //ゲームオバーになるかを判別
+        if($('.story-comment').eq(num).attr('game-over-id')==1){
+            $('.blood').show();
+            setTimeout(function(){
+                gameOver();
+            },1000);                
+        }else{
+            $('.story-screan').hide();
+            //既読をつける
+            // $.ajax({
+            //     type: 'post',
+            //     url: '/story/readStory'
+            // })   
+        }                
+    }else{                    
+        if(selectOpenId==0){
+            $('.story-comment').eq(num).next().show();        
+            $('.story-name').eq(num).next().show();    
+            $('.story-comment').not($('.story-comment').eq(num).next()).hide();
+            $('.story-name').not($('.story-name').eq(num).next()).hide();    
+        }else{
+            $('.auto').attr('auto','off');                
+            //選択肢の情報を確保
+            var postData={
+                selectOpenId: selectOpenId
+            }
+
+            //選択肢の表示
+            $.ajax({
+                type: 'post',
+                url: '/story/selectStory',
+                data: postData,
+                success: function(response){     
+                    $('.select-storys').empty();
+                    $('.select-story-screan').show();
+                    for(let i=0;i<response.length;i++){
+                        var selectStory=$('<div>').addClass('select-story').text(response[i].selectComment)
+                        .attr('select-id',response[i].selectId).attr('select-open-id',selectOpenId);
+                        $('.select-storys').append(selectStory);
+                    }
+                }
+            })
+        }
+    }     
+
+}
+
 // ストーリーイベント
 $(function(){
     $('.select-story-screan').hide();
@@ -277,18 +341,6 @@ $(function(){
         $('.history-story-screan').hide();
     })
 
-    //オプション情報の入手
-    $.ajax({
-        type: 'post',
-        url: '/option',
-        success: function(response){
-            var commentSpeed=response.commentSpeed;
-            var level=(100-commentSpeed)/10;
-            $('.option-ball').css('left',0+level*20);
-            $('.speed-value').val(commentSpeed);
-        }
-    })
-
     //セリフ一覧を確保
     $.ajax({
         type: 'post',
@@ -300,6 +352,7 @@ $(function(){
         }        
     })
 
+    //キャラクター1の表示
     setTimeout(function(){
         $('.character1').css({
             position: 'fixed',
@@ -308,26 +361,88 @@ $(function(){
         })         
     },1000);
 
+    //時間差でキャラクター1の名前とセリフの表示
     setTimeout(function(){
         $('.story-names').fadeIn();
         $('.story-comments').fadeIn();                
     },2000);
 
 
+    let autoTime='';
     //セリフをautoにする
     $(document).on('click','.auto',function(){
+        var autoSpeed=$('.auto-speed-value').val();//autoのスピード
+        if(autoSpeed==''){
+            autoSpeed=2000;
+        }
+        //autoのonとoffの表示の切替
+        if($(this).attr('auto')=='off'){
+            $(this).attr('auto','on');
+            $(this).css('background-color','rgba(150, 150, 150,0.8)');            
+        }else{
+            clearTimeout(autoTime);
+            $(this).attr('auto','off');
+            $(this).css('background-color','rgba(0, 0, 0,0.8)');
+        }
+
+        //何番目のコメントかを調べる
+        var commentNum='';
+        for(let i=0;i<$('.story-comment').length;i++){
+            if($('.story-comment').eq(i).is(':visible')){
+                commentNum=i;
+                break;
+            }
+        }
+        
+        //コメントを自動で進行させる
         function toggleComments(index) {
-            setTimeout(function () {
+            autoTime=setTimeout(function () {
+                var characterId=$('.story-comment').eq(index).attr('character-id');
+                var nextCharacterId=$('.story-comment').eq(index+1).attr('character-id');
+                var face=$('.story-comment').eq(index).next().attr('face');
+                var actionId=$('.story-comment').eq(index).next().attr('action-id');
+                var selectOpenId=$('.story-comment').eq(index).next().attr('select-open-id');
                 
+                //選択肢を選ぶ
+                selectShow(index,selectOpenId);
+                
+                //キャラクターの追加
+                characterEntry(characterId,nextCharacterId);
+
+                //表情を変化させる
+                if(!(face==undefined || face=='' || index==$('.story-comment').length-1)){            
+                    faceChange(nextCharacterId,face);
+                }
+        
+                //キャラクターにアクションをつける               
+                for(let i=1;i<=3;i++){
+                    if($('.character'+i).attr('character-id')==nextCharacterId){
+                        characterAction('.character'+i,actionId);
+                        break;
+                    }
+                }                    
+
+                $('.story-name').eq(index).hide();
+                $('.story-name').eq(index + 1).show();
                 $('.story-comment').eq(index).hide();
                 $('.story-comment').eq(index + 1).show();
-                if (index + 1 < $('.story-comment').length - 1) {
-                    toggleComments(index + 1);
+
+                //次のセリフがあるかを判別
+                if (index == $('.story-comment').length - 1) {
+                    $('.story-screan').hide();
+                }else if($('.auto').attr('auto')=='off'){                
+                    $('.auto').css('background-color','rgba(0, 0, 0,0.8)');
+                }else{
+                    toggleComments(index + 1);                    
                 }
-            }, 2000);
+            }, autoSpeed);
         }
-    
-        toggleComments(0);
+        
+        //autoがonのときに起動
+        if($(this).attr('auto')=='on'){
+            toggleComments(commentNum);
+        }
+        
     })
 
     //セリフを読んでいく
@@ -346,6 +461,7 @@ $(function(){
         //     }
         // })
 
+        //履歴にセリフを追加
         var commentNum=$('.story-comment').index($(this));   
         var name=$('.story-name').eq(commentNum).text();
         var comment=$(this).text();
@@ -355,56 +471,25 @@ $(function(){
         $(this).next().text('');
         var $storyComment=$(this).next();
         var selectOpenId=$(this).attr('select-open-id');
-
-        if($('.story-comment').length-1==commentNum && selectOpenId==0){
-            //ゲームオバーになるかを判別
-            if($(this).attr('game-over-id')==1){
-                $('.blood').show();
-                setTimeout(function(){
-                    gameOver();
-                },1000);                
-            }else{
-                $('.story-screan').hide();
-                //既読をつける
-                // $.ajax({
-                //     type: 'post',
-                //     url: '/story/readStory'
-                // })   
-            }                
-        }else{
-            if(selectOpenId==0){
-                $(this).next().show();        
-                $('.story-name').eq(commentNum).next().show();    
-                $('.story-comment').not($(this).next()).hide();
-                $('.story-name').not($('.story-name').eq(commentNum).next()).hide();    
-            }else{
-                //選択肢の情報を確保
-                var postData={
-                    selectOpenId: selectOpenId
-                }
-
-                $.ajax({
-                    type: 'post',
-                    url: '/story/selectStory',
-                    data: postData,
-                    success: function(response){     
-                        $('.select-storys').empty();
-                        $('.select-story-screan').show();
-                        for(let i=0;i<response.length;i++){
-                            var selectStory=$('<div>').addClass('select-story').text(response[i].selectComment)
-                            .attr('select-id',response[i].selectId).attr('select-open-id',selectOpenId);
-                            $('.select-storys').append(selectStory);
-                        }
-                    }
-                })
-            }
-        }     
-        storySpeed($storyComment,nextCommentText);
-
+        
+        selectShow(commentNum,selectOpenId);//選択肢を選ぶ
+                
         var characterId=$(this).next().attr('character-id');//キャラクターid
         var face=$(this).next().attr('face');//表情
         var actionId=$(this).next().attr('action-id');//アクションid
-        // var selectOpenId=$(this).next().attr('select-open-id');//選択肢が出るid
+
+        //セリフを時間差で表示
+        if(characterId==$('.character1').attr('character-id') ||
+        characterId==$('.character2').attr('character-id') ||
+        characterId==$('.character3').attr('character-id')){
+            storySpeed($storyComment,nextCommentText);
+        }else{
+            setTimeout(function(){
+                storySpeed($storyComment,nextCommentText);
+            },1800)    
+        }
+
+        
 
         //キャラクターの表情を変化させる
         if(!(face==undefined || face=='' || $('.story-comment').index(this)==$('.story-comment').length-1)){            
@@ -417,43 +502,11 @@ $(function(){
                 characterAction('.character'+i,actionId);
                 break;
             }
-        }                    
+        }                   
+
+        //キャラクターの登場
         characterEntry($(this).attr('character-id'),$(this).next().attr('character-id'));
         
-        新しいキャラクターの登場
-        // if($(this).attr('character-id')!=$(this).next().attr('character-id')){
-        //     //キャラクターの重複がないかを確認
-        //     if(characterId==$('.character1').attr('character-id') ||
-        //     characterId==$('.character2').attr('character-id') ||
-        //     characterId==$('.character3').attr('character-id')){
-        //         return false;
-        //     }
-                        
-        //     $('.story-comments,.story-names').hide();
-
-        //     if($('.character2').is(':visible')){
-        //         character(characterId,3);            
-        //         setTimeout(function(){
-        //             $('.character3').css({
-        //                 position: 'fixed',
-        //                 bottom: 20+'px',
-        //                 right: 500+'px'
-        //             });        
-        //         },200);                    
-        //     }else{
-        //         character(characterId,2);            
-        //         setTimeout(function(){
-        //             $('.character2').css({
-        //                 position: 'fixed',
-        //                 bottom: 20+'px',
-        //                 right: 180+'px'
-        //             });        
-        //         },200);    
-        //     }            
-        //     setTimeout(function(){                
-        //         $('.story-comments,.story-names').fadeIn();                                
-        //     },1000);
-        // }
     })
 
     //選択肢を選ぶ

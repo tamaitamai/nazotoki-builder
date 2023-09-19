@@ -17,7 +17,7 @@
             <div class="story-comments"></div>
             <p class="skip">スキップ</p>
             <p class="history-open">会話ログ</p>
-            <p class="auto">auto</p>
+            <p class="auto" auto="off">auto</p>
 
             <!-- 会話の選択肢 -->
             <div class="select-story-screan">
@@ -45,7 +45,9 @@
         <div class="select-searchs"></div>
     </div>
     
-    <input type="hidden" class="speed-value"> 
+    <input type="hidden" class="comment-speed-value"> 
+    <input type="hidden" class="auto-speed-value"> 
+    
     <script type="module" src="../../static/js/main/story.js" th:src="@{/js/main/story.js}"></script>
     <script type="module" src="../../static/js/main/save.js" th:src="@{/js/main/save.js}"></script>
 </body>

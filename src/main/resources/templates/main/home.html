@@ -36,9 +36,8 @@
             <a th:href="@{/question/light}"><button class="question-btn">光ステージ</button></a>
             <a th:href="@{/question/caveRoad}"><button class="question-btn">洞窟の道ステージ</button></a>
             <a th:href="@{/question/ruins}"><button class="question-btn">氷ステージ</button></a>
+            <a th:href="@{/main/characterList}"><button class="question-btn">キャラクター</button></a>
             <button class="reset-btn">初めから</button>
-            <!-- <form th:action="@{/chapter/load}" data-url="@{/chapter/load}" method="post" class="load-url">
-                <button class="load-btn">続きから</button></form> -->
             <form th:action="@{/chapter/load}" method="post" class="load-url">
                 <input type="hidden" id="chapterLoadUrl" th:value="@{/chapter/load}" />
                 <button class="load-btn">続きから</button>

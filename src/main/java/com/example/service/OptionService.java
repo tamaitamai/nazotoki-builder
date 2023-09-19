@@ -35,8 +35,8 @@ public class OptionService {
 	 * @param commentSpeed
 	 * @param userId
 	 */
-	public void commentSpeedUpdate(Integer commentSpeed,Integer userId) {
-		optionRepository.commentSpeedUpdate(commentSpeed, userId);
+	public void commentSpeedUpdate(Option option) {
+		optionRepository.commentSpeedUpdate(option);
 	}
 
 }

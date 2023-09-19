@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.ChapterCharacter;
 import com.example.domain.Character;
+import com.example.domain.EntryCharacter;
 import com.example.domain.HistoryStory;
 import com.example.domain.SelectStory;
 import com.example.domain.Story;
 import com.example.domain.User;
+import com.example.service.ChapterService;
 import com.example.service.StoryService;
 
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +30,9 @@ import jakarta.servlet.http.HttpSession;
 public class StoryController {
 	@Autowired
 	private StoryService storyService;
+	
+	@Autowired
+	private ChapterService chapterService;
 	
 	@Autowired
 	private HttpSession session;
@@ -70,7 +75,7 @@ public class StoryController {
 			chapterId=5;
 		}			
 		storyService.historyStorydelete(chapterId, user.getId());
-		List<Story> storyList=storyService.storyByChapterId(chapterId);
+		List<Story> storyList=storyService.storyByChapterId(chapterId);		
 		return storyList;
 	}
 	
@@ -101,7 +106,7 @@ public class StoryController {
 		List<Story> storyList=storyService.storyBySelectId(chapterId, selectId, selectOpenId);
 		return storyList;
 	}
-	
+		
 	/**
 	 * キャラクター情報の確保
 	 * @param characterId

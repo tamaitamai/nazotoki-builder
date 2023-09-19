@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.domain.Chapter;
+import com.example.domain.Character;
+import com.example.domain.EntryCharacter;
 import com.example.domain.Save;
 import com.example.domain.User;
 import com.example.service.ChapterService;
+import com.example.service.StoryService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,6 +26,9 @@ import jakarta.servlet.http.HttpSession;
 public class ChapterController {
 	@Autowired
 	private ChapterService chapterService;
+	
+	@Autowired
+	private StoryService storyService;
 	
 	@Autowired
 	private HttpSession session;
@@ -59,8 +67,6 @@ public class ChapterController {
 		}	
 	}
 	
-
-
 	/**
 	 * データを削除
 	 * @return
@@ -71,4 +77,27 @@ public class ChapterController {
 		chapterService.saveDelete(user.getId());
 		return "redirect:/question/school";
 	}
+	
+	@PostMapping("/entryCharacterInsert")
+	@ResponseBody
+	public void entryCharacterInsert(@RequestParam("characterId") Integer characterId) {
+		EntryCharacter entryCharacter=new EntryCharacter();	
+		User user=(User)session.getAttribute("userLogin");
+		BeanUtils.copyProperties(storyService.characterLoad(characterId), entryCharacter);
+		entryCharacter.setUserId(user.getId());
+		entryCharacter.setCharacterId(characterId);
+		chapterService.entryCharacterInsert(entryCharacter);
+	}
+	
+	/**
+	 * キャラクターの一覧
+	 * @return
+	 */
+	@PostMapping("/characterList")
+	@ResponseBody
+	public List<EntryCharacter> characterList(){		
+		User user=(User) session.getAttribute("userLogin");		
+		return chapterService.entryCharacterList(user.getId());
+	}
+
 }

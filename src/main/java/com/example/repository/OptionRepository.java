@@ -22,6 +22,7 @@ public class OptionRepository {
 		option.setId(rs.getInt("id"));
 		option.setUserId(rs.getInt("user_id"));
 		option.setCommentSpeed(rs.getInt("comment_speed"));
+		option.setAutoSpeed(rs.getInt("auto_speed"));
 		return option;
 	};
 	
@@ -31,7 +32,7 @@ public class OptionRepository {
 	 * @return
 	 */
 	public Option optionLoad(Integer userId) {
-		String sql="select id,user_id,comment_speed from options where user_id=:userId;";
+		String sql="select id,user_id,comment_speed,auto_speed from options where user_id=:userId;";
 		SqlParameterSource param=new MapSqlParameterSource("userId",userId);
 		List<Option> optionList=template.query(sql, param,OPTION_ROW_MAPPER);
 		if(optionList.size()==0) {
@@ -45,7 +46,7 @@ public class OptionRepository {
 	 * @param option
 	 */
 	public void optionInsert(Option option) {
-		String sql="INSERT INTO options(user_id,comment_speed)VALUES(:userId,:commentSpeed);";
+		String sql="INSERT INTO options(user_id,comment_speed,auto_speed)VALUES(:userId,:commentSpeed,:autoSpeed);";
 		SqlParameterSource param=new BeanPropertySqlParameterSource(option);
 		template.update(sql, param);
 	}
@@ -55,9 +56,9 @@ public class OptionRepository {
 	 * @param commentSpeed
 	 * @param userId
 	 */
-	public void commentSpeedUpdate(Integer commentSpeed,Integer userId) {
-		String sql="UPDATE options SET comment_speed=:commentSpeed WHERE user_id=:userId;";
-		SqlParameterSource param=new MapSqlParameterSource("commentSpeed",commentSpeed).addValue("userId", userId);
+	public void commentSpeedUpdate(Option option) {
+		String sql="UPDATE options SET comment_speed=:commentSpeed,auto_speed=:autoSpeed WHERE user_id=:userId;";
+		SqlParameterSource param=new BeanPropertySqlParameterSource(option);
 		template.update(sql, param);
 	}
 }

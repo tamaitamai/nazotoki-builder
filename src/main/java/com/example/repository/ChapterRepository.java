@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.example.domain.Chapter;
+import com.example.domain.EntryCharacter;
 import com.example.domain.Save;
 
 @Repository
@@ -36,6 +37,17 @@ public class ChapterRepository {
 		save.setUrl(rs.getString("url"));
 		save.setSaveDate(rs.getString("save_date"));
 		return save;
+	};
+	
+	private static final RowMapper<EntryCharacter> ENTRY_CHARACTER_ROW_MAPPER=(rs,i)->{
+		EntryCharacter entryCharacter=new EntryCharacter();
+		entryCharacter.setId(rs.getInt("id"));
+		entryCharacter.setUserId(rs.getInt("user_Id"));
+		entryCharacter.setCharacterId(rs.getInt("character_id"));
+		entryCharacter.setName(rs.getString("name"));
+		entryCharacter.setImage(rs.getString("image"));
+		entryCharacter.setExplanation(rs.getString("explanation"));
+		return entryCharacter;
 	};
 	
 	/**
@@ -95,5 +107,43 @@ public class ChapterRepository {
 		String sql="delete from saves where user_id=:userId;";
 		SqlParameterSource param=new MapSqlParameterSource("userId",userId);
 		template.update(sql, param);
+	}
+	
+	/**
+	 * キャラクターリストに追加
+	 * @param entryCharacter
+	 */
+	public void entryCharacterInsert(EntryCharacter entryCharacter) {
+		if(!(entryExists(entryCharacter.getUserId(), entryCharacter.getCharacterId()))) {
+			String sql="insert into entry_characters(user_id,character_id,name,image,explanation)\r\n"
+					+ "values(:userId,:characterId,:name,:image,:explanation);";		
+			SqlParameterSource param=new BeanPropertySqlParameterSource(entryCharacter);
+			template.update(sql, param);			
+		}
+	}
+	
+	/**
+	 * 各ユーザーのキャラクターリスト
+	 * @param userId
+	 * @return
+	 */
+	public List<EntryCharacter> entryCharacterList(Integer userId){
+		String sql="select id,user_id,character_id,image,name,explanation from entry_characters where user_id=:userId;";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId);
+		List<EntryCharacter> entryCharacterList=template.query(sql, param,ENTRY_CHARACTER_ROW_MAPPER);
+		return entryCharacterList;
+	}
+	
+	/**
+	 * すでにキャラクターがリストにあるかを確認
+	 * @param userId
+	 * @param characterId
+	 * @return
+	 */
+	public boolean entryExists(Integer userId,Integer characterId) {
+		String sql="select exists(select * from entry_characters where user_id=:userId and character_id=:characterId);";
+		SqlParameterSource param=new MapSqlParameterSource("userId",userId).addValue("characterId", characterId);
+		boolean exists=template.queryForObject(sql, param, boolean.class);
+		return exists;
 	}
 }

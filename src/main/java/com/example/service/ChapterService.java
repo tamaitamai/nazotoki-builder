@@ -1,12 +1,16 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.Chapter;
+import com.example.domain.EntryCharacter;
 import com.example.domain.Save;
 import com.example.repository.ChapterRepository;
 
@@ -57,4 +61,22 @@ public class ChapterService {
 	public void saveDelete(Integer userId) {
 		chapterRepository.saveDelete(userId);
 	}
+	
+	/**
+	 * キャラクターリストに追加
+	 * @param entryCharacter
+	 */
+	public void entryCharacterInsert(EntryCharacter entryCharacter) {
+		chapterRepository.entryCharacterInsert(entryCharacter);
+	}
+
+	/**
+	 * 各ユーザーのキャラクターリスト
+	 * @param userId
+	 * @return
+	 */
+	public List<EntryCharacter> entryCharacterList(Integer userId){
+		return chapterRepository.entryCharacterList(userId);
+	}
+
 }

@@ -4,9 +4,16 @@ public class Option {
 	private Integer id;
 	private Integer userId;
 	private Integer commentSpeed;
+	private Integer autoSpeed;
 	
 	public Integer getId() {
 		return id;
+	}
+	public Integer getAutoSpeed() {
+		return autoSpeed;
+	}
+	public void setAutoSpeed(Integer autoSpeed) {
+		this.autoSpeed = autoSpeed;
 	}
 	public void setId(Integer id) {
 		this.id = id;
@@ -25,7 +32,8 @@ public class Option {
 	}
 	@Override
 	public String toString() {
-		return "Option [id=" + id + ", userId=" + userId + ", commentSpeed=" + commentSpeed + "]";
+		return "Option [id=" + id + ", userId=" + userId + ", commentSpeed=" + commentSpeed + ", autoSpeed=" + autoSpeed
+				+ "]";
 	}
 	
 	
