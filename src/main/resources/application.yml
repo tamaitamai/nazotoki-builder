@@ -1,6 +1,8 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Nazotoki
+    url: jdbc:postgresql://localhost:5433/Nazotoki
     username: postgres
     password: postgres
+  thymeleaf:
+      cache: false
