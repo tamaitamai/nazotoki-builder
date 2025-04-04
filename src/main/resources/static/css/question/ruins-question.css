@@ -1,0 +1,120 @@
+/* メイン背景 */
+.ruins-screan,.altar-screan,.ruins-room-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.altar-screan{
+    display: none;
+    background-image: url("../../image/main/altar.jpg");
+}
+
+/* 画像の大きさと位置 */
+.ice{
+    width: 100px;
+    height: 100px;    
+}
+
+.fire{
+    width: 100px;
+    height: 100px;
+}
+
+.use-fire-off,.gun{
+    width: 200px;
+    height: 200px;
+}
+
+
+.girl-ice,.girl-ice-happy{
+    position: fixed;
+    top: 350px;
+    left: 800px;
+    width: 220px;
+    height: 300px;
+    transition: all 0.5s ease;
+}
+
+.girl-ice-happy{
+    display: none;
+}
+
+.game-over-ice{
+    width: 400px;
+    height: 600px;
+    z-index: 1;
+    display: none;
+}
+
+.blood{
+    height: 700px;
+    display: none;
+    z-index: 1;
+}
+
+.box1{
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 300px;
+    left: 1200px;
+}
+
+.wolf{
+    width: 200px;
+    height: 300px;
+    position: fixed;
+    top: 300px;
+    left: 750px;
+    transition: all 20s ease;
+    display: none;
+}
+
+.first-ice,.second-ice{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    top: 50px;
+    left: 600px;
+}
+
+.second-ice{
+    display: none;
+}
+
+/* オブジェクト選択時の背景 */
+.pillar-screan,.box-show-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(0,0,0,0.8);
+    z-index: 10;
+    display: none;
+}
+
+/* 箱の中身表示 */
+.pillar,.box-show{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 25%;
+    left:35%;
+    width: 500px;
+    height: 250px;
+    padding: 20px;
+    background-image: url(../../image/main/wood1.jpg);
+    border-radius: 20px;       
+}
+
+
+

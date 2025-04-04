@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja" th:fragment="frag_loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading Screen</title>
+  <link rel="stylesheet" href="../../static/css/main/loading.css" th:href="@{/css/main/loading.css}">
+</head>
+<body class="loading-body">
+  <div class="loading-screen">
+    <div class="loading-detail">
+      <img class="loading-image">
+      <div class="loading-message">
+        <p class="loading-name">名前</p>
+        <p class="loading-explanation">説明</p>
+      </div>
+    </div>
+    <div class="loading-text">
+      <div class="loading-icon"></div>
+      <p>Loading...</p>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="../../static/js/main/loading.js" th:src="@{/js/main/loading.js}"></script>
+</body>
+</html>

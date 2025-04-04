@@ -1,0 +1,43 @@
+.left-screan, .right-screan{
+    font-size: 120px;
+    color: white;
+}
+
+.left-screan{
+    position: fixed;
+    top: 250px;
+    left: -50px;
+}
+
+.right-screan{
+    position: fixed;
+    top: 250px;
+    right: -50px;
+}
+
+
+.back-screan{
+    font-size: 120px;
+    color: white;
+    position: fixed;
+    bottom: -70px;
+    left: 700px;
+    transform: rotate(90deg);
+}
+
+/* 画面に戻るボタン */
+.return-btn{
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    box-shadow: 5px 5px black;
+    border-radius: 10px;
+    background-image: url(../../image/main/black-paper.jpg);
+}
+
+.return-btn:hover{
+    opacity: 0.7;
+}

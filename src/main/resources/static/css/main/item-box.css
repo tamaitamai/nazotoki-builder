@@ -1,0 +1,133 @@
+.item-bag{
+    width: 100px;
+    height: 100px;
+    position:fixed;
+    bottom: 0px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.item-select{
+    width: 100px;
+    height: 100px;
+    position:fixed;
+    bottom: 100px;
+    right: 20px;
+    cursor: pointer;
+    background-image: url(../../image/main/black-paper.jpg);
+    border-radius: 10px;
+    z-index: 11;
+}
+
+
+
+.item-list{
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-image: url(../../image/main/item-box.jpg);
+    z-index: 11;
+}
+
+.item-image{
+    width:300px;
+    height: 300px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 250px;
+    z-index: 3;
+    background-image: url(../../image/main/black-paper.jpg);
+    border-radius: 20px;
+    z-index: 11;
+}
+
+.item-detail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    
+    width:400px;
+    height: 200px;
+    position: fixed;
+    right: 150px;
+    bottom: 270px;
+    z-index: 3;
+    background-image: url(../../image/main/white-paper.jpg);
+    border-radius: 20px;
+    z-index: 11;
+}
+
+.item-name,.item-explanation{
+    font-size: 20px;
+}
+
+
+.item-box{
+    display: flex;
+}
+
+.get-border{
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin-right: 30px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.get-image{
+    width: 150px;
+    height: 150px;
+}
+
+.search{
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.check-image{
+    width:400px;
+    height: 400px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 200px;
+    z-index: 3;
+    border-radius: 20px;
+    background-image: url(../../image/main/black-paper.jpg);   
+    z-index: 11;
+}
+
+.check-detail{
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 70px;
+    background-image: url(../../image/main/white-paper.jpg);   
+    z-index: 11;
+}
+
+.check-background{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;    
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}

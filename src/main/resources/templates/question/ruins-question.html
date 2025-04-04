@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/ruins-question.css" th:href="@{/css/question/ruins-question.css}">
+    <link rel="stylesheet" href="../../static/css/question/my-question.css" th:href="@{/css/question/my-question.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <!-- <html th:insert="~{/main/loading :: frag_loading}"></html> -->
+    <html th:insert="~{/main/story :: frag_story}"></html>
+    <html th:insert="~{/main/menu :: frag_menu}"></html>
+    <html th:insert="~{/main/item-box :: frag_item}"></html>
+
+    <!-- アイテムの変化 -->
+    <input type="hidden" class="wolf-change" th:value="${session.wolfChange}">
+    <input type="hidden" class="girl-ice-change" th:value="${session.girlIceChange}">
+    <input type="hidden" class="first-ice-change" th:value="${session.firstIceChange}">
+    <input type="hidden" class="second-ice-change" th:value="${session.secondIceChange}">
+    
+    <!-- 遺跡の画面1 -->
+    <div class="ruins-screan">
+        <img class="item-genre" item-genre="ruins-item1">
+
+        <!-- 柱の裏側 -->
+        <div class="pillar-screan">
+            <div class="pillar">
+                <img class="item-genre" item-genre="use-fire-off">
+                <div class="return-btn">戻る</div>
+            </div>
+        </div>
+
+        <!-- 遺跡の部屋1 -->
+        <div class="ruins-room-screan">
+            <img th:src="@{/image/wolf.png}" class="wolf">
+            <img th:src="@{/image/blood.png}" class="blood">
+            <div class="back-screan">》</div>
+        </div>
+
+        <!-- 遺跡の部屋2 -->
+        <div class="ruins-room-screan">
+            <img th:src="@{/image/box-close.png}" class="box1">
+            <!-- 箱の中身 -->
+            <div class="box-show-screan">                
+                <div class="box-show">
+                    <img class="item-genre" item-genre="gun">
+                    <div class="return-btn">戻る</div>
+                </div>    
+            </div>
+
+            <div class="back-screan">》</div>
+        </div>
+        
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <!-- 遺跡の画面2 -->
+    <div class="ruins-screan">
+        <!-- 祭壇の画面 -->
+        <div class="altar-screan">
+            <img th:src="@{/image/ice.png}" class="first-ice ice">
+            <img th:src="@{/image/game-over-ice.png}" class="second-ice ice">
+            <div class="back-screan">》</div>
+        </div>
+
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    <!-- 遺跡の画面3 -->
+    <div class="ruins-screan">
+        <img class="item-genre" item-genre="ruins-item3">
+        <img th:src="@{/image/girl-ice.png}" class="girl-ice">
+        <img th:src="@{/image/girl-ice-happy.png}" class="girl-ice-happy">
+        <img th:src="@{/image/game-over-ice.png}" class="game-over-ice">
+        
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>       
+    </div>
+
+    
+    <script type="module" src="../../static/js/question/ruins-question.js" th:src="@{/js/question/ruins-question.js}"></script>
+    <script type="module" src="../../static/js/main/my-item.js" th:src="@{/js/main/my-item.js}"></script>
+    <script type="module" src="../../static/js/question/my-question.js" th:src="@{/js/question/my-question.js}"></script>
+</body>
+</html>

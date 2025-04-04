@@ -83,6 +83,7 @@ $(function(){
         console.log(nextValue);
         if(nextValue==2){
             $('.next-question').show();
+            alert('このページのどこかに扉が現れた')
         }
     })
 })

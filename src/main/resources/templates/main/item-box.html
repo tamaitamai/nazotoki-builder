@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja" th:fragment="frag_item">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/main/item-box.css" th:href="@{/css/main/item-box.css}">
+    <link rel="stylesheet" href="../../static/css/main/header-footer.css" th:href="@{/css/main/header-footer.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>    
+    <div class="item-main">
+        <img src="../../static/image/main/item-bag.png" th:src="@{/image/main/item-bag.png}" class="item-bag">
+        <img class="item-select">
+
+        <img class="item-image">
+        <div class="item-detail">
+            <p class="item-name"></p>
+            <p class="item-explanation"></p>
+        </div>
+        
+        <div class="check-list">
+            <img class="check-image">        
+            <p class="check-detail"><span class="check-name">名前</span>を手に入れた</p>
+        </div>  
+        
+        <div class="check-background"></div>
+
+        <div class="item-list">
+            <div class="item-box" value="3">
+                <div class="get-border"><img class="get-image" value="0"></div>
+                <div class="get-border"><img class="get-image" value="0"></div>
+                <div class="get-border"><img class="get-image" value="0"></div>
+                <div class="get-border"><img class="get-image" value="0"></div>
+                <div class="get-border"><img class="get-image" value="0"></div>
+                <div class="get-border"><img class="get-image" value="0"></div>
+            </div>
+            <p class="search" value="0">🔍</p>
+        </div>
+    </div>
+    <script type="module" src="../../static/js/main/item-box.js" th:src="@{/js/main/item-box.js}"></script>
+    <script type="module" src="../../static/js/main/my-item.js" th:src="@{/js/main/my-item.js}"></script>
+</body>
+</html>

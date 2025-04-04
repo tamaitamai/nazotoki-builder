@@ -1,0 +1,233 @@
+.story-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-size: cover;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.character1,.character2,.character3{
+    width: 450px;
+    height: 550px;
+}
+
+.character1{
+    transition: all 1s ease;
+    position: fixed;
+    bottom: 20px;
+    left: -500px;
+}
+
+.character2,.character3{
+    transition: all 1s ease;
+    position: fixed;
+    bottom: 20px;
+    right: -500px;
+}
+
+.emotion{
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 50px;
+    display: none;
+}
+
+.blood{
+    width: 500px;
+    height: 500px;
+    display: none;
+}
+
+.story-name{
+    position: fixed;
+    bottom: 215px;
+    left: 110px;    
+    width: 100px;
+    height: 20px;
+    background-color: rgba(0, 0, 0,0.8);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.story-comment{
+    position: fixed;
+    bottom: 0px;
+    left: 100px;
+    right: 100px;
+    height: 170px;
+    background-color: rgba(0, 0, 0,0.8);
+    color: white;
+    border-radius: 20px;
+    padding: 20px 100px;
+    border: 1px solid grey;
+    font-size: 20px;
+}
+
+.skip{
+    position: fixed;
+    top: 50px;
+    right: 100px;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0,0.8);
+    border: 1px solid white;
+}
+
+/* 探索中のコメント表示 */
+.state,.game-over-state{
+    position: fixed;
+    right: 100px;
+    left: 100px;
+    bottom: 20px;
+    background-color: rgb(0, 0, 0,0.8);
+    z-index: 103;
+    height: 170px;
+    border-radius: 20px;
+    color: white;
+    font-size: 20px;
+    padding: 20px 100px;
+    display: none;
+    border: 1px solid white;
+}
+
+.history-open,.auto{
+    position: fixed;
+    top: 400px;
+    right: 100px;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0,0.8);
+    border: 1px solid white;
+}
+
+.auto{
+    right: 220px;
+}
+
+.history-close{
+    position: fixed;
+    top: 0px;
+    right: 250px;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-image: url(../../image/main/black-paper.jpg);
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skip:hover,.select-story:hover,.history-open:hover,.history-close:hover,.auto:hover{
+    opacity: 0.7;
+}
+
+/* 選択肢の背景 */
+.select-story-screan,.select-search-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0,0.8);    
+    z-index: 51;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* 選択肢を表示する */
+.select-storys,.select-searchs{
+    position: fixed;
+    left: 200px;
+    right: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 51;
+}
+
+/* 選択肢 */
+.select-story,.select-search,.history-story{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    width: 500px;
+    height: 100px;
+    background-image: url('../../image/main/black-paper.jpg');
+    border: 1px solid white;
+    color: white;
+    margin-bottom: 50px;
+    border-radius: 20px;
+}
+
+/* 会話ログの背景 */
+.history-story-screan{
+    position: relative;
+    background-color: rgba(0, 0, 0,0.8);     
+    z-index: 100;
+    display: none;
+}
+
+/* 会話ログを表示する */
+.history-storys{
+    left: 100px;
+    right: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+}
+
+/* 会話ログの中身 */
+.history-story{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 700px;
+    height: 120px;
+    background-image: url('../../image/main/black-paper.jpg');
+    border: 1px solid white;
+    color: white;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+.history-name{
+    width: 100px;
+    height: 50px;
+    background-image: url('../../image/main/black-paper.jpg');
+    border: 1px solid white;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 620px 0px 0px;
+    
+}

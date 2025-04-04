@@ -1,0 +1,167 @@
+.forest-screan,.room-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-size: cover;
+}
+
+.room-screan{
+    display: none;
+}
+
+.left-screan, .right-screan{
+    font-size: 120px;
+    color: white;
+}
+
+.left-screan{
+    position: fixed;
+    top: 250px;
+    left: -50px;
+}
+
+.right-screan{
+    position: fixed;
+    top: 250px;
+    right: -50px;
+}
+
+.back-screan{
+    font-size: 120px;
+    color: white;
+    position: fixed;
+    bottom: -70px;
+    left: 700px;
+    transform: rotate(90deg);
+}
+
+.forest-character{
+    position: fixed; 
+    bottom: 20px;
+    left: 500px;
+    width: 400px;
+    height: 450px;
+}
+
+/* オブジェクト選択時の背景 */
+.hammer-screan,.room-box1-screan,.room-box2-screan,.sky-screan,.barrel-open-screan
+,.vase-box-screan,.barrel-top-screan{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgb(0,0,0,0.8);
+    z-index: 10;
+    display: none;
+}
+
+/* 箱の中身表示 */
+.hammer-box,.room-box1,.room-box2,.room-box1-open,.room-box2-open,
+.barrel-open,.vase-box,.barrel-top{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 25%;
+    left:35%;
+    width: 500px;
+    height: 250px;
+    padding: 20px;
+    background-image: url(../../image/main/wood1.jpg);
+    border-radius: 20px;       
+}
+
+/* .room-box1-open{
+    display: none;
+} */
+
+/* 空の画像の表示 */
+.sky{
+    position: fixed;
+    top: 10%;
+    left:25%;
+    width: 800px;
+    height: 500px;
+    background-image: url(../../image/main/sky.jpg);
+    background-size: cover;
+}
+
+/* 画面に戻るボタン */
+.return-btn{
+    position: fixed;
+    top: 70%;
+    left: 50%;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    box-shadow: 5px 5px black;
+    border-radius: 10px;
+    background-image: url(../../image/main/black-paper.jpg);
+}
+
+.return-btn:hover{
+    opacity: 0.8;
+}
+
+/* 画像関連 */
+.hammer{
+    width: 150px;
+    height: 200px;
+}
+
+.bird{
+    width: 70px;
+    height: 70px;
+}
+
+.ball{
+    width: 100px;
+    height: 100px;
+}
+
+.cake{
+    width: 200px;
+    height: 200px;
+}
+
+/* 箱の表示の位置 */
+.room-box1,.room-box2,.hammer-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.middle{
+    margin: 0px 50px;
+}
+
+.room-box1-list img{
+    width: 70px;
+    height: 70px;
+}
+
+.side{
+    transform: rotate(90deg);  
+}
+
+/* 箱1の暗号番号 */
+.room-box1-number{
+    font-size: 50px;
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ball-set,.ball-color{
+    background-color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}

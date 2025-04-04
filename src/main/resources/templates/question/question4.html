@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/question4.css" th:href="@{/css/question/question4.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header th:insert="~{ /main/home :: frag_header}"></header>
+    <main>        
+        <h1>第四の館</h1>
+        <div class="main-explore">
+            <img src="../../static/image/tsubo.png" th:src="@{/image/tsubo.png}" class="tubo">
+            <img src="../../static/image/key.png" th:src="@{/image/key.png}" class="key">
+        </div>
+        <html th:insert="~{ /main/item-box :: frag_item}"></html>
+    </main>
+    <script src="../../static/js/question/question4.js"></script>
+</body>
+</html>

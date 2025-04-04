@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/question/light-question.css" th:href="@{/css/question/light-question.css}">
+    <link rel="stylesheet" href="../../static/css/question/my-question.css" th:href="@{/css/question/my-question.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <html th:insert="~{/main/loading :: frag_loading}"></html>
+    <html th:insert="~{/main/story :: frag_story}"></html>
+    <html th:insert="~{/main/menu :: frag_menu}"></html>
+    
+    <!-- アイテム変化判別一覧 -->
+    <input type="hidden" th:value="${session.doorChange}" class="door-change">
+    <input type="hidden" th:value="${session.boxChange1}" class="box-change1">
+    <input type="hidden" th:value="${session.boxChange2}" class="box-change2">
+    <input type="hidden" th:value="${session.jewelChange}" class="jewel-change">
+
+    <!-- 外の画面1 -->
+    <div class="light-screan">
+        <!-- 館の暗闇の仕掛け -->
+        <div class="dark-screan">
+            <h2 class="ghost-word">1</h2>
+            <img src="../../static/image/ghost1.png" th:src="@{/image/ghost1.png}" class="ghost">
+            <h2 class="ghost-word">2</h2>
+            <img src="../../static/image/ghost2.png" th:src="@{/image/ghost2.png}" class="ghost">
+            <h2 class="ghost-word">3</h2>
+            <img src="../../static/image/ghost2.png" th:src="@{/image/ghost2.png}" class="ghost">
+            <h2 class="ghost-word">4</h2>
+            <img src="../../static/image/ghost1.png" th:src="@{/image/ghost1.png}" class="ghost">
+                
+            <img src="../../static/image/open-door.png" th:src="@{/image/open-door.png}" class="open-door">    
+
+            <div class="ghost-room">
+                <img th:src="@{/image/girl-ghost.png}" class="girl-ghost">
+                <div class="back-screan">》</div>    
+            </div>
+
+            <!-- アイテム一覧表示 -->
+            <div th:each="item:${session.itemList}">
+                <div th:if="${item.genre.contains('dark-room')}">
+                    <img src="../../static/image/light-off.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}"
+                    th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                </div>
+            </div>
+            
+            <!-- ライトを照らす -->
+            <div class="cursor-light"></div>
+
+            <div class="back-screan">》</div>
+        </div>    
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div> 
+    </div>
+
+    <!-- 外の画面2 -->
+    <div class="light-screan">
+        <!-- 部屋の画面1 -->
+        <div class="fireprice-screan">
+            <!-- 机の拡大 -->
+            <div class="fireprice-desk-screan">
+                <div th:each="item:${session.itemList}">
+                    <div th:if="${item.genre.contains('flashlight')}">
+                        <img src="../../static/image/light-off.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}"
+                        th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                    </div>
+                </div>        
+
+                <!-- 椅子の下 -->
+                <div class="chair-bottom-screan">
+                    <div class="chair-bottom">
+                        <div>
+                            <p>1</p>
+                            <p>→</p>
+                        </div>
+                        <div class="rotate-answer-middle"></div>
+                        <div>
+                            <p>6</p>
+                            <p>→</p>
+                        </div>                        
+                    </div>
+                    <div class="return-btn">戻る</div>
+                </div>
+                <div class="back-screan">》</div>    
+            </div>
+
+            <!-- 火の拡大 -->
+            <div class="fire-screan">
+                <div class="back-screan">》</div>    
+            </div>
+
+            <!-- 箱の表示 -->
+            <div class="box-screan">
+                <div class="box">
+                    <div class="rotate-ball">↑</div>
+                    <div class="rotate-ball">↑</div>
+                    <div class="rotate-ball">↑</div>
+                    <div class="rotate-ball">↑</div>
+                    <div class="rotate-ball">↑</div>
+                    <div class="rotate-ball">↑</div>
+                </div>
+
+                <!-- 開いた箱 -->
+                <div class="box-open">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre.contains('knife')}">
+                            <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>            
+                </div>
+    
+                <div class="return-btn">戻る</div>
+            </div>
+            <div class="back-screan">》</div>
+        </div>
+
+        <!-- 部屋の画面2 -->
+        <div class="fireprice-screan">
+            <a th:href="@{/question/caveRoad}"><img th:src="@{/image/magic-circle.png}" class="magic-circle"></a>
+
+            <!-- 椅子の下2 -->
+            <div class="chair-bottom-screan2">
+                <div class="chair-bottom2">
+                    <div>
+                        <p>2</p>
+                        <p>↓</p>
+                    </div>
+                    <div class="rotate-answer-middle"></div>
+                    <div>
+                        <p>3</p>
+                        <p>↓</p>
+                    </div>                        
+                </div>
+                <div class="return-btn">戻る</div>
+            </div>
+
+            <!-- 箱の表示2 -->
+            <div class="box-screan2">
+                <div class="box2">
+                    <div class="box-btn" value="0"></div>            
+                    <div class="box-btn" value="0"></div>
+                    <div class="box-btn" value="0"></div>
+                    <div class="box-btn" value="0"></div>    
+                </div>
+
+                <!-- 開いた箱 -->
+                <div class="box-open2">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre.contains('key')}">
+                            <img src="../../static/image/light-off.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}"
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>        
+                </div>
+
+                <div class="return-btn">戻る</div>
+            </div>
+
+            <div class="back-screan">》</div>
+        </div>
+
+        <!-- 部屋の画面3 -->
+        <div class="fireprice-screan">
+            <!-- 椅子の下 -->
+            <div class="chair-bottom-screan3">
+                <div class="chair-bottom3">
+                    <div>
+                        <p>4</p>
+                        <p>←</p>
+                    </div>
+                    <div class="rotate-answer-middle"></div>
+                    <div>
+                        <p>5</p>
+                        <p>→</p>
+                    </div>                        
+                </div>
+                <div class="return-btn">戻る</div>
+            </div>
+
+            <!-- たんすの中 -->
+            <div class="wardrobe-screan">
+                <div class="wardrobe">
+                    <div th:each="item:${session.itemList}">
+                        <div th:if="${item.genre.contains('battery')}">
+                            <img src="../../static/image/light-off.png" th:src="@{/image/}+${item.image}" th:class="${item.genre}"
+                            th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+                        </div>
+                    </div>        
+                </div>
+                <div class="return-btn">戻る</div>
+            </div>
+            <div class="back-screan">》</div>
+        </div>
+
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>      
+    </div>
+
+    <!-- 外の画面3 -->
+    <div class="light-screan">
+        <img th:src="@{/image/girl-fox.png}" class="girl-fox">
+        
+        <div th:each="item:${session.itemList}">
+            <div th:if="${item.genre.contains('forest-area')}">
+                <img th:src="@{/image/}+${item.image}" th:class="${item.genre}" 
+                th:value="${item.have}" th:item-id="${item.id}" th:change="${item.changeId}">
+            </div>
+        </div>
+        <div class="left-screan">《</div>
+        <div class="right-screan">》</div>      
+    </div>
+
+    <html th:insert="~{/main/item-box :: frag_item}"></html>        
+    
+    <script type="module" src="../../static/js/question/light-question.js" th:src="@{/js/question/light-question.js}"></script>
+    <script type="module" src="../../static/js/question/my-question.js" th:src="@{/js/question/my-question.js}"></script>
+</body>
+</html>
