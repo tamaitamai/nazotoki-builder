@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <header th:insert="~{ /main/header-footer :: frag_header}"></header>
+    <header th:insert="~{ main/header-footer :: frag_header}"></header>
     <main>
         <form th:action="@{/user/login}" method="post" th:object="${userForm}">
             <div class="login">
