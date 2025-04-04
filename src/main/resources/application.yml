@@ -4,5 +4,3 @@ spring:
     url: jdbc:postgresql://localhost:5433/Nazotoki
     username: postgres
     password: postgres
-  thymeleaf:
-      cache: false
