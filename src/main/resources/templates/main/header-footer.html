@@ -12,7 +12,7 @@
         <div class="header-box">
             <a th:href="@{/main/home}" class="header-logo"><img src="../../static/image/main/logo.jpg" 
                 th:src="@{/image/main/logo.jpg}" class="header-image"></a>
-            <a th:href="@{/question/ice}">氷ステージ</a>
+            <a th:href="@{/question/ice}">氷ステージです</a>
             <p><a th:href="@{/question/light}">光ステージ</a></p>
             <div th:if="${session.userLogin==null}" class="header-user">
                 <a th:href="@{/user/toLogin}"><button>ログイン</button></a>
