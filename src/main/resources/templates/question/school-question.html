@@ -8,9 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-    <html th:insert="~{/main/loading :: frag_loading}"></html>
-    <html th:insert="~{/main/story :: frag_story}"></html>
-    <html th:insert="~{/main/menu :: frag_menu}"></html>
+    <html th:insert="~{main/loading :: frag_loading}"></html>
+    <html th:insert="~{main/story :: frag_story}"></html>
+    <html th:insert="~{main/menu :: frag_menu}"></html>
 
     <!-- 画面1 -->
     <div class="school-screan">
@@ -239,7 +239,7 @@
         
     </div>
     
-    <html th:insert="~{/main/item-box :: frag_item}"></html>
+    <html th:insert="~{main/item-box :: frag_item}"></html>
     <script type="module" src="../../static/js/question/school-question.js" th:src="@{/js/question/school-question.js}"></script>
     <script type="module" src="../../static/js/main/my-item.js" th:src="@{/js/main/my-item.js}"></script>
     <script type="module" src="../../static/js/question/my-question.js" th:src="@{/js/question/my-question.js}"></script>

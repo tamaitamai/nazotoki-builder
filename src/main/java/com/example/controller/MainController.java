@@ -41,6 +41,6 @@ public class MainController {
 	
 	@GetMapping("/characterList")
 	public String characterList() {
-		return "/main/character.html";
+		return "main/character.html";
 	}
 }
