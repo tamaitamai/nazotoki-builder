@@ -13,5 +13,8 @@
 #    password: y3ZGRteHnbeI1TFCALrqB1hHTdTsIMAw
 
 spring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}  # 環境変数がなければ local
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/Nazotoki
+    username: postgres
+    password: postgres
